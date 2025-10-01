@@ -1,0 +1,1 @@
+# tempat nyimpen aset gambar
