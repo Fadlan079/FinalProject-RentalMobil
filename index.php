@@ -9,6 +9,7 @@
     <title>Rental Mobil</title>
 </head>
 <body>
+    <p>hai</p>
     
 </body>
 </html>
