@@ -9,20 +9,18 @@
 </head>
 <body class="h-screen bg-neutral-200">
   <header class="">
-    <nav class="bg-blue-700 p-5 text-neutral-200 font-bold text-2xl">
-      <div class="max-w-7xl m-auto grid grid-cols-2 gap-7">
+    <nav class="bg-blue-700 p-3 text-neutral-200 font-bold">
+      <div class="max-w-7xl m-auto my-auto flex justify-between">
         <div class="flex text-2xl">
           <h2><i class="fa-solid fa-car"></i></h2>
           <h2>Rental Mobil Jaya</h2>
         </div>
-        <div>
-          <a href="#" class="border-2 border-blue-500">List Cars</a>
-          <a href="#" class="border-2 border-blue-500">Booking Cars</a>
-          <a href="#">Sign in</a>
+        <div class="text-sm my-auto">
+          <a href="#" class="border-2 border-blue-500 p-2 rounded-full">List Cars</a>
+          <a href="#" class="border-2 border-blue-500 p-2 rounded-full">Booking Cars</a>
+          <a href="#" class="bg-blue-500 p-2 rounded-lg">Sign in</a>
         </div>
       </div>
-
-
     </nav>
   </header>
 </body>
