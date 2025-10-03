@@ -1,0 +1,18 @@
+{
+  "devDependencies": {
+    "@tailwindcss/cli": "^4.1.13",
+    "tailwindcss": "^4.1.14"
+  },
+  "tailwindcss": {
+    "content": [
+      "./*.{html,php}",
+      "./src/**/*.{html,js,php}"
+    ]
+  },
+  "scripts": {
+    "dev": "tailwindcss -i ./src/CSS/input.css -o ./src/CSS/output.css --watch"
+  },
+  "dependencies": {
+    "@tailwindcss/vite": "^4.1.14"
+  }
+}
