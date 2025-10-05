@@ -42,21 +42,24 @@
     <div class="absolute text-neutral-200 justify-center text-center inset-0 flex flex-col backdrop-blur-xs top-15 rounded-xl">
       <h2 class="text-5xl font-semibold p-1 m-1 tracking-wide">Skip the rental car counter</h2>
       <p class="text-xl p-1 m-1 tracking-wide">Rent just about any car, just about anywhere</p>
-      <form action="">search</form>
-      <button class="flex justify-center cursor-pointer shadow-xl text-lg p-1 m-1 bg-neutral-200 rounded-lg text-neutral-900 w-50 mx-auto hover:-translate-y-1 hover:shadow-xl transition-all duration-300">Get to know Cylc <i class="fa-solid fa-caret-right my-auto"></i></button>
+      <form action="" class="bg-neutral-200 text-neutral-900 rounded-xl p-1 m-2 w-200 mx-auto flex shadow-xl border border-neutral-300">
+        <input type="text" placeholder="Search for any car..." class="w-full outline-none p-1">
+        <button type="submit" class="p-2 bg-neutral-900 text-neutral-200 rounded-lg active:scale-90"><i class="fa-solid fa-magnifying-glass"></i></button>
+      </form>
+      <button class="flex justify-center cursor-pointer shadow-xl text-lg p-1 m-1 bg-neutral-200 rounded-lg text-neutral-900 w-50 mx-auto active:scale-90 transition-all duration-300">Get to know Cylc <i class="fa-solid fa-caret-right my-auto"></i></button>
     </div>
   </header>
   <main class="max-w-6xl m-auto mt-6">
     <div class="flex justify-between text-neutral-200 mt-7 mx-70 ">
       <button class="cursor-pointer bg-neutral-900 p-2 rounded-xl shadow-xl hover:-translate-y-1 hover:shadow-xl transition-all duration-300"><i class="fa-solid fa-car"></i> All</button>
-      <button class="cursor-pointer text-neutral-900 p-2 rounded-xl shadow-xl hover:bg-neutral-900 hover:text-neutral-200 hover:-translate-y-1 hover:shadow-xl transition-all duration-300"><i class="fa-solid fa-people-roof"></i> Family</button>
-      <button class="cursor-pointer text-neutral-900 p-2 rounded-xl shadow-xl hover:bg-neutral-900 hover:text-neutral-200 hover:-translate-y-1 hover:shadow-xl transition-all duration-300"><i class="fa-solid fa-money-bills"></i> Economy</button>
-      <button class="cursor-pointer text-neutral-900 p-2 rounded-xl shadow-xl hover:bg-neutral-900 hover:text-neutral-200 hover:-translate-y-1 hover:shadow-xl transition-all duration-300"><i class="fa-solid fa-key"></i> Self Drive</button>
-      <button class="cursor-pointer text-neutral-900 p-2 rounded-xl shadow-xl hover:bg-neutral-900 hover:text-neutral-200 hover:-translate-y-1 hover:shadow-xl transition-all duration-300"><i class="fa-solid fa-user-tie"></i> With Driver</button>
+      <button class="cursor-pointer text-neutral-900 p-2 rounded-xl shadow-xl hover:bg-neutral-900 hover:text-neutral-200 hover:-translate-y-1 hover:shadow-2xl transition-all duration-300"><i class="fa-solid fa-people-roof"></i> Family</button>
+      <button class="cursor-pointer text-neutral-900 p-2 rounded-xl shadow-xl hover:bg-neutral-900 hover:text-neutral-200 hover:-translate-y-1 hover:shadow-2xl transition-all duration-300"><i class="fa-solid fa-money-bills"></i> Economy</button>
+      <button class="cursor-pointer text-neutral-900 p-2 rounded-xl shadow-xl hover:bg-neutral-900 hover:text-neutral-200 hover:-translate-y-1 hover:shadow-2xl transition-all duration-300"><i class="fa-solid fa-key"></i> Self Drive</button>
+      <button class="cursor-pointer text-neutral-900 p-2 rounded-xl shadow-xl hover:bg-neutral-900 hover:text-neutral-200 hover:-translate-y-1 hover:shadow-2xl transition-all duration-300"><i class="fa-solid fa-user-tie"></i> With Driver</button>
     </div>
 
     <section class="h-screen mt-7">
-      <h1 class="text-2xl">Konigsegg rental at Los Angeles (LAX) airport</h1>
+      <h1 class="text-2xl">Car rental at Los Angeles (LAX) airport</h1>
       <div class="grid grid-cols-4 gap-6 mt-6">
         <div class="shadow-xl rounded-xl  group cursor-pointer overflow-hidden relative">
           <img src="src/assets/jesco.jpeg" alt="koenigsegg" class="rounded-xl w-full h-100 object-cover">
@@ -126,22 +129,6 @@
             <a href="#" class="p-2 text-sm text-neutral-300 underline">View Details</a>
           </div>
         </div>
-
-        <!-- <div class="shadow-xl rounded-xl p-1 group cursor-pointer">
-          <h2 class="text-xl p-1">Koenigsegg Jesco</h2>
-          <img src="src/IMG/jesko Absolut.jpeg" alt="koenigsegg" class="rounded-xl p-1">
-          <div class="grid grid-cols-2 gap-2 text-center text-neutral-500 p-1 text-sm">
-            <p><i class="fa-solid fa-suitcase"></i> 1</p>
-            <p><i class="fa-solid fa-user"></i> 2</p>
-            <p>Automatic</p>
-            <p><i class="fa-solid fa-circle-check text-green-500"></i> Availble</p>
-          </div>
-          <div class="flex p-1">
-            <h2 class="text-orange-500 text-xl font-sans">IDR 7.000.000</h2>
-            <p class="text-sm p-1 text-neutral-500">/Day</p>
-          </div>
-          <a href="#" class="p-1 text-sm">View Details</a>
-        </div> -->
 
         <div class="shadow-xl rounded-xl p-1 group cursor-pointer relative group overflow-hidden ">
           <div class="absolute inset-0 bottom-40 rounded-t-xl bg-neutral-900/40 backdrop-blur-xl -translate-y-14 text-neutral-200 text-center group-hover:translate-y-0 group-hover:shadow-xl transition-all duration-300">
@@ -214,7 +201,7 @@
       </div>
     </section>
   </main>
-
+  <footer></footer>
 <script src="https://unpkg.com/aos@next/dist/aos.js"></script>
 <script>
   AOS.init();
