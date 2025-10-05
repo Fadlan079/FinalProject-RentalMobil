@@ -4,7 +4,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Cylc Rent Car</title>
-  <link rel="stylesheet" href="src/CSS/output.css">
+  <link rel="stylesheet" href="src/output.css">
   <link rel="stylesheet" href="https://unpkg.com/aos@next/dist/aos.css" />
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.0/css/all.min.css" integrity="sha512-DxV+EoADOkOygM4IR9yXP8Sb2qwgidEmeqAEmDKIOfPRQZOWbXCzLC6vjbZyy0vPisbH2SyW27+ddLVCN+OMzQ==" crossorigin="anonymous" referrerpolicy="no-referrer"/>
 </head>
@@ -37,7 +37,7 @@
         </div>
       </div>
     </nav>
-    <img src="src/IMG/jesko Absolut.jpeg" alt="koenisegg" class="rounded-2xl w-279 h-100 mx-auto shadow-xl">
+    <img src="src/assets/jesko Absolut.jpeg" alt="koenisegg" class="rounded-2xl w-279 h-100 mx-auto shadow-xl">
     <div class="bg-neutral-900"></div>
     <div class="absolute text-neutral-200 justify-center text-center inset-0 flex flex-col backdrop-blur-xs top-15 rounded-xl">
       <h2 class="text-5xl font-semibold p-1 m-1 tracking-wide">Skip the rental car counter</h2>
@@ -58,20 +58,73 @@
     <section class="h-screen mt-7">
       <h1 class="text-2xl">Konigsegg rental at Los Angeles (LAX) airport</h1>
       <div class="grid grid-cols-4 gap-6 mt-6">
-        <div class="shadow-xl rounded-xl p-1 group cursor-pointer">
-          <h2 class="text-xl p-1">Koenigsegg Jesco</h2>
-          <img src="src/IMG/jesko Absolut.jpeg" alt="koenigsegg" class="rounded-xl p-1">
-          <div class="flex gap-7 text-neutral-500 p-1 text-xs">
-            <p><i class="fa-solid fa-suitcase"></i> 1</p>
-            <p><i class="fa-solid fa-user"></i> 2</p>
-            <p>Automatic</p>
-            <p>Unavailable</p>
+        <div class="shadow-xl rounded-xl  group cursor-pointer overflow-hidden relative">
+          <img src="src/assets/jesco.jpeg" alt="koenigsegg" class="rounded-xl w-full h-100 object-cover">
+          <div class="absolute inset-0 top-63 bg-neutral-900/70 backdrop-blur-xl translate-y-80 group-hover:-translate-y-0 transition-all duration-400">
+            <h2 class="p-2 text-neutral-300">Example Car</h2>
+            <div class="flex gap-7 text-neutral-300 p-2 text-xs">
+              <p><i class="fa-solid fa-suitcase"></i> 1</p>
+              <p><i class="fa-solid fa-user"></i> 2</p>
+              <p>Automatic</p>
+              <p>Unavailable</p>
+            </div>
+            <div class="flex p-2">
+              <h2 class="text-orange-500 text-xl font-sans">IDR 7.000.000</h2>
+              <p class="text-sm p-1 text-neutral-300">/Day</p>
+            </div>
+            <a href="#" class="p-2 text-sm text-neutral-300 underline">View Details</a>
           </div>
-          <div class="flex p-1">
-            <h2 class="text-orange-500 text-xl font-sans">IDR 7.000.000</h2>
-            <p class="text-sm p-1 text-neutral-500">/Day</p>
+        </div>
+        <div class="shadow-xl rounded-xl  group cursor-pointer overflow-hidden relative">
+          <img src="src/assets/jesco.jpeg" alt="koenigsegg" class="rounded-xl w-full h-100 object-cover">
+          <div class="absolute inset-0 top-63 bg-neutral-900/70 backdrop-blur-xl translate-y-80 group-hover:-translate-y-0 transition-all duration-400">
+            <h2 class="p-2 text-neutral-300">Example Car</h2>
+            <div class="flex gap-7 text-neutral-300 p-2 text-xs">
+              <p><i class="fa-solid fa-suitcase"></i> 1</p>
+              <p><i class="fa-solid fa-user"></i> 2</p>
+              <p>Automatic</p>
+              <p>Unavailable</p>
+            </div>
+            <div class="flex p-2">
+              <h2 class="text-orange-500 text-xl font-sans">IDR 7.000.000</h2>
+              <p class="text-sm p-1 text-neutral-300">/Day</p>
+            </div>
+            <a href="#" class="p-2 text-sm text-neutral-300 underline">View Details</a>
           </div>
-          <a href="#" class="p-1 text-sm">View Details</a>
+        </div>
+        <div class="shadow-xl rounded-xl  group cursor-pointer overflow-hidden relative">
+          <img src="src/assets/jesco.jpeg" alt="koenigsegg" class="rounded-xl w-full h-100 object-cover">
+          <div class="absolute inset-0 top-63 bg-neutral-900/70 backdrop-blur-xl translate-y-80 group-hover:-translate-y-0 transition-all duration-400">
+            <h2 class="p-2 text-neutral-300">Example Car</h2>
+            <div class="flex gap-7 text-neutral-300 p-2 text-xs">
+              <p><i class="fa-solid fa-suitcase"></i> 1</p>
+              <p><i class="fa-solid fa-user"></i> 2</p>
+              <p>Automatic</p>
+              <p>Unavailable</p>
+            </div>
+            <div class="flex p-2">
+              <h2 class="text-orange-500 text-xl font-sans">IDR 7.000.000</h2>
+              <p class="text-sm p-1 text-neutral-300">/Day</p>
+            </div>
+            <a href="#" class="p-2 text-sm text-neutral-300 underline">View Details</a>
+          </div>
+        </div>
+        <div class="shadow-xl rounded-xl  group cursor-pointer overflow-hidden relative">
+          <img src="src/assets/jesco.jpeg" alt="koenigsegg" class="rounded-xl w-full h-100 object-cover">
+          <div class="absolute inset-0 top-63 bg-neutral-900/70 backdrop-blur-xl translate-y-80 group-hover:-translate-y-0 transition-all duration-400">
+            <h2 class="p-2 text-neutral-300">Example Car</h2>
+            <div class="flex gap-7 text-neutral-300 p-2 text-xs">
+              <p><i class="fa-solid fa-suitcase"></i> 1</p>
+              <p><i class="fa-solid fa-user"></i> 2</p>
+              <p>Automatic</p>
+              <p>Unavailable</p>
+            </div>
+            <div class="flex p-2">
+              <h2 class="text-orange-500 text-xl font-sans">IDR 7.000.000</h2>
+              <p class="text-sm p-1 text-neutral-300">/Day</p>
+            </div>
+            <a href="#" class="p-2 text-sm text-neutral-300 underline">View Details</a>
+          </div>
         </div>
 
         <!-- <div class="shadow-xl rounded-xl p-1 group cursor-pointer">
@@ -90,9 +143,11 @@
           <a href="#" class="p-1 text-sm">View Details</a>
         </div> -->
 
-        <div class="shadow-xl rounded-xl p-1 group cursor-pointer">
-          <h2 class="text-xl p-1">Koenigsegg Jesco</h2>
-          <img src="src/IMG/jesko Absolut.jpeg" alt="koenigsegg" class="rounded-xl p-1">
+        <div class="shadow-xl rounded-xl p-1 group cursor-pointer relative group overflow-hidden ">
+          <div class="absolute inset-0 bottom-40 rounded-t-xl bg-neutral-900/40 backdrop-blur-xl -translate-y-14 text-neutral-200 text-center group-hover:translate-y-0 group-hover:shadow-xl transition-all duration-300">
+            <h2 class="text-xl p-1">Example Car</h2>
+          </div>
+          <img src="src/assets/jesko Absolut.jpeg" alt="koenigsegg" class="rounded-xl p-1">
           <div class="flex gap-7 text-neutral-500 p-1 text-xs">
             <p><i class="fa-solid fa-suitcase"></i> 1</p>
             <p><i class="fa-solid fa-user"></i> 2</p>
@@ -103,12 +158,13 @@
             <h2 class="text-orange-500 text-xl font-sans">IDR 7.000.000</h2>
             <p class="text-sm p-1 text-neutral-500">/Day</p>
           </div>
-          <a href="#" class="p-1 text-sm">View Details</a>
+          <a href="#" class="p-1 text-sm underline">View Details</a>
         </div>
-
-        <div class="shadow-xl rounded-xl p-1 group cursor-pointer">
-          <h2 class="text-xl p-1">Koenigsegg Jesco</h2>
-          <img src="src/IMG/jesko Absolut.jpeg" alt="koenigsegg" class="rounded-xl p-1">
+        <div class="shadow-xl rounded-xl p-1 group cursor-pointer relative group overflow-hidden">
+          <div class="absolute inset-0 bottom-40 rounded-t-xl bg-neutral-900/40 backdrop-blur-xl  -translate-y-14 text-neutral-200 text-center group-hover:translate-y-0 group-hover:shadow-xl transition-all duration-300">
+            <h2 class="text-xl p-1">Example Car</h2>
+          </div>
+          <img src="src/assets/jesko Absolut.jpeg" alt="koenigsegg" class="rounded-xl p-1">
           <div class="flex gap-7 text-neutral-500 p-1 text-xs">
             <p><i class="fa-solid fa-suitcase"></i> 1</p>
             <p><i class="fa-solid fa-user"></i> 2</p>
@@ -119,23 +175,41 @@
             <h2 class="text-orange-500 text-xl font-sans">IDR 7.000.000</h2>
             <p class="text-sm p-1 text-neutral-500">/Day</p>
           </div>
-          <a href="#" class="p-1 text-sm">View Details</a>
+          <a href="#" class="p-1 text-sm underline">View Details</a>
         </div>
-
-        <div class="shadow-xl rounded-xl p-1 grou cursor-pointer">
-          <h2 class="text-xl p-1">Koenigsegg Jesco</h2>
-          <img src="src/IMG/jesko Absolut.jpeg" alt="koenigsegg" class="rounded-xl p-1">
+        <div class="shadow-xl rounded-xl p-1 group cursor-pointer relative group overflow-hidden">
+          <div class="absolute inset-0 bottom-40 rounded-t-xl bg-neutral-900/40 backdrop-blur-xl  -translate-y-14 text-neutral-200 text-center group-hover:translate-y-0 group-hover:shadow-xl transition-all duration-300">
+            <h2 class="text-xl p-1">Example Car</h2>
+          </div>
+          <img src="src/assets/jesko Absolut.jpeg" alt="koenigsegg" class="rounded-xl p-1">
           <div class="flex gap-7 text-neutral-500 p-1 text-xs">
             <p><i class="fa-solid fa-suitcase"></i> 1</p>
             <p><i class="fa-solid fa-user"></i> 2</p>
             <p>Automatic</p>
-            <p>Available</p>
+            <p>In use</p>
           </div>
           <div class="flex p-1">
             <h2 class="text-orange-500 text-xl font-sans">IDR 7.000.000</h2>
             <p class="text-sm p-1 text-neutral-500">/Day</p>
           </div>
-          <a href="#" class="p-1 text-sm">View Details</a>
+          <a href="#" class="p-1 text-sm underline">View Details</a>
+        </div>
+        <div class="shadow-xl rounded-xl p-1 group cursor-pointer relative group overflow-hidden">
+          <div class="absolute inset-0 bottom-40 rounded-t-xl bg-neutral-900/40 backdrop-blur-xl  -translate-y-14 text-neutral-200 text-center group-hover:translate-y-0 group-hover:shadow-xl transition-all duration-300">
+            <h2 class="text-xl p-1">Example Car</h2>
+          </div>
+          <img src="src/assets/jesko Absolut.jpeg" alt="koenigsegg" class="rounded-xl p-1">
+          <div class="flex gap-7 text-neutral-500 p-1 text-xs">
+            <p><i class="fa-solid fa-suitcase"></i> 1</p>
+            <p><i class="fa-solid fa-user"></i> 2</p>
+            <p>Automatic</p>
+            <p>In use</p>
+          </div>
+          <div class="flex p-1">
+            <h2 class="text-orange-500 text-xl font-sans">IDR 7.000.000</h2>
+            <p class="text-sm p-1 text-neutral-500">/Day</p>
+          </div>
+          <a href="#" class="p-1 text-sm underline">View Details</a>
         </div>
       </div>
     </section>
