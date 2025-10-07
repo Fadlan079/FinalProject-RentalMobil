@@ -1,7 +1,7 @@
 <?php
 class Database {
     public $host = "localhost";
-    private $db   = "fp_rentalmobil";
+    private $db   = "fp";
     private $user = "root";
     private $pass = "";
     private $pdo;
@@ -11,6 +11,7 @@ class Database {
             $dsn = "mysql:host={$this->host};dbname={$this->db}";
             $this->pdo = new PDO($dsn, $this->user, $this->pass);
             $this->pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+            echo "Koneksi berhasil!";
         } catch(PDOException $e) {
             die("Koneksi gagal: " . $e->getMessage());
         }
@@ -19,4 +20,7 @@ class Database {
         return $this->pdo;
     }
 }
+// $db = new Database();
+// $db->getConnection();
+
 ?>
