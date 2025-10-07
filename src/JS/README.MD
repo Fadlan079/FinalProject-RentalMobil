@@ -1,1 +1,0 @@
-# Tempat nyimpen file script
