@@ -1,7 +1,7 @@
 <?php
 class Database {
     public $host = "localhost";
-    private $db   = "fp";
+    private $db   = "fp_rentalmobil";
     private $user = "root";
     private $pass = "";
     private $pdo;
