@@ -46,7 +46,7 @@ if ($_SERVER['REQUEST_METHOD'] == "POST"){
         <input type="text" name="nama" placeholder="Username...">
         <input type="text" name="email" placeholder="Email...">
         <input type="password" name="pass" placeholder="Password...">
-        <input type="submit" value="Send">
+        <input type="submit" value="Send ">
     </form>
 </body>
 </html>
