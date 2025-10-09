@@ -26,10 +26,35 @@ class User{
         }
     }
 
-    public function Selectuser() {
-        $sql = "SELECT * FROM user";
-        $stmt = $this->pdo->query($sql);
-        return $stmt->fetchAll(PDO::FETCH_ASSOC);
+    public function Selectuser($id_user = null, $nama = null){
+        if($id_user !== null){
+            try{
+                $sql = "SELECT * FROM user WHERE id_user = :id_user";
+                $stmt = $this->pdo->prepare($sql);
+                $stmt->execute(['id_user' => $id_user]);
+                return $stmt->fetch(PDO::FETCH_ASSOC);
+                
+            }catch(PDOException $e){
+                echo "Data Gagal di ambil, silahkan coba lagi :" . $e->getMessage();
+            }
+        }elseif($nama !== null){
+            try{
+                $sql = "SELECT * FROM user WHERE nama = :nama";
+                $stmt = $this->pdo->prepare($sql);
+                $stmt->execute(['nama' => $nama]);
+                return $stmt->fetch(PDO::FETCH_ASSOC);
+            }catch(PDOException $e){
+                echo "Data Gagal di ambil, silahkan coba lagi :" . $e->getMessage();
+            }
+        }else{
+            try{
+                $sql = "SELECT * FROM user";
+                $stmt = $this->pdo->query($sql);
+                return $stmt->fetchAll(PDO::FETCH_ASSOC);
+            }catch(PDOException $e){
+                echo "Data Gagal di ambil, silahkan coba lagi :" . $e->getMessage();
+            }
+        }
     }
 
     public function Updateuser($id, $nama, $ktp, $sim, $alamat, $email, $password) {

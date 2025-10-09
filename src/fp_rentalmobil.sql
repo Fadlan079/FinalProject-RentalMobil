@@ -27,6 +27,21 @@ SET time_zone = "+00:00";
 -- Table structure for table `ktp`
 --
 
+CREATE TABLE `ktp` (
+  `id_ktp` int(10) NOT NULL,
+  `NIK` varchar(16) NOT NULL,
+  `nama` varchar(30) NOT NULL,
+  `tgl_lhr` date NOT NULL,
+  `jns_klmn` enum('Laki-Laki','Perempuan') NOT NULL,
+  `alamat` text NOT NULL,
+  `RT_RW` varchar(8) NOT NULL,
+  `kel_desa` varchar(30) NOT NULL,
+  `agama` enum('Islam','Kristen Protestan','Katolik','Hindu','Buddha','Konghucu') NOT NULL,
+  `sts_prkwinan` enum('Belum Kawin','Kawin','Cerai Hidup','Cerai Mati') NOT NULL,
+  `kewarganegaraan` varchar(30) NOT NULL,
+  `masa_brlaku_ktp` date NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
 -- --------------------------------------------------------
 
 --
@@ -37,7 +52,7 @@ CREATE TABLE `mobil` (
   `kapasitas` int(2) DEFAULT 5,
   `deskripsi` text DEFAULT NULL,
   `merk` varchar(30) NOT NULL,
-  `harga_per_hari` int(10) NOT NULL,
+  `harga_per_hari` Decimal(10,2) NOT NULL,
   `transmisi` enum('Manual','Matic','','') NOT NULL,
   `bhn_bkr` enum('Bensin','Solar','','') NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
@@ -53,7 +68,7 @@ CREATE TABLE `user` (
   `nama` varchar(30) NOT NULL,
   `sim` enum('SIM A','SIM B','SIM D') NOT NULL,
   `email` varchar(255) NOT NULL,
-  `password` varchar(30) NOT NULL,
+  `password` varchar(255) NOT NULL,
   `role` enum('Admin','User') DEFAULT 'User'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
@@ -62,27 +77,16 @@ CREATE TABLE `user` (
 --
 
 --
--- Indexes for table `ktp`
---
-ALTER TABLE `ktp`
-  ADD PRIMARY KEY (`id_ktp`);
 
 --
 -- Indexes for table `user`
 --
 ALTER TABLE `user`
   ADD PRIMARY KEY (`id_user`),
-  ADD KEY `ktp` (`ktp`);
 
 --
 -- AUTO_INCREMENT for dumped tables
 --
-
---
--- AUTO_INCREMENT for table `ktp`
---
-ALTER TABLE `ktp`
-  MODIFY `id_ktp` int(10) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT for table `user`
@@ -97,9 +101,6 @@ ALTER TABLE `user`
 --
 -- Constraints for table `user`
 --
-ALTER TABLE `user`
-  ADD CONSTRAINT `user_ibfk_1` FOREIGN KEY (`ktp`) REFERENCES `ktp` (`id_ktp`);
-COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
