@@ -29,7 +29,7 @@ $datamobil = $mobil->SelectMobil();
             <a href="transaksi.php" class="px-6 py-3 hover:bg-neutral-800 rounded-r-full transition-all duration-300"><i class="fa-solid fa-file-contract"></i> Transaksi</a>
             <a href="#" class="px-6 py-3 hover:bg-neutral-800 rounded-r-full transition-all duration-300"><i class="fa-solid fa-repeat"></i> Pengembalian</a>
             <a href="#" class="px-6 py-3 hover:bg-neutral-800 rounded-r-full transition-all duration-300"><i class="fa-solid fa-bug"></i> Laporan</a>
-            <a href="#" class="px-6 py-3 hover:bg-neutral-800 rounded-r-full transition-all duration-300"><i class="fa-solid fa-users"></i> Kelola User</a>
+            <a href="kelola-user.php" class="px-6 py-3 hover:bg-neutral-800 rounded-r-full transition-all duration-300"><i class="fa-solid fa-users"></i> Kelola User</a>
             <a href="#" class="px-6 py-3 hover:bg-neutral-800 rounded-r-full transition-all duration-300"><i class="fa-solid fa-circle-info"></i> Bantuan</a>
             </nav>
         </div>
@@ -44,49 +44,57 @@ $datamobil = $mobil->SelectMobil();
     </aside>
     <main class="ml-64 p-8">
         <header class="flex justify-between items-center mb-8">
-        <div>
-            <h2 class="text-2xl font-semibold">Data Mobil</h2>
-        </div>
-        <button class="bg-orange-500 text-white px-4 py-2 rounded-xl shadow-xl hover:bg-orange-400 transition-all duration-300"><i class="fa-solid fa-plus"></i> Tambah Mobil</button>
+            <div>
+                <h2 class="text-2xl font-semibold">Data Mobil</h2>
+            </div>
+            <button class="bg-orange-500 text-neutral-200 p-2 rounded-xl shadow-xl hover:bg-orange-400 active:scale-90 transition-all duration-300"><i class="fa-solid fa-plus"></i> Tambah Mobil</button>
         </header>
         <section class="bg-white p-6 shadow-xl rounded-2xl">
-            <div class="flex justify-between">
+            <div class="flex justify-between text-xl font-semibold px-4 pb-4">
                 <h2>Data Mobil</h2>
-                <a href="" class="text-orange-500 hover:text-orange-400 transition-all duration-300">Lihat Semua</a>
+                <a href="" class="text-orange-500 hover:text-orange-400 hover:underline transition-all duration-300">Lihat Semua</a>
             </div>
             <table class="w-full text-left border-collapse">
                 <thead class="text-sm text-neutral-500 border-b">
                     <tr>
                         <th class="px-3 py-3">ID</th>
-                        <th class="px-3 py-3">Kapasitaas</th>
-                        <th class="px-3 py-3">Deskripsi</th>
                         <th class="px-3 py-3">Merek</th>
-                        <th class="px-3 py-3">Harga sewa /Hari</th>
-                        <th class="px-3 py-3">Transmisi</th>
-                        <th class="px-3 py-3">Bahan Bakar</th>
+                        <th class="px-3 py-3">Model</th>
+                        <th class="px-3 py-3">harga/hari</th>
+                        <th class="px-3 py-3">Status</th>
                         <th class="px-3 py-3">Aksi</th>
                     </tr>
                 </thead>
                 <tbody class="text-sm">
-                <?php foreach($datamobil as $row):?>
-                    <tr class="border-b hover:bg-orange-500/20 transition-all duration-300">
-                        <th></th>
-                        <th class="px-3 py-3"><?= htmlspecialchars($row['kapasitas'])?></th>
-                        <th class="px-3 py-3"><?= htmlspecialchars($row['deskripsi'])?></th>
-                        <th class="px-3 py-3"><?= htmlspecialchars($row['merk'])?></th>
-                        <th class="px-3 py-3"><?= htmlspecialchars($row['harga_per_hari'])?></th>
-                        <th class="px-3 py-3"><?= htmlspecialchars($row['transmisi'])?></th>
-                        <th class="px-3 py-3"><?= htmlspecialchars($row['bhn_bkr'])?></th>
-                        <th class="px-3 py-3">
-                            <a href=""></a>
-                            <a href=""></a>
-                        </th>
-                    </tr>
-                <?php endforeach?>    
+                <?php if(!empty($datamobil)):?>
+                    <?php foreach($datamobil as $row):?>
+                        <tr class="border-b hover:bg-orange-400/20 transition-all duration-300 text-sm text-left">
+                            <th class="px-3 py-3"><?= htmlspecialchars($row['id_mobil'])?></th>
+                            <th class="px-3 py-3"><?= htmlspecialchars($row['merek'])?></th>
+                            <th class="px-3 py-3"><?= htmlspecialchars($row['model'])?></th>
+                            <th class="px-3 py-3"><?= htmlspecialchars($row['harga_hari'])?></th>
+                            <th class="px-3 py-3"><?= htmlspecialchars($row['status'])?></th>
+                            <th class="px-3 py-3 flex gap-5 text-center">
+                                <a href="" class="inline-block bg-emerald-500 hover:bg-emerald-400 active:scale-90 transition-all duration-300 rounded p-1 w-12">Edit</a>
+                                <a href="" class="inline-block bg-red-500 hover:bg-red-400 active:scale-90 transition-all duration-300 rounded p-1 w-12">Hapus</a>
+                                <a href="" class="inline-block bg-yellow-500 hover:bg-yellow-400 active:scale-90 transition-all duration-300 rounded p-1 w-12">Detail</a>
+                            </th>
+                        </tr>
+                    <?php endforeach?>   
+                    <?php else:?>
+                        <tr>
+                            <td colspan="12" class="py-6">
+                                <div class="flex flex-col items-center justify-center text-center gap-5 italic text-neutral-300 text-xl">
+                                    <i class="fa-solid fa-database text-4xl"></i>
+                                    <h2 class="text-4xl">Belum ada data yang di tambahkan</h2>
+                                    <p>Silahkan tambah data mobil dengan menekan tombol "Tambah Mobil"</p>
+                                </div>
+                            </td>
+                        </tr>
+                    <?php endif?> 
                 </tbody>
             </table>
         </section>
     </main>
-    
 </body>
 </html>
