@@ -23,17 +23,55 @@
   </style>
 </head>
 <body class="h-screen bg-neutral-200 font-serif">
-  <header class="h-screen">
+  <header class="h-screen relative">
     <div class="bg-neutral-900 h-130 w-full relative">
       <img src="src/assets/Jesko Absolut.jpeg" alt="bg" class="absolute inset-0 h-full w-full object-cover">
     </div>
-    <div class="whitespace-nowrap p-3 shadow-xl overflow-hidden">
+    <div class="whitespace-nowrap p-3 shadow-xl overflow-hidden text-4xl">
       <div class="flex marquee">
-        <p>Rental</p>
-        <p>Mobil</p>
-        <p>Cylc</p>
+        <p class="px-3"><i class="fa-solid fa-car-side"></i></p>
+        <p class="px-3"><i class="fa-solid fa-car-side"></i></p>
+        <p class="px-3"><i class="fa-solid fa-car-side"></i></p>
         <!-- <img src="src/assets/koennigsegg.jpeg" alt="koenigsegg logo"> -->
       </div>
+    </div>
+    <div class="absolute inset-0 flex justify-between top-5 mx-10 z-20">
+      <div>
+        <div class="flex text-lg relative">
+          <a href="index.php" class="block cursor-pointer bg-neutral-200 w-10 h-10 rounded-full text-neutral-900 p-2 mx-2 shadow-xl"><i class="fa-solid fa-car"></i></a>
+          <div class="bg-neutral-200 rounded-l-lg rounded-r-4xl w-35 p-1"></div>
+          <a href="index.php" class="block text-neutral-900 absolute ml-16 mt-1 shadow-xl">Cylc Rent Car</a>
+        </div>
+      </div>
+      <div>
+        <div class="text-sm my-auto flex gap-4">
+          <a href="#" class="cursor-pointer inline-block bg-neutral-200 p-2 shadow-xl text-neutral-200 rounded-lg hover:-translate-y-1 hover:shadow-xl transition-all duration-300">List Cars</a>
+          <a href="#" class="cursor-pointer inline-block p-2 shadow-xl text-neutral-200 rounded-lg hover:-translate-y-1 hover:shadow-xl transition-all duration-300">Booking Cars</a>
+          <details class="relative inline-block cursor-pointer">
+            <summary class="bg-neutral-800 p-2 shadow-xl text-neutral-200 rounded-lg  active:scale-90 transition-all duration-300 marker:content-none">
+              <i class="fa-solid fa-bars"></i>
+              <i class="fa-solid fa-user"></i>
+            </summary>
+            <ul class="absolute z-100 right-0 mt-2 px-5 py-5 w-45 text-sm bg-neutral-200 rounded-xl border border-neutral-300">
+              <li class="p-1"><a href="App/Controllers/login.php">Log in</a></li>
+              <li class="p-1"><a href="App/Controllers/signup.php">Sign up</a></li>
+              <hr class="m-1 border border-neutral-500">
+              <li class="p-1"><a href="#"><i class="fa-solid fa-car-on"></i> Why choose Cycl</a></li>
+              <li class="p-1"><a href="#"><i class="fa-solid fa-headset"></i> Contact support</a></li>
+              <li class="p-1"><a href="#"><i class="fa-solid fa-gears"></i> Setting</a></li>
+            </ul>
+          </details>
+        </div>
+      </div>
+    </div>
+    <div class="absolute text-neutral-200 justify-center text-center inset-0 flex flex-col rounded-xl">
+      <!-- <h2 class="text-5xl font-semibold p-1 m-1 tracking-wide">Skip the rental car counter</h2>
+      <p class="text-xl p-1 m-1 tracking-wide">Rent just about any car, just about anywhere</p> -->
+      <form action="" class="bg-neutral-200 text-neutral-900 rounded-full p-2 m-2 w-330 mx-auto flex shadow-xl border border-neutral-300">
+        <input type="text" placeholder="Search for any car..." class="w-full outline-none p-1">
+        <button type="submit" class="p-2 w-12 h-12 bg-neutral-900 text-neutral-200 rounded-full active:scale-90"><i class="fa-solid fa-magnifying-glass"></i></button>
+      </form>
+      <button class="flex justify-center cursor-pointer shadow-xl text-lg p-1 m-1 bg-neutral-200 rounded-lg text-neutral-900 w-50 mx-auto active:scale-90 transition-all duration-300">Get to know Cylc <i class="fa-solid fa-caret-right my-auto"></i></button>
     </div>
   </header>
   <!-- <header class="relative max-w-6xl m-auto mx-auto">
@@ -78,9 +116,24 @@
   </header> -->
   <main>
     <section class="h-screen bg-neutral-900">
+      <div class="max-w-6xl m-auto flex">
+        <div>
+          <h2>Tentang Kami</h2>
+          <h2>Rent Car Cylc</h2>
+          <p>Sewa Mobil Samarinda adalah penyedia jasa rental mobil terpercaya di Kota Samarinda, Kalimantan Timur. Didirikan dengan semangat memberikan solusi transportasi yang aman, nyaman, dan terjangkau, kami hadir untuk memenuhi kebutuhan mobilitas masyarakat, wisatawan, hingga pelaku bisnis di kota ini.
+
+          Dengan armada yang selalu terawat dan pelayanan yang profesional, kami telah dipercaya oleh berbagai kalangan—mulai dari individu, keluarga, perusahaan, hingga instansi pemerintahan. Sewa Mobil samarinda selalu menjunjung tinggi prinsip pelayanan prima, transparansi harga, dan kepuasan pelanggan sebagai prioritas utama.</p>
+          <button class="bg-neutral-200 p-2 rounded-xl shadow-xl">Whatsapp Admin</button>
+        </div>
+        <div>
+          <img src="" alt="ilustrasi">
+        </div>
+      </div>
+    </section>
+    <section class="h-screen bg-teal-800">
       <div class="max-w-6xl m-auto text-center">
-        <h2 class="text-neutral-200 m-7 p-7 text-5xl">Jenis Layanan Rental Mobil Cylc</h2>
-        <p class="text-neutral-400">Sewa mobil Samarinda menghadirkan beragam jenis layanan rental mobil yang fleksibel, efisien, dan dapat disesuaikan dengan kebutuhan pelanggan. Kami memahami bahwa setiap perjalanan memiliki karakteristik dan tujuan yang berbeda, oleh karena itu kami menyediakan pilihan layanan yang dirancang khusus untuk memberikan kenyamanan, kemudahan, serta kontrol penuh kepada pelanggan dalam menentukan jenis layanan yang paling sesuai</p>
+        <h2 class="text-neutral-200 p-7 text-5xl">Jenis Layanan Rental Mobil Cylc</h2>
+        <p class="text-neutral-200">Sewa mobil Samarinda menghadirkan beragam jenis layanan rental mobil yang fleksibel, efisien, dan dapat disesuaikan dengan kebutuhan pelanggan. Kami memahami bahwa setiap perjalanan memiliki karakteristik dan tujuan yang berbeda, oleh karena itu kami menyediakan pilihan layanan yang dirancang khusus untuk memberikan kenyamanan, kemudahan, serta kontrol penuh kepada pelanggan dalam menentukan jenis layanan yang paling sesuai</p>
         <div class="grid grid-cols-3 gap-6 m-7 p-7">
           <div class="bg-neutral-200 shadow-xl rounded-xl p-4 h-90 text-center">
             <h2 class="text-7xl p-2"><i class="fa-solid fa-key"></i></h2>
