@@ -23,6 +23,13 @@ SET time_zone = "+00:00";
 
 -- --------------------------------------------------------
 
+<<<<<<< HEAD
+=======
+--
+-- Table structure for table `ktp`
+--
+
+>>>>>>> 3834fe9 (database)
 -- --------------------------------------------------------
 
 --
@@ -48,7 +55,6 @@ CREATE TABLE `user` (
   `id_user` int(10) NOT NULL,
   `nama` varchar(30) NOT NULL,
   `sim` enum('SIM A','SIM B','SIM D') NOT NULL,
-  `ktp` int(10) DEFAULT NULL,
   `email` varchar(255) NOT NULL,
   `password` varchar(255) NOT NULL,
   `role` enum('Admin','User') DEFAULT 'User'
