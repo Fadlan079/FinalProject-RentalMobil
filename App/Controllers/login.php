@@ -1,26 +1,20 @@
 <?php 
-require_once "../Models/user.php";
+require_once  "../Models/user.php";
 $user = new User();
 
 if ($_SERVER['REQUEST_METHOD'] == "POST"){
-    $username = $_POST['username'];
-    $password = $_POST['password'];
-    $data = $user->Selectuser(null, $username);
+    var_dump($_POST);
+    $nama = $_POST['nama'];
+    $pass = $_POST['pass'];
+    $data = $user->Selectuser(null, $nama);
 
     if($data){
-        if(password_verify($password, $data['password'])){
-            $_SESSION['username'] = $data['username'];
-            $_SESSION['role'] = $data['role'];
-
-            if($data['role'] == 'admin' || $data['role'] == 'superadmin' || $data['role'] == 'owner'){    
-                $_SESSION['users'] = [
-                    'name' => $data['username'],
-                    'role' => $data['role']
-                ];
+        if(password_verify($pass, $data['password'])){
+            if($data['role'] == 'Admin'){    
                 header("Location:admin/dashboard.php?success=1");
                 exit;
             }else{
-                header("Location:index.php?success=1");
+                header("Location:../../index.php?success=1");
                 exit;
             }
         }else{
@@ -30,6 +24,8 @@ if ($_SERVER['REQUEST_METHOD'] == "POST"){
         echo "User tidak ditemukan!";
     } 
 }
+
+var_dump($data);
 ?>
 <!DOCTYPE html>
 <html lang="en">

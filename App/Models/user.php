@@ -11,14 +11,13 @@ class User{
   
     public function Insertuser($nama, $sim, $email, $password, $role=null) {
         try {
-            $sql = "INSERT INTO user (nama, sim, email, password, role ) VALUES (:nama, :sim, :email, :password, :role )";
+            $sql = "INSERT INTO user (nama, sim, email, password) VALUES (:nama, :sim, :email, :password)";
             $hash = password_hash($password, PASSWORD_DEFAULT);
             $stmt = $this->pdo->prepare($sql);
             $stmt->bindParam(":nama", $nama);
             $stmt->bindParam(":sim", $sim);
             $stmt->bindparam(":email", $email);
             $stmt->bindparam(":password", $hash);
-            $stmt->bindparam(":role", $role);
             
             return $stmt->execute();
         }catch(PDOException $e){
