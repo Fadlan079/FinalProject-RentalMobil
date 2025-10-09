@@ -27,21 +27,6 @@ SET time_zone = "+00:00";
 -- Table structure for table `ktp`
 --
 
-CREATE TABLE `ktp` (
-  `id_ktp` int(10) NOT NULL,
-  `NIK` varchar(16) NOT NULL,
-  `nama` varchar(30) NOT NULL,
-  `tgl_lhr` date NOT NULL,
-  `jns_klmn` enum('Laki-Laki','Perempuan') NOT NULL,
-  `alamat` text NOT NULL,
-  `RT_RW` varchar(8) NOT NULL,
-  `kel_desa` varchar(30) NOT NULL,
-  `agama` enum('Islam','Kristen Protestan','Katolik','Hindu','Buddha','Konghucu') NOT NULL,
-  `sts_prkwinan` enum('Belum Kawin','Kawin','Cerai Hidup','Cerai Mati') NOT NULL,
-  `kewarganegaraan` varchar(30) NOT NULL,
-  `masa_brlaku_ktp` date NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
-
 -- --------------------------------------------------------
 
 --
@@ -67,7 +52,6 @@ CREATE TABLE `user` (
   `id_user` int(10) NOT NULL,
   `nama` varchar(30) NOT NULL,
   `sim` enum('SIM A','SIM B','SIM D') NOT NULL,
-  `ktp` int(10) DEFAULT NULL,
   `email` varchar(255) NOT NULL,
   `password` varchar(30) NOT NULL,
   `role` enum('Admin','User') DEFAULT 'User'
