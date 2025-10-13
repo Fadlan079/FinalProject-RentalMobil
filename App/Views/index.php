@@ -1,12 +1,3 @@
-<?php
-// require_once "../Controllers/signup.php";
-// require_once "../Controllers/login.php";
-require_once "../Models/mobil.php";
-
-$mobil = new Mobil();
-$data = $mobil->Jumlahmobil();
-?>
-
 <!DOCTYPE html>
 <html lang="en">
 <head>

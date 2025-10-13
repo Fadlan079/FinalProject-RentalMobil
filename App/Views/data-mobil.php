@@ -1,10 +1,3 @@
-<?php
-require_once "../Models/mobil.php";
-$mobil = new Mobil();
-$mobil->SelectMobil();
-
-$datamobil = $mobil->SelectMobil();
-?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
