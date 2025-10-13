@@ -9,15 +9,17 @@ class User{
         $this->pdo = $db->getConnection();
     }
   
-    public function Insertuser($nama, $sim, $email, $password, $role=null) {
+    public function Insertuser($nama, $sim, $email, $password,  $ktp, $tlp, $role=null) {
         try {
-            $sql = "INSERT INTO user (nama, sim, email, password) VALUES (:nama, :sim, :email, :password)";
+            $sql = "INSERT INTO user (nama, sim, email, password, ktp, tlp) VALUES (:nama, :sim, :email, :password, :ktp, :tlp)";
             $hash = password_hash($password, PASSWORD_DEFAULT);
             $stmt = $this->pdo->prepare($sql);
             $stmt->bindParam(":nama", $nama);
             $stmt->bindParam(":sim", $sim);
             $stmt->bindparam(":email", $email);
             $stmt->bindparam(":password", $hash);
+            $stmt->bindparam(":ktp", $ktp);
+            $stmt->bindparam(":tlp", $tlp);
             
             return $stmt->execute();
         }catch(PDOException $e){
@@ -57,19 +59,20 @@ class User{
     }
 
     public function Updateuser($id, $nama, $ktp, $sim, $alamat, $email, $password) {
-        $sql = "UPDATE user SET nama=:nama, sim=:sim, alamat=:alamat, ktp=:ktp WHERE id_customer=:id";
+        $sql = "UPDATE user SET nama=:nama, sim=:sim, email=:email, password=:password, ktp=:ktp, tlp=:tlp WHERE id_customer=:id";
         $stmt = $this->pdo->prepare($sql);
         $stmt->bindParam(":id_user", $id);
         $stmt->bindParam(":nama", $nama);
         $stmt->bindParam(":sim", $sim);
-        $stmt->bindparam(":alamat", $alamat);
         $stmt->bindparam(":email", $email);
-        $stmt->bindparam(":password", $password); 
+        $stmt->bindparam(":password", $password);
+        $stmt->bindparam(":ktp", $ktp);
+        $stmt->bindparam(":tlp", $tlp); 
         return $stmt->execute();
     }
 
     public function Deleteuser($id) {
-        $sql = "DELETE FROM user WHERE id_customer=:id";
+        $sql = "DELETE FROM user WHERE id_user=:id";
         $stmt = $this->pdo->prepare($sql);
         $stmt->bindParam(":id", $id);
         return $stmt->execute();
