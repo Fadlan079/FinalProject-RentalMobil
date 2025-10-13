@@ -36,6 +36,26 @@ class Transaksi {
         }
     }
 
+    public function TotalPendapatan() {
+    try{
+        $sql = "SELECT SUM(total_bayar) AS TotalPendapatan";
+        $stmt = $this->pdo->query($sql);
+        return $stmt->fetchAll(PDO::FETCH_ASSOC);
+    }catch(PDOException $e){
+            echo "Data Gagal di tambahkan, silahkan coba lagi :" .$e->getMessage();
+        }
+    }
+
+    public function TransaksiAktif(){
+        try{
+            $sql = "SELECT COUNT(*) FROM transaksi";
+            $stmt = $this->pdo->query($sql);
+            return $stmt->fetchAll(PDO::FETCH_ASSOC);
+        }catch(PDOException $e){
+                echo "Data Gagagl di tambahkan, silahkan coba lagi :" .$e->getMessage();
+            }
+        }
+
     public function UpdateTransaksi($id, $nama_pelanggan, $mobil, $tgl_sewa, $tgl_kembali, $total_bayar, $status, $denda) {
     try{
             $sql = "UPDATE transaksi SET 
@@ -53,7 +73,7 @@ class Transaksi {
             $stmt->bindParam(":mobil", $mobil);
             $stmt->bindParam(":tgl_sewa", $tgl_sewa);
             $stmt->bindParam(":tgl_kembali", $tgl_kembali);
-            $stmt->bindParam(":total-bayar", $total-bayar);
+            $stmt->bindParam(":total-bayar", $total_bayar);
             $stmt->bindParam(":status", $status);
             $stmt->bindParam(":denda", $denda);
             return $stmt->execute();

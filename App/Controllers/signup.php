@@ -12,8 +12,13 @@ if($_SERVER['REQUEST_METHOD'] == 'POST'){
         $tlp = $_POST['tlp']
     );
 
-    header("Location:../../index.php?success=1");
-    exit;
+    if($data['role'] == 'admin'){
+        header("Location: /FinalProject-RentalMobil/App/Views/index.php");
+        exit;
+    }else{
+        header("Location:../../index.php?success=1");
+        exit;
+    }
 }
 ?>
 <!DOCTYPE html>

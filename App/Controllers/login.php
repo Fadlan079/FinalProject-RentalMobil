@@ -10,8 +10,8 @@ if ($_SERVER['REQUEST_METHOD'] == "POST"){
 
     if($data){
         if(password_verify($pass, $data['password'])){
-            if($data['role'] == 'Admin'){    
-                header("Location:admin/dashboard.php?success=1");
+            if($data['role'] == 'admin'){    
+                header("Location: /FinalProject-RentalMobil/App/Views/index.php");
                 exit;
             }else{
                 header("Location:../../index.php?success=1");

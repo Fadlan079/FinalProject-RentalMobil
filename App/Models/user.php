@@ -58,6 +58,16 @@ class User{
         }
     }
 
+    public function Jumlahuser(){
+        try{
+            $sql = "SELECT COUNT(*) FROM user";
+            $stmt = $this->pdo->query($sql);
+            return $stmt->fetchAll(PDO::FETCH_ASSOC);
+        }catch(PDOException $e){
+                echo "Data Gagagl di tambahkan, silahkan coba lagi :" .$e->getMessage();
+            }
+        }
+
     public function Updateuser($id, $nama, $ktp, $sim, $alamat, $email, $password) {
         $sql = "UPDATE user SET nama=:nama, sim=:sim, email=:email, password=:password, ktp=:ktp, tlp=:tlp WHERE id_customer=:id";
         $stmt = $this->pdo->prepare($sql);
