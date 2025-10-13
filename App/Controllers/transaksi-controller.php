@@ -1,11 +1,11 @@
 <?php
-require_once "App/Models/transaksi.php";
+require_once __DIR__ . '/../Models/transaksi.php';
 
 $transaksi = new Transaksi();
 
-$datatransaksi = $mobils1->SelectTransaksi();
+$datatransaksi = $transaksi->SelectTransaksi();
 
-$totalpendapatan= $mobils1->TotalPendapatan();
+$pendapatanbulanini = $transaksi->pendapatanbulanini();
 
-$transaksiaktif= $mobils1->TransaksiAktif();
+$transaksiaktif= $transaksi->TransaksiAktif();
 ?>

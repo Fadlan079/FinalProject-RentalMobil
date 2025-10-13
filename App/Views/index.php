@@ -1,9 +1,15 @@
+<?php
+require_once __DIR__ . '/../Controllers/mobil-controller.php';
+require_once __DIR__ . '/../Controllers/transaksi-controller.php';
+require_once __DIR__ . '/../Controllers/user-controller.php';
+require_once __DIR__ . '/../Controllers/verif.php';
+?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Dashboard - Cylc Rent Car</title>
+  <title>Beranda - Cylc Rent Car</title>
   <link rel="stylesheet" href="../../src/output.css">
   <link rel="stylesheet" href="https://unpkg.com/aos@next/dist/aos.css" />
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.0/css/all.min.css" integrity="sha512-DxV+EoADOkOygM4IR9yXP8Sb2qwgidEmeqAEmDKIOfPRQZOWbXCzLC6vjbZyy0vPisbH2SyW27+ddLVCN+OMzQ==" crossorigin="anonymous" referrerpolicy="no-referrer"/>
@@ -21,8 +27,8 @@
         <a href="index.php" class="px-6 py-3 bg-orange-500/20 text-orange-400 font-semibold rounded-r-full"><i class="fa-solid fa-table-columns"></i> Dashboard</a>
         <a href="data-mobil.php" class="px-6 py-3 hover:bg-neutral-800 rounded-r-full transition-all duration-300"><i class="fa-solid fa-database"></i> Data Mobil</a>
         <a href="transaksi.php" class="px-6 py-3 hover:bg-neutral-800 rounded-r-full transition-all duration-300"><i class="fa-solid fa-file-contract"></i> Transaksi</a>
-        <a href="#" class="px-6 py-3 hover:bg-neutral-800 rounded-r-full transition-all duration-300"><i class="fa-solid fa-repeat"></i> Pengembalian</a>
-        <a href="#" class="px-6 py-3 hover:bg-neutral-800 rounded-r-full transition-all duration-300"><i class="fa-solid fa-bug"></i> Laporan</a>
+        <a href="pengembalian.php" class="px-6 py-3 hover:bg-neutral-800 rounded-r-full transition-all duration-300"><i class="fa-solid fa-repeat"></i> Pengembalian</a>
+        <a href="laporan.php" class="px-6 py-3 hover:bg-neutral-800 rounded-r-full transition-all duration-300"><i class="fa-solid fa-bug"></i> Laporan</a>
         <a href="kelola-user.php" class="px-6 py-3 hover:bg-neutral-800 rounded-r-full transition-all duration-300"><i class="fa-solid fa-users"></i> Kelola User</a>
         <a href="#" class="px-6 py-3 hover:bg-neutral-800 rounded-r-full transition-all duration-300"><i class="fa-solid fa-circle-info"></i> Bantuan</a>
       </nav>
@@ -47,23 +53,45 @@
     </header>
 
     <section class="grid grid-cols-4 gap-6 mb-8">
-      <div class="bg-white rounded-2xl shadow p-5">
-        <p class="text-neutral-500 text-sm">Total Mobil</p>
-        <?php foreach($data as $row):?>
-        <h3 class="text-2xl font-bold mt-2"><?php echo $row?></h3>
-        <?php endforeach?>
+      <div class="relative overflow-hidden bg-gradient-to-br from-orange-500 to-orange-600 rounded-2xl shadow-lg hover:scale-105 hover:shadow-xl transition-all duration-300 text-white">
+        <div class="absolute opacity-20 -right-6 -bottom-6 text-8xl">
+          <i class="fa-solid fa-car-side"></i>
+        </div>
+        <div class="p-6 relative z-10">
+            <p class="text-sm uppercase tracking-wide text-orange-100">Total Mobil</p>
+            <h3 class="text-4xl font-extrabold mt-2"><?= htmlspecialchars($jumlahmobil ?? 0) ?> Unit</h3>
+            <p class="text-orange-100 text-sm mt-1">Mobil yang tersedia di garasi</p>  
+        </div>
       </div>
-      <div class="bg-white rounded-2xl shadow p-5">
-        <p class="text-neutral-500 text-sm">Total Pelanggan</p>
-        <h3 class="text-2xl font-bold mt-2">320</h3>
+      <div class="relative overflow-hidden bg-gradient-to-br from-blue-500 to-blue-600 rounded-2xl shadow-lg hover:scale-105 hover:shadow-xl transition-all duration-300 text-white">
+        <div class="absolute opacity-20 -right-6 -bottom-6 text-8xl">
+          <i class="fa-solid fa-users"></i>
+        </div>
+        <div class="p-6 relative z-10">
+            <p class="text-sm uppercase tracking-wide text-blue-100">Pelanggan</p>
+            <h3 class="text-4xl font-extrabold mt-2"><?= htmlspecialchars($jumlahuser ?? 0) ?> User</h3>
+            <p class="text-blue-100 text-sm mt-1">Total Pelanggan yang sudah menyewa di Cylc</p>
+        </div>
       </div>
-      <div class="bg-white rounded-2xl shadow p-5">
-        <p class="text-neutral-500 text-sm">Pendapatan Bulan Ini</p>
-        <h3 class="text-2xl font-bold mt-2">Rp 15.500.000</h3>
+      <div class="relative overflow-hidden bg-gradient-to-br from-emerald-500 to-emerald-600 rounded-2xl shadow-lg hover:scale-105 hover:shadow-xl transition-all duration-300 text-white">
+        <div class="absolute opacity-20 -right-6 -bottom-6 text-8xl">
+          <i class="fa-solid fa-money-bill-trend-up"></i>
+        </div>
+        <div class="p-6 relative z-10">
+            <p class="text-sm uppercase tracking-wide text-emerald-100">Pendapatan Bulan Ini</p>
+            <h3 class="text-4xl font-extrabold mt-2">Rp <?= number_format($pendapatanbulanini ?? 0) ?></h3>
+            <p class="text-emerald-100 text-sm mt-1">Total pendapatan yang di dapat bulan ini</p>
+        </div>
       </div>
-      <div class="bg-white rounded-2xl shadow p-5">
-        <p class="text-neutral-500 text-sm">Transaksi Aktif</p>
-        <h3 class="text-2xl font-bold mt-2">12</h3>
+      <div class="relative overflow-hidden bg-gradient-to-br from-neutral-500 to-neutral-600 rounded-2xl shadow-lg hover:scale-105 hover:shadow-xl transition-all duration-300 text-white">
+        <div class="absolute opacity-20 -right-6 -bottom-6 text-8xl">
+          <i class="fa-solid fa-file-contract"></i>
+        </div>
+        <div class="p-6 relative z-10">
+            <p class="text-sm uppercase tracking-wide text-neutral-100">Pelanggan</p>
+            <h3 class="text-4xl font-extrabold mt-2"><?= htmlspecialchars($transaksiaktif ?? 0) ?> Transaksi Aktif</h3>
+            <p class="text-neutral-100 text-sm mt-1">Transaksi dengan status "proses"</p>    
+        </div>
       </div>
     </section>
 
@@ -74,30 +102,39 @@
       </div>
 
       <table class="w-full text-left border-collapse">
-        <thead class="text-sm text-neutral-500 border-b">
-          <tr>
-            <th class="py-3">Pelanggan</th>
-            <th>Mobil</th>
-            <th>Tanggal</th>
-            <th>Total</th>
-            <th>Status</th>
-          </tr>
+        <thead class="text-sm text-neutral-700 border-b">
+            <tr>
+                <th class="px-3 py-3">ID</th>
+                <th class="px-3 py-3">Pelanggan</th>
+                <th class="px-3 py-3">Mobil yang di sewa</th>
+                <th class="px-3 py-3">Tgl Sewa</th>
+                <th class="px-3 py-3">Tgl kembali</th>
+                <th class="px-3 py-3">Total Bayar</th>
+            </tr>
         </thead>
         <tbody class="text-sm">
-          <tr class="border-b hover:bg-orange-500/20 transition">
-            <td class="py-3 font-medium">Ahmad Fauzi</td>
-            <td>Avanza</td>
-            <td>8 Okt 2025</td>
-            <td>Rp1.050.000</td>
-            <td><span class="text-green-600 font-semibold">Selesai</span></td>
-          </tr>
-          <tr class="border-b hover:bg-neutral-50 transition">
-            <td class="py-3 font-medium">Rizky Dwi</td>
-            <td>Brio</td>
-            <td>9 Okt 2025</td>
-            <td>Rp700.000</td>
-            <td><span class="text-yellow-600 font-semibold">Dalam Proses</span></td>
-          </tr>
+        <?php if(!empty($datatransaksi)):?>
+            <?php foreach($datatransaksi as $row):?>
+                <tr class="border-b hover:bg-orange-400/20 text-neutral-400 transition-all duration-300 text-sm text-left">
+                    <th class="px-3 py-3"><?= htmlspecialchars($row['id_transaksi'])?></th>
+                    <th class="px-3 py-3"><?= htmlspecialchars($row['nama_pelanggan'])?></th>
+                    <th class="px-3 py-3"><?= htmlspecialchars($row['mobil'])?></th>
+                    <th class="px-3 py-3"><?= htmlspecialchars($row['tgl_sewa'])?></th>
+                    <th class="px-3 py-3"><?= htmlspecialchars($row['tgl_kembali'])?></th>
+                    <th class="px-3 py-3 text-emerald-500"><?= number_format($row['total_bayar'])?></th>
+                </tr>
+            <?php endforeach?>   
+            <?php else:?>
+                <tr>
+                    <td colspan="12" class="py-6">
+                        <div class="flex flex-col items-center justify-center text-center gap-5 italic text-neutral-300 text-xl">
+                            <i class="fa-solid fa-file-contract text-4xl"></i>
+                            <h2 class="text-4xl">Belum ada data yang di tambahkan</h2>
+                            <p>Silahkan tambah data transaksi dengan menekan tombol "Tambah Transaksi"</p>
+                        </div>
+                    </td>
+                </tr>
+            <?php endif?> 
         </tbody>
       </table>
     </section>

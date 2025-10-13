@@ -36,11 +36,12 @@ class Transaksi {
         }
     }
 
-    public function TotalPendapatan() {
+    public function pendapatanbulanini() {
     try{
-        $sql = "SELECT SUM(total_bayar) AS TotalPendapatan";
+        $sql = "SELECT SUM(total_bayar) AS pendapatanbulanini FROM transaksi WHERE MONTH(tgl_dibuat) = MONTH(CURRENT_DATE()) AND YEAR(tgl_dibuat) = YEAR(CURRENT_DATE())";
         $stmt = $this->pdo->query($sql);
-        return $stmt->fetchAll(PDO::FETCH_ASSOC);
+        $result = $stmt->fetch(PDO::FETCH_ASSOC);
+        return $result['pendapatanbulanini'];
     }catch(PDOException $e){
             echo "Data Gagal di tambahkan, silahkan coba lagi :" .$e->getMessage();
         }
@@ -48,9 +49,10 @@ class Transaksi {
 
     public function TransaksiAktif(){
         try{
-            $sql = "SELECT COUNT(*) FROM transaksi";
+            $sql = "SELECT COUNT(*) AS transaksiaktif FROM transaksi WHERE status = 'proses' ";
             $stmt = $this->pdo->query($sql);
-            return $stmt->fetchAll(PDO::FETCH_ASSOC);
+            $result = $stmt->fetch(PDO::FETCH_ASSOC);
+            return $result['transaksiaktif'];
         }catch(PDOException $e){
                 echo "Data Gagagl di tambahkan, silahkan coba lagi :" .$e->getMessage();
             }
@@ -63,7 +65,7 @@ class Transaksi {
                         mobil = :mobil,
                         tgl_sewa = :tgl_sewa,
                         tgl_kembali = :tgl_kembali,
-                        total-bayar = :total_bayar,
+                        total_bayar = :total_bayar,
                         status = :status,
                         denda = :denda
                     WHERE id_transaksi = :id";
@@ -73,7 +75,7 @@ class Transaksi {
             $stmt->bindParam(":mobil", $mobil);
             $stmt->bindParam(":tgl_sewa", $tgl_sewa);
             $stmt->bindParam(":tgl_kembali", $tgl_kembali);
-            $stmt->bindParam(":total-bayar", $total_bayar);
+            $stmt->bindParam(":total_bayar", $total_bayar);
             $stmt->bindParam(":status", $status);
             $stmt->bindParam(":denda", $denda);
             return $stmt->execute();

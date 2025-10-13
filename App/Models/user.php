@@ -60,9 +60,10 @@ class User{
 
     public function Jumlahuser(){
         try{
-            $sql = "SELECT COUNT(*) FROM user";
+            $sql = "SELECT COUNT(*) AS jumlahuser FROM user";
             $stmt = $this->pdo->query($sql);
-            return $stmt->fetchAll(PDO::FETCH_ASSOC);
+            $result = $stmt->fetch(PDO::FETCH_ASSOC);
+            return $result['jumlahuser'];
         }catch(PDOException $e){
                 echo "Data Gagagl di tambahkan, silahkan coba lagi :" .$e->getMessage();
             }

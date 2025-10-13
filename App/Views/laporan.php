@@ -1,9 +1,12 @@
+<?php
+require_once __DIR__ . '/../Controllers/verif.php';
+?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Kelola User - Rent Car Cylc</title>
+    <title>Laporan - Rent Car Cylc</title>
     <link rel="stylesheet" href="../../src/output.css">
     <link rel="stylesheet" href="https://unpkg.com/aos@next/dist/aos.css" />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.0/css/all.min.css" integrity="sha512-DxV+EoADOkOygM4IR9yXP8Sb2qwgidEmeqAEmDKIOfPRQZOWbXCzLC6vjbZyy0vPisbH2SyW27+ddLVCN+OMzQ==" crossorigin="anonymous" referrerpolicy="no-referrer"/>
@@ -38,13 +41,13 @@
     <main class="ml-64 p-8">
         <header class="flex justify-between items-center mb-8">
             <div>
-                <h2 class="text-2xl font-semibold">Data Pengembalian</h2>
+                <h2 class="text-2xl font-semibold">Laporan & Saran</h2>
             </div>
             <button class="bg-orange-500 text-neutral-200 p-2 rounded-xl shadow-xl hover:bg-orange-400 active:scale-90 transition-all duration-300"><i class="fa-solid fa-repeat"></i> Tambah Pengembalian</button>
         </header>
         <section class="bg-white p-6 shadow-xl rounded-2xl">
             <div class="flex justify-between text-xl font-semibold px-4 pb-4">
-                <h2>Data Pengembalian</h2>
+                <h2>Data Laporan</h2>
                 <a href="" class="text-orange-500 hover:text-orange-400 hover:underline transition-all duration-300">Lihat Semua</a>
             </div>
             <table class="w-full text-left border-collapse">
@@ -62,8 +65,8 @@
                     </tr>
                 </thead>
                 <tbody class="text-sm">
-                <?php if(!empty($datapengembalian)):?>
-                    <?php foreach($datapengembalian as $row):?>
+                <?php if(!empty($datalaporan)):?>
+                    <?php foreach($datalaporan as $row):?>
                         <tr class="border-b hover:bg-orange-400/20 transition-all duration-300 text-sm text-left">
                             <th class="px-3 py-3"><?= htmlspecialchars($row['id_user'])?></th>
                             <th class="px-3 py-3"><?= htmlspecialchars($row['nama'])?></th>
@@ -81,8 +84,8 @@
                         <tr>
                             <td colspan="12" class="py-6">
                                 <div class="flex flex-col items-center justify-center text-center gap-5 italic text-neutral-300 text-xl">
-                                    <i class="fa-solid fa-repeat text-4xl"></i>
-                                    <h2 class="text-4xl">Belum ada data yang di tambahkan</h2>
+                                    <i class="fa-solid fa-bug text-4xl"></i>
+                                    <h2 class="text-4xl">Belum ada Laporan Yang di terima</h2>
                                 </div>
                             </td>
                         </tr>

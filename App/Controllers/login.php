@@ -1,4 +1,5 @@
-<?php 
+<?php
+session_start(); 
 require_once  "../Models/user.php";
 $user = new User();
 
@@ -10,8 +11,13 @@ if ($_SERVER['REQUEST_METHOD'] == "POST"){
 
     if($data){
         if(password_verify($pass, $data['password'])){
+            $_SESSION['user'] = [
+              'id_user' => $data['id_user'],
+              'nama' => $data['nama'],
+              'role' => $data['role']
+            ];
             if($data['role'] == 'admin'){    
-                header("Location: /FinalProject-RentalMobil/App/Views/index.php");
+                header("Location: ../../App/Views/index.php");
                 exit;
             }else{
                 header("Location:../../index.php?success=1");

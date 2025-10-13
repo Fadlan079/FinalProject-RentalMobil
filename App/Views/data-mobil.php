@@ -1,9 +1,21 @@
+<?php
+require_once __DIR__ . '/../Controllers/verif.php';
+require_once __DIR__ . '/../Models/mobil.php';
+require_once __DIR__ . '/../Controllers/mobil-controller.php';
+
+if (isset($_GET['keyword']) && $_GET['keyword'] !== '') {
+    $keyword = $_GET['keyword'];
+    $datamobil = $mobils1->searchmobil($keyword);
+} else {
+    $datamobil = $mobils1->SelectMobil();
+}
+?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Data Mobil - Cylc Rent Car</title>
+    <title>Catalog Mobil - Cylc Rent Car</title>
     <link rel="stylesheet" href="../../src/output.css">
     <link rel="stylesheet" href="https://unpkg.com/aos@next/dist/aos.css" />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.0/css/all.min.css" integrity="sha512-DxV+EoADOkOygM4IR9yXP8Sb2qwgidEmeqAEmDKIOfPRQZOWbXCzLC6vjbZyy0vPisbH2SyW27+ddLVCN+OMzQ==" crossorigin="anonymous" referrerpolicy="no-referrer"/>
@@ -20,8 +32,8 @@
             <a href="index.php" class="px-6 py-3 hover:bg-neutral-800 rounded-r-full transition-all duration-300"><i class="fa-solid fa-table-columns"></i> Dashboard</a>
             <a href="data-mobil.php" class="px-6 py-3 bg-orange-500/20 text-orange-400 font-semibold rounded-r-full"><i class="fa-solid fa-database"></i> Data Mobil</a>
             <a href="transaksi.php" class="px-6 py-3 hover:bg-neutral-800 rounded-r-full transition-all duration-300"><i class="fa-solid fa-file-contract"></i> Transaksi</a>
-            <a href="#" class="px-6 py-3 hover:bg-neutral-800 rounded-r-full transition-all duration-300"><i class="fa-solid fa-repeat"></i> Pengembalian</a>
-            <a href="#" class="px-6 py-3 hover:bg-neutral-800 rounded-r-full transition-all duration-300"><i class="fa-solid fa-bug"></i> Laporan</a>
+            <a href="pengembalian.php" class="px-6 py-3 hover:bg-neutral-800 rounded-r-full transition-all duration-300"><i class="fa-solid fa-repeat"></i> Pengembalian</a>
+            <a href="laporan.php" class="px-6 py-3 hover:bg-neutral-800 rounded-r-full transition-all duration-300"><i class="fa-solid fa-bug"></i> Laporan</a>
             <a href="kelola-user.php" class="px-6 py-3 hover:bg-neutral-800 rounded-r-full transition-all duration-300"><i class="fa-solid fa-users"></i> Kelola User</a>
             <a href="#" class="px-6 py-3 hover:bg-neutral-800 rounded-r-full transition-all duration-300"><i class="fa-solid fa-circle-info"></i> Bantuan</a>
             </nav>
@@ -36,15 +48,67 @@
         </div>
     </aside>
     <main class="ml-64 p-8">
-        <header class="flex justify-between items-center mb-8">
+        <header class="flex justify-between items-center px-4 pb-6">
             <div>
-                <h2 class="text-2xl font-semibold">Data Mobil</h2>
+                <h2 class="text-xl font-semibold">Data Mobil</h2>
+                <p class="text-sm text-neutral-500">Lihat dan kelola seluruh data mobil.</p>
             </div>
-            <button class="bg-orange-500 text-neutral-200 p-2 rounded-xl shadow-xl hover:bg-orange-400 active:scale-90 transition-all duration-300"><i class="fa-solid fa-plus"></i> Tambah Mobil</button>
+
+            <div class="flex items-center gap-3">
+                <form method="GET" action="data-mobil.php" class="relative">
+                    <button type="submit"><i class="fa-solid fa-magnifying-glass absolute left-3 top-2.5 text-neutral-400"></i></button>
+                    <input 
+                        type="text" 
+                        name="keyword"
+                        placeholder="Cari mobil..." 
+                        class="pl-9 pr-3 py-2 rounded-xl border border-neutral-300 text-sm focus:outline-none focus:ring-2 focus:ring-orange-400 focus:border-orange-400 transition-all duration-300"
+                        value = "<?= isset($_GET['keyword']) ? htmlspecialchars($_GET['keyword']) : '' ?>"
+                    >
+                </form>
+
+                <select class="py-2 px-3 border border-neutral-300 rounded-xl text-sm text-neutral-600 focus:ring-2 focus:outline-none focus:ring-orange-400 focus:border-orange-400 transition-all duration-300">
+                    <option value="">Semua Status</option>
+                    <option value="ready">Ready</option>
+                    <option value="disewa">Disewa</option>
+                    <option value="maintenance">Maintenance</option>
+                </select>
+            </div>
         </header>
+        <section class="p-6 grid grid-cols-3 gap-6">
+            <div class="relative overflow-hidden bg-gradient-to-br from-emerald-500 to-emerald-600 rounded-2xl shadow-lg hover:scale-105 hover:shadow-xl transition-all duration-300 text-white">
+                <div class="absolute opacity-20 -right-6 -bottom-6 text-8xl">
+                    <i class="fa-solid fa-check-to-slot"></i>
+                </div>
+                <div class="p-6 relative z-10">
+                    <p class="text-sm uppercase tracking-wide text-emerald-100">Ready</p>
+                    <h3 class="text-4xl font-extrabold mt-2"><?= htmlspecialchars($jumlahready ?? 0) ?> Unit</h3>
+                    <p class="text-emerald-100 text-sm mt-1">Mobil yang tersedia di garasi</p>  
+                </div>
+            </div>
+            <div class="relative overflow-hidden bg-gradient-to-br from-red-500 to-red-600 rounded-2xl shadow-lg hover:scale-105 hover:shadow-xl transition-all duration-300 text-white">
+                <div class="absolute opacity-30 -right-6 -bottom-6 text-8xl">
+                    <i class="fa-solid fa-xmark"></i>
+                </div>
+                <div class="p-6 relative z-10">
+                    <p class="text-sm uppercase tracking-wide text-red-100">Rent</p>
+                    <h3 class="text-4xl font-extrabold mt-2"><?= htmlspecialchars($jumlahrent ?? 0) ?> Unit</h3>
+                    <p class="text-red-100 text-sm mt-1">Mobil yang sedang dalam proses penyewaan</p>  
+                </div>
+            </div>
+                <div class="relative overflow-hidden bg-gradient-to-br from-yellow-500 to-yellow-600 rounded-2xl shadow-lg hover:scale-105 hover:shadow-xl transition-all duration-300 text-white">
+                    <div class="absolute opacity-20 -right-6 -bottom-6 text-8xl">
+                        <i class="fa-solid fa-screwdriver-wrench"></i>
+                    </div>
+                <div class="p-6 relative z-10">
+                    <p class="text-sm uppercase tracking-wide text-yellow-100">Maintenance</p>
+                    <h3 class="text-4xl font-extrabold mt-2"><?= htmlspecialchars($jumlahmaintenance ?? 0) ?> Unit</h3>
+                    <p class="text-yellow-100 text-sm mt-1">Mobil yang sedang dalam proses pemeliharaan</p>  
+                </div>
+            </div>
+        </section>
         <section class="bg-white p-6 shadow-xl rounded-2xl">
             <div class="flex justify-between text-xl font-semibold px-4 pb-4">
-                <h2>Data Mobil</h2>
+                <h2>Daftar Mobil</h2>
                 <a href="" class="text-orange-500 hover:text-orange-400 hover:underline transition-all duration-300">Lihat Semua</a>
             </div>
             <table class="w-full text-left border-collapse">
@@ -61,16 +125,41 @@
                 <tbody class="text-sm">
                 <?php if(!empty($datamobil)):?>
                     <?php foreach($datamobil as $row):?>
-                        <tr class="border-b hover:bg-orange-400/20 transition-all duration-300 text-sm text-left">
+                        <tr class="border-b hover:bg-orange-400/20 text-neutral-400 transition-all duration-300 text-sm text-left">
                             <th class="px-3 py-3"><?= htmlspecialchars($row['id_mobil'])?></th>
                             <th class="px-3 py-3"><?= htmlspecialchars($row['merek'])?></th>
                             <th class="px-3 py-3"><?= htmlspecialchars($row['model'])?></th>
-                            <th class="px-3 py-3"><?= htmlspecialchars($row['harga_hari'])?></th>
-                            <th class="px-3 py-3"><?= htmlspecialchars($row['status'])?></th>
+                            <th class="px-3 py-3 text-emerald-500"><?= htmlspecialchars($row['harga_hari'])?></th>
+                            <?php if($row['status'] == 'ready'):?>
+                                <th class=""><span class="bg-gradient-to-br from-emerald-400 to-emerald-500 text-emerald-100 p-1 w-25 text-center inline-block rounded-full"><?= htmlspecialchars($row['status'])?></span></th>
+                            <?php elseif($row['status'] == 'maintenance'):?>
+                                <th class=""><span class="bg-gradient-to-br from-yellow-400 to-yellow-500 text-yellow-100 p-1 w-25 text-center inline-block rounded-full"><?= htmlspecialchars($row['status'])?></span></th>
+                            <?php else:?>
+                                <th class=""><span class="bg-gradient-to-br from-red-400 to-red-500 text-red-100 p-1 w-25 text-center inline-block rounded-full"><?= htmlspecialchars($row['status'])?></span></th>
+                            <?php endif?>
                             <th class="px-3 py-3 flex gap-5 text-center">
-                                <a href="" class="inline-block bg-emerald-500 hover:bg-emerald-400 active:scale-90 transition-all duration-300 rounded p-1 w-12">Edit</a>
-                                <a href="" class="inline-block bg-red-500 hover:bg-red-400 active:scale-90 transition-all duration-300 rounded p-1 w-12">Hapus</a>
-                                <a href="" class="inline-block bg-yellow-500 hover:bg-yellow-400 active:scale-90 transition-all duration-300 rounded p-1 w-12">Detail</a>
+                                <details class="relative  px-3 py-1 text-orange-600 font-medium rounded-lg  flex items-center justify-center gap-2 marker:content-none">
+                                    <summary class="cursor-pointer">
+                                        <i class="fa-solid fa-ellipsis-vertical"></i>
+                                    </summary>
+                                    <ul class="absolute left-10 w-30 bg-white shadow-lg border border-gray-100 rounded-xl overflow-hidden z-50">
+                                        <li>
+                                            <a href="#" class="flex items-center gap-2 px-4 py-2 text-sm text-emerald-600 hover:bg-emerald-50 transition-all duration-300">
+                                                <i class="fa-solid fa-pen"></i> Edit
+                                            </a>
+                                        </li>
+                                         <li>
+                                            <a href="#" class="flex items-center gap-2 px-4 py-2 text-sm text-red-600 hover:bg-red-50 transition-all duration-300">
+                                                <i class="fa-solid fa-trash"></i> Delete
+                                            </a>
+                                         </li>
+                                          <li>
+                                            <a href="#" class="flex items-center gap-2 px-4 py-2 text-sm text-yellow-600 hover:bg-yellow-50 transition-all duration-300">
+                                               <i class="fa-solid fa-circle-info"></i> Detail
+                                            </a>
+                                          </li>
+                                    </ul>
+                                </details>
                             </th>
                         </tr>
                     <?php endforeach?>   
@@ -79,7 +168,7 @@
                             <td colspan="12" class="py-6">
                                 <div class="flex flex-col items-center justify-center text-center gap-5 italic text-neutral-300 text-xl">
                                     <i class="fa-solid fa-database text-4xl"></i>
-                                    <h2 class="text-4xl">Belum ada data yang di tambahkan</h2>
+                                    <h2 class="text-4xl">Belum ada data yang dapat ditampilkan</h2>
                                     <p>Silahkan tambah data mobil dengan menekan tombol "Tambah Mobil"</p>
                                 </div>
                             </td>
@@ -89,5 +178,20 @@
             </table>
         </section>
     </main>
+    <script>
+    document.addEventListener("DOMContentLoaded", () => {
+    const allDetails = document.querySelectorAll("details");
+
+    allDetails.forEach((targetDetail) => {
+        targetDetail.addEventListener("toggle", () => {
+        if (targetDetail.open) {
+            allDetails.forEach((detail) => {
+            if (detail !== targetDetail) detail.removeAttribute("open");
+            });
+        }
+        });
+    });
+    });
+    </script>
 </body>
 </html>

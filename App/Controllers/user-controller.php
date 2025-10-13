@@ -1,9 +1,9 @@
 <?php
-require_once "App/Models/user.php";
+require_once __DIR__ . '/../Models/User.php';
 
 $users1 = new User();
 
-$datauser = $mobils1->Selectuser();
+$datauser = $users1->Selectuser();
 
-$datauser = $mobils1->Jumlahuser();
+$jumlahuser = $users1->Jumlahuser();
 ?>
