@@ -20,7 +20,4 @@ class Database {
         return $this->pdo;
     }
 }
-// $db = new Database();
-// $db->getConnection();
-
 ?>
