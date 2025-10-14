@@ -1,35 +1,52 @@
 <?php
-session_start(); 
-require_once  "../Models/user.php";
+session_start();
+require_once "../Models/user.php";
 $user = new User();
 
-if ($_SERVER['REQUEST_METHOD'] == "POST"){
-    var_dump($_POST);
-    $nama = $_POST['nama'];
-    $pass = $_POST['pass'];
-    $data = $user->Selectuser(null, $nama);
+if ($_SERVER['REQUEST_METHOD'] === "POST") {
 
-    if($data){
-        if(password_verify($pass, $data['password'])){
+    // Ambil input dari form login
+    $identifier = trim($_POST['identifier']);
+    $password = $_POST['password'];
+
+    // Validasi form
+    if (empty($identifier) || empty($password)) {
+        echo "<script>alert('Harap isi semua field!');</script>";
+        exit;
+    }
+
+    // untuk memfilter form nya jika user mengisi email/nama dalam form tersebut
+    if (filter_var($identifier, FILTER_VALIDATE_EMAIL)) {
+        $column = "email";
+    } else {
+        $column = "nama";
+    }
+
+    // Ambil data user dari database
+    $data = $user->getUserBy($column, $identifier);
+
+    if ($data) {
+        if (password_verify($password, $data['password'])) {
             $_SESSION['user'] = [
-              'id_user' => $data['id_user'],
-              'nama' => $data['nama'],
-              'role' => $data['role']
+                'id_user' => $data['id_user'],
+                'nama' => $data['nama'],
+                'role' => $data['role'] ?? 'user'
             ];
-            if($data['role'] == 'admin'){    
+
+            if ($data['role'] === 'admin') {
                 header("Location: ../../App/Views/index.php");
-                exit;
-            }else{
-                header("Location:../../index.php?success=1");
-                exit;
+            } else {
+                header("Location: ../../index.php");
             }
-        }else{
-            echo "Password Salah!";
-        }   
-    }else{
-        echo "User tidak ditemukan!";
-    } 
+            exit;
+        } else {
+            echo "<script>alert('Password salah!');</script>";
+        }
+    } else {
+        echo "<script>alert('User tidak ditemukan!');</script>";
+    }
 }
+?>
 
 ?>
 <!DOCTYPE html>

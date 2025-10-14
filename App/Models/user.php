@@ -27,6 +27,24 @@ class User{
         }
     }
 
+    public function getUserBy($column, $value) {
+    try {
+        $allowedColumns = ['nama', 'email']; // saat pemerikaan database hanya ada column nama dan email jika tidak ada maka akan dilempar error dengan pesan kolom tidak valid
+        if (!in_array($column, $allowedColumns)) {
+            throw new Exception("Kolom tidak valid");
+        }
+
+        $sql = "SELECT * FROM user WHERE $column = :value LIMIT 1";// mengambil semua data yang ada dari user dimana column alias nama/email dari allowed diatas dan value yaitu isi dari column nama dan email
+        $stmt = $this->pdo->prepare($sql);
+        $stmt->bindParam(':value', $value);
+        $stmt->execute();
+        return $stmt->fetch(PDO::FETCH_ASSOC);
+    } catch (PDOException $e) {
+        echo "Terjadi kesalahan saat mengambil user: " . $e->getMessage();
+        return false;
+    }
+}
+
     public function Selectuser($id_user = null, $nama = null){
         if($id_user !== null){
             try{
