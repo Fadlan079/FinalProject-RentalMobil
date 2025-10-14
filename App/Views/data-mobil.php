@@ -144,7 +144,7 @@ if (isset($_GET['keyword']) && $_GET['keyword'] !== '') {
                                     </summary>
                                     <ul class="absolute left-10 w-30 bg-white shadow-lg border border-gray-100 rounded-xl overflow-hidden z-50">
                                         <li>
-                                            <a href="#" class="flex items-center gap-2 px-4 py-2 text-sm text-emerald-600 hover:bg-emerald-50 transition-all duration-300">
+                                            <a href="../Controllers/update.php" class="flex items-center gap-2 px-4 py-2 text-sm text-emerald-600 hover:bg-emerald-50 transition-all duration-300">
                                                 <i class="fa-solid fa-pen"></i> Edit
                                             </a>
                                         </li>

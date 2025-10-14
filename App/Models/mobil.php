@@ -31,15 +31,13 @@ class Mobil {
             echo "Data Gagagl di tambahkan, silahkan coba lagi :" .$e->getMessage();
         }
     }
-
-    // 🔹 INSERT
     public function InsertMobil($kapasitas, $merek, $harga_hari, $transmisi, $bahan_bakar, $model, $tahun, $status, $bagasi, $warna) {
         try{
             $sql = "INSERT INTO mobil (kapasitas, merek, harga_hari, transmisi, bahan_bakar, model, tahun, status, warna, bagasi) VALUES (:kapasitas, :merek, :harga_hari, :transmisi, :bahan_bakar, :model, :tahun, :status, :warna, :bagasi)";
             $stmt = $this->pdo->prepare($sql);
             $stmt->bindParam(":kapasitas", $kapasitas);
             $stmt->bindParam(":merek", $merek);
-            $stmt->bindParam(":harga_phari", $harga_hari);
+            $stmt->bindParam(":harga_hari", $harga_hari);
             $stmt->bindParam(":transmisi", $transmisi);
             $stmt->bindParam(":bahan_bakar", $bahan_bakar);
             $stmt->bindParam(":model", $model);
@@ -52,8 +50,6 @@ class Mobil {
             echo "Data Gagagl di tambahkan, silahkan coba lagi :" .$e->getMessage();
         }
     }
-
-    // 🔹 SELECT
     public function SelectMobil() {
         try{
             $sql = "SELECT * FROM mobil";
@@ -125,7 +121,7 @@ class Mobil {
                 $stmt->bindParam(":id", $id);
                 $stmt->bindParam(":kapasitas", $kapasitas);
                 $stmt->bindParam(":merek", $merek);
-                $stmt->bindParam(":harga_phari", $harga_hari);
+                $stmt->bindParam(":harga_hari", $harga_hari);
                 $stmt->bindParam(":transmisi", $transmisi);
                 $stmt->bindParam(":bahan_bakar", $bahan_bakar);
                 $stmt->bindParam(":model", $model);
@@ -135,7 +131,7 @@ class Mobil {
                 $stmt->bindParam(":bagasi", $bagasi);
                 return $stmt->execute();
         }catch(PDOException $e){
-                echo "Data Gagagl di tambahkan, silahkan coba lagi :" .$e->getMessage();
+                echo "Data Gagal di tambahkan, silahkan coba lagi :" .$e->getMessage();
             }
     }
 
