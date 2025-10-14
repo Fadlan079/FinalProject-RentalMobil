@@ -8,10 +8,10 @@ class Transaksi {
         $this->pdo = $db->getConnection();
     }
 
+    // 🔹 INSERT
     public function InsertTransaksi($nama_pelanggan, $mobil, $tgl_sewa, $tgl_kembali, $total_bayar, $status, $denda) {
         try{
-            $sql = "INSERT INTO transaksi (nama_pelanggan, mobil, tgl_sewa, tgl_kembali, total_bayar, status, denda)
-            VALUES (:nama_pelanggan, :mobil, :tgl_sewa, :tgl_kembali, :total_bayar, :status, :denda)";
+            $sql = "INSERT INTO transaksi (nama_pelanggan, mobil, tgl_sewa, tgl_kembali, total_bayar, status, denda) VALUES (:nama_pelanggan, :mobil, :tgl_sewa, :tgl_kembali, :total_bayar, :status, :denda)";
             $stmt = $this->pdo->prepare($sql);
             $stmt->bindParam(":nama_pelanggan", $nama_pelanggan);
             $stmt->bindParam(":mobil", $mobil);
@@ -26,6 +26,7 @@ class Transaksi {
         }
     }
 
+    // 🔹 SELECT
     public function SelectTransaksi() {
     try{
         $sql = "SELECT * FROM transaksi";
@@ -57,7 +58,8 @@ class Transaksi {
                 echo "Data Gagagl di tambahkan, silahkan coba lagi :" .$e->getMessage();
             }
         }
-
+    
+    // 🔹 UPDATE
     public function UpdateTransaksi($id, $nama_pelanggan, $mobil, $tgl_sewa, $tgl_kembali, $total_bayar, $status, $denda) {
     try{
             $sql = "UPDATE transaksi SET 

@@ -32,22 +32,28 @@ class Mobil {
         }
     }
 
-    public function InsertMobil($kapasitas, $deskripsi, $merk, $harga_per_hari, $transmisi, $bhn_bkr) {
+    // 🔹 INSERT
+    public function InsertMobil($kapasitas, $merek, $harga_hari, $transmisi, $bahan_bakar, $model, $tahun, $status, $bagasi, $warna) {
         try{
-            $sql = "INSERT INTO mobil (kapasitas, deskripsi, merk, harga_per_hari, transmisi, bhn_bkr) VALUES (:kapasitas, :deskripsi, :merk, :harga_per_hari, :transmisi, :bhn_bkr)";
+            $sql = "INSERT INTO mobil (kapasitas, merek, harga_hari, transmisi, bahan_bakar, model, tahun, status, warna, bagasi) VALUES (:kapasitas, :merek, :harga_hari, :transmisi, :bahan_bakar, :model, :tahun, :status, :warna, :bagasi)";
             $stmt = $this->pdo->prepare($sql);
             $stmt->bindParam(":kapasitas", $kapasitas);
-            $stmt->bindParam(":deskripsi", $deskripsi);
-            $stmt->bindParam(":merk", $merk);
-            $stmt->bindParam(":harga_per_hari", $harga_per_hari);
+            $stmt->bindParam(":merek", $merek);
+            $stmt->bindParam(":harga_phari", $harga_hari);
             $stmt->bindParam(":transmisi", $transmisi);
-            $stmt->bindParam(":bhn_bkr", $bhn_bkr);
+            $stmt->bindParam(":bahan_bakar", $bahan_bakar);
+            $stmt->bindParam(":model", $model);
+            $stmt->bindParam(":tahun", $tahun);
+            $stmt->bindParam(":status", $status);
+            $stmt->bindParam(":warna", $warna);
+            $stmt->bindParam(":bagasi", $bagasi);
             return $stmt->execute();
         }catch(PDOException $e){
             echo "Data Gagagl di tambahkan, silahkan coba lagi :" .$e->getMessage();
         }
     }
 
+    // 🔹 SELECT
     public function SelectMobil() {
         try{
             $sql = "SELECT * FROM mobil";
@@ -100,24 +106,33 @@ class Mobil {
         }
     }    
 
-    public function UpdateMobil($id, $kapasitas, $deskripsi, $merk, $harga_per_hari, $transmisi, $bhn_bkr) {
+    // 🔹 UPDATE
+    public function UpdateMobil($id, $kapasitas, $merek, $harga_hari, $transmisi, $bahan_bakar, $model, $tahun, $status, $bagasi, $warna) {
         try{
                 $sql = "UPDATE mobil SET 
                             kapasitas = :kapasitas,
-                            deskripsi = :deskripsi,
-                            merk = :merk,
-                            harga_per_hari = :harga_per_hari,
+                            merek = :merek,
+                            harga_hari = :harga_hari,
                             transmisi = :transmisi,
-                            bhn_bkr = :bhn_bkr
+                            bahan_bakar = :bahan_bakar,
+                            model = :model,
+                            tahun = :tahun,
+                            status = :status,
+                            warna = :warna,
+                            bagasi = :bagasi
                         WHERE id_mobil = :id";
                 $stmt = $this->pdo->prepare($sql);
                 $stmt->bindParam(":id", $id);
                 $stmt->bindParam(":kapasitas", $kapasitas);
-                $stmt->bindParam(":deskripsi", $deskripsi);
-                $stmt->bindParam(":merk", $merk);
-                $stmt->bindParam(":harga_per_hari", $harga_per_hari);
+                $stmt->bindParam(":merek", $merek);
+                $stmt->bindParam(":harga_phari", $harga_hari);
                 $stmt->bindParam(":transmisi", $transmisi);
-                $stmt->bindParam(":bhn_bkr", $bhn_bkr);
+                $stmt->bindParam(":bahan_bakar", $bahan_bakar);
+                $stmt->bindParam(":model", $model);
+                $stmt->bindParam(":tahun", $tahun);
+                $stmt->bindParam(":status", $status);
+                $stmt->bindParam(":warna", $warna);
+                $stmt->bindParam(":bagasi", $bagasi);
                 return $stmt->execute();
         }catch(PDOException $e){
                 echo "Data Gagagl di tambahkan, silahkan coba lagi :" .$e->getMessage();
@@ -137,4 +152,4 @@ class Mobil {
     }
 }
 
-?>
+?> 
