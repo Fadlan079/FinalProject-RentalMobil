@@ -65,7 +65,7 @@ class Mobil {
             $result = $stmt->fetch(PDO::FETCH_ASSOC);
             return $result['jumlahmobil'];
         }catch(PDOException $e){
-                echo "Data Gagagl di tambahkan, silahkan coba lagi :" .$e->getMessage();
+                echo "Data Gagal di tambahkan, silahkan coba lagi :" .$e->getMessage();
             }
         }
 
@@ -77,7 +77,7 @@ class Mobil {
                 $result = $stmt->fetch(PDO::FETCH_ASSOC);
                 return $result['jumlahready'];
             }catch(PDOException $e){
-                    echo "Data Gagagl di tambahkan, silahkan coba lagi :" .$e->getMessage();
+                    echo "Data Gagal di tambahkan, silahkan coba lagi :" .$e->getMessage();
             }
         }elseif($status == 'rent'){
             try{
@@ -86,7 +86,7 @@ class Mobil {
                 $result = $stmt->fetch(PDO::FETCH_ASSOC);
                 return $result['jumlahrent'];
             }catch(PDOException $e){
-                    echo "Data Gagagl di tambahkan, silahkan coba lagi :" .$e->getMessage();
+                    echo "Data Gagal di tambahkan, silahkan coba lagi :" .$e->getMessage();
             }
         }else{
             try{
