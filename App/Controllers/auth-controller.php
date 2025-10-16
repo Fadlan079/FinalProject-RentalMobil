@@ -40,7 +40,7 @@ class AuthController {
     }
 
     // Ambil data user dari database
-    $data = $user->getUserBy($column, $identifier);
+    $data = $user->getUserBy($column, $identifier,'pelanggan');
 
     if ($data) {
         if (password_verify($password, $data['password'])) {
@@ -48,15 +48,50 @@ class AuthController {
                 'id_user' => $data['id_user'],
                 'nama' => $data['nama'],
             ];
-
+            
+            header("location:");
         } else {
             echo "<script>alert('Password salah!');</script>";
         }
     } else {
-        echo "<script>alert('Nama/Email tidak ditemukan!');</script>";
+        echo "<script>alert('Nama/Email/Telepon tidak ditemukan!');</script>";
         }
     }
- }
+ 
+
+ // Ambil data user dari database
+    $data = $user->getUserBy($column, $identifier,'pelanggan');
+
+        if ($data && password_verify($password, $data['password'])) {
+            $_SESSION['user'] = [
+                'id_user' => $data['id_user'],
+                'nama' => $data['nama'],
+                'role'    => 'pelanggan',
+            ];
+            
+            header("location:login-pelanggan.php");
+            exit;
+
+        }else {
+
+        // 2. Coba cari di tabel pegawai
+        $data = $user->getUserBy($column, $identifier, 'pegawai');
+
+        if ($data && password_verify($password, $data['password'])) {
+            $_SESSION['user'] = [
+                'id_user' => $data['id_pegawai'],
+                'nama'    => $data['nama'],
+                'role'    => 'pegawai',
+            ];
+            // Redirect pegawai
+            header('Location: login-pegawai.php');
+            exit;
+
+        } else {
+            echo "<script>alert('Login gagal. Periksa kembali data Anda.');</script>";
+        }
+    }
+}
 
     // 🟢 Tampilkan form signup
     public function showSignup() {
@@ -75,7 +110,9 @@ class AuthController {
                 $_POST['tlp']
             );
 
-            header("Location: ../../index.php?success=1");
+            header("Location: <div class="">
+            <div class="">
+            <signup class="php"></signup>?success=1");
             exit;
         }
     }
