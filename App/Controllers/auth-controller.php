@@ -16,36 +16,47 @@ class AuthController {
 
     // 🟢 Proses login
     public function login() {
-        if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-            $identifier = trim($_POST['identifier']);
-            $password = $_POST['password'];
+        if ($_SERVER['REQUEST_METHOD'] === "POST") {
 
-            if (empty($identifier) || empty($password)) {
-                echo "<script>alert('Harap isi semua field!');</script>";
-                return;
-            }
+    // Ambil input dari form login
+    $identifier = trim($_POST['identifier']);
+    $password = $_POST['password'];
 
-            $column = filter_var($identifier, FILTER_VALIDATE_EMAIL) ? 'email' : 'nama';
-            $data = $this->userModel->getUserBy($column, $identifier);
+    // Validasi form
+    if (empty($identifier) || empty($password)) {
+        echo "<script>alert('Harap isi semua field!');</script>";
+        exit;
+    }
 
-            if ($data && password_verify($password, $data['password'])) {
-                $_SESSION['user'] = [
-                    'id_user' => $data['id_user'],
-                    'nama' => $data['nama'],
-                    'role' => $data['role'] ?? 'user'
-                ];
+    // untuk memfilter form nya jika user mengisi email/nama dalam form tersebut
+    if (filter_var($identifier, FILTER_VALIDATE_EMAIL)) {
+        $column = "email";
+    }elseif (preg_match('/^(\+62|62|0)8[1-9][0-9]{6,9}$/', $identifier)) {
+        $column = "telp";
+        // ini opsional jika dalam database menyimpan nomor telepon dalam bentuk +62
+        $identifier = preg_replace('/^0/', '+62', $identifier);
+    }else {
+        $column = "nama";
+    }
 
-                if ($data['role'] === 'admin') {
-                    header("Location: ../Views/index.php");
-                } else {
-                    header("Location: ../../index.php");
-                }
-                exit;
-            } else {
-                echo "<script>alert('User atau password salah!');</script>";
-            }
+    // Ambil data user dari database
+    $data = $user->getUserBy($column, $identifier);
+
+    if ($data) {
+        if (password_verify($password, $data['password'])) {
+            $_SESSION['user'] = [
+                'id_user' => $data['id_user'],
+                'nama' => $data['nama'],
+            ];
+
+        } else {
+            echo "<script>alert('Password salah!');</script>";
+        }
+    } else {
+        echo "<script>alert('Nama/Email tidak ditemukan!');</script>";
         }
     }
+ }
 
     // 🟢 Tampilkan form signup
     public function showSignup() {
