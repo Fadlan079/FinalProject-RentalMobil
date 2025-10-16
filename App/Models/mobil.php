@@ -9,7 +9,7 @@ class Mobil {
         $this->pdo = $db->getConnection();
     }
 
-    public function InsertMobil($tahun, $warna, $noplat, $nomesin,$norangka,$status) {
+    public function InsertMobil($tahun, $warna, $noplat, $nomesin,$norangka,$status, $id_tipe) {
         try{
             $sql = "INSERT INTO mobil(tahun, warna, noplat, nomesin,norangka,status) VALUES (:tahun, :warna, :noplat, :nomesin,:norangka,:status)";
             $stmt = $this->pdo->prepare($sql);
@@ -19,6 +19,7 @@ class Mobil {
             $stmt->bindParam(":nomesin", $nomesin);
             $stmt->bindParam(":norangka", $norangka);
             $stmt->bindParam(":status", $status);
+            $stmt->bindParam(":id_tipe", $id_tipe);
             return $stmt->execute();
         }catch(PDOException $e){
             echo "Data Gagal Di Tambahkan :" .$e->getMessage();
@@ -35,16 +36,18 @@ class Mobil {
         }
     }
 
-    public function UpdateMobil($id_mobil,$merek, $model, $tahun, $harga_sewa, $status){
+    public function UpdateMobil($id_mobil,$tahun, $warna, $noplat, $nomesin, $norangka, $status, $id_tipe ){
         try{
             $sql = "UPDATE mobil SET merek=:merek,model=:model,tahun=:tahun,harga_sewa=:harga_sewa,status=:status WHERE id_mobil = :id_mobil";
             $stmt = $this->pdo->prepare($sql);
             $stmt->bindParam(":id_mobil", $id_mobil);
-            $stmt->bindParam(":merek", $merek);
-            $stmt->bindParam(":model", $model);
             $stmt->bindParam(":tahun", $tahun);
-            $stmt->bindParam(":harga_sewa", $harga_sewa);
+            $stmt->bindParam(":warna", $warna);
+            $stmt->bindParam(":noplat", $noplat);
+            $stmt->bindParam(":nomesin", $nomesin);
+            $stmt->bindParam(":norangka", $norangka);
             $stmt->bindParam(":status", $status);
+            $stmt->bindParam(":id_tipe", $id_tipe);
             return $stmt->execute();
         }catch(PDOException $e){
             echo "Data Gagal di Ubah :" .$e->getMessage();
@@ -65,16 +68,14 @@ class Mobil {
     public function searchmobil($keyword){
         try{
             $sql = "SELECT * FROM mobil 
-                WHERE merek LIKE :keyword
+                WHERE tahun  LIKE :keyword
                    OR model LIKE :keyword
                    OR warna LIKE :keyword
-                   OR bahan_bakar LIKE :keyword
-                   OR transmisi LIKE :keyword
+                   OR noplat LIKE :keyword
+                   OR nomesin LIKE :keyword
                    OR status LIKE :keyword
-                   OR tahun LIKE :keyword
-                   OR kapasitas LIKE :keyword
-                   OR bagasi LIKE :keyword
-                   OR harga_hari <= :keyword";
+                   OR norengka LIKE :keyword
+                   OR id_tipe <= :keyword";
             $stmt = $this->pdo->prepare($sql);
             $search = "%" . $keyword . "%";
             $stmt->bindParam(':keyword',$search);
@@ -85,17 +86,6 @@ class Mobil {
             echo "Data Gagagl di tambahkan, silahkan coba lagi :" .$e->getMessage();
         }
     }
-
-    public function JumlahMobil(){
-        try{
-            $sql = "SELECT COUNT(*) AS jumlahmobil FROM mobil";
-            $stmt = $this->pdo->query($sql);
-            $result = $stmt->fetch(PDO::FETCH_ASSOC);
-            return $result['jumlahmobil'];
-        }catch(PDOException $e){
-                echo "Data Gagal di tambahkan, silahkan coba lagi :" .$e->getMessage();
-            }
-        }
 
 public function statusmobil($status) {
     try {

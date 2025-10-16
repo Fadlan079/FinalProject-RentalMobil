@@ -118,7 +118,7 @@
                             <th class="px-3 py-3"><?= htmlspecialchars($row['merek'])?></th>
                             <th class="px-3 py-3"><?= htmlspecialchars($row['model'])?></th>
                             <th class="px-3 py-3"><?= htmlspecialchars($row['tahun'])?></th>
-                            <th class="px-3 py-3 text-emerald-500"><?= htmlspecialchars($row['harga_sewa'])?></th>
+                            <th class="px-3 py-3 text-emerald-500"><?= htmlspecialchars($row['harga_hari'])?></th>
                             <?php if($row['status'] == 'ready'):?>
                                 <th class=""><span class="bg-gradient-to-br from-emerald-400 to-emerald-500 text-emerald-100 p-1 w-25 text-center inline-block rounded-full"><?= htmlspecialchars($row['status'])?></span></th>
                             <?php elseif($row['status'] == 'maintenance'):?>
