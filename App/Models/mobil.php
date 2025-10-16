@@ -9,14 +9,15 @@ class Mobil {
         $this->pdo = $db->getConnection();
     }
 
-    public function InsertMobil($merek, $model, $tahun, $harga_sewa, $status) {
+    public function InsertMobil($tahun, $warna, $noplat, $nomesin,$norangka,$status) {
         try{
-            $sql = "INSERT INTO mobil(merek, model, tahun, harga_sewa, status) VALUES (:merek, :model, :tahun, :harga_sewa, :status)";
+            $sql = "INSERT INTO mobil(tahun, warna, noplat, nomesin,norangka,status) VALUES (:tahun, :warna, :noplat, :nomesin,:norangka,:status)";
             $stmt = $this->pdo->prepare($sql);
-            $stmt->bindParam(":merek", $merek);
-            $stmt->bindParam(":model", $model);
             $stmt->bindParam(":tahun", $tahun);
-            $stmt->bindParam(":harga_sewa", $harga_sewa);
+            $stmt->bindParam(":warna", $warna);
+            $stmt->bindParam(":noplat", $noplat);
+            $stmt->bindParam(":nomesin", $nomesin);
+            $stmt->bindParam(":norangka", $norangka);
             $stmt->bindParam(":status", $status);
             return $stmt->execute();
         }catch(PDOException $e){
