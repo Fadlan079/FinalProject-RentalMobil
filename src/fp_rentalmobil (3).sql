@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost:3306
--- Generation Time: Oct 15, 2025 at 06:44 AM
+-- Generation Time: Oct 16, 2025 at 01:08 AM
 -- Server version: 8.4.3
 -- PHP Version: 8.3.16
 
@@ -29,7 +29,7 @@ SET time_zone = "+00:00";
 
 CREATE TABLE `mobil` (
   `id_mobil` int NOT NULL,
-  `tahun` int NOT NULL,
+  `tahun` year NOT NULL,
   `warna` varchar(255) NOT NULL,
   `noplat` varchar(255) NOT NULL,
   `nomesin` varchar(255) NOT NULL,
@@ -57,7 +57,8 @@ CREATE TABLE `pegawai` (
   `kab` varchar(255) NOT NULL,
   `KP` varchar(5) NOT NULL,
   `telp` varchar(30) NOT NULL,
-  `email` varchar(255) NOT NULL
+  `email` varchar(255) NOT NULL,
+  `password` varchar(255) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 -- --------------------------------------------------------
@@ -76,7 +77,8 @@ CREATE TABLE `pelanggan` (
   `kabkota` varchar(255) NOT NULL,
   `kp` varchar(5) NOT NULL,
   `email` varchar(255) NOT NULL,
-  `telp` varchar(255) NOT NULL
+  `telp` varchar(255) NOT NULL,
+  `password` varchar(255) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 -- --------------------------------------------------------
