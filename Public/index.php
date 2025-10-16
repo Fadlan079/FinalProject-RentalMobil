@@ -1,7 +1,7 @@
 <?php
-require_once __DIR__ . '/../App/Controllers/mobil-controller.php';
+require_once __DIR__ . '/../App/Controllers/user-controller.php';
 
-$controller = new MOBILController();
+$controller = new USERController();
 
 $action = $_GET['action'] ?? 'index';
 
