@@ -69,7 +69,7 @@ class AuthController {
                 'role'    => 'pelanggan',
             ];
             
-            header("location:login-pelanggan.php");
+            header("location:login.php");
             exit;
 
         }else {
@@ -84,7 +84,7 @@ class AuthController {
                 'role'    => 'pegawai',
             ];
             // Redirect pegawai
-            header('Location: login-pegawai.php');
+            header('Location: login.php');
             exit;
 
         } else {
@@ -95,7 +95,7 @@ class AuthController {
 
     // 🟢 Tampilkan form signup
     public function showSignup() {
-        require_once __DIR__ . '/../Views/auth/signup.php';
+        require_once __DIR__ . '/../Views/Auth/signup.php';
     }
 
     // 🟢 Proses signup
