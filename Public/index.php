@@ -1,26 +1,13 @@
 <?php
-require_once __DIR__ . '/../App/Controllers/user-controller.php';
+require_once __DIR__ . '/../App/Controllers/pelanggan-controller.php';
 
-$controller = new USERController();
+$controller = new PELANGGANController;
 
 $action = $_GET['action'] ?? 'index';
 
-$id_mobil = $_GET['id'] ?? null;
+$id = $_GET['id'] ?? null;
 
 switch ($action) {
-
-    case 'insert':
-        $controller->Insert();
-        break;
-
-    case 'update':
-        $controller->edit($id_mobil);
-        break;
-
-    case 'delete':
-        $controller->delete($id_mobil);
-        break;
-
         
     default:
         $controller->index();

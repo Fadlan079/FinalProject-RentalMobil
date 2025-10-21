@@ -11,7 +11,7 @@ class Mobil {
 
     public function InsertMobil($tahun, $warna, $noplat, $nomesin,$norangka,$status, $id_tipe) {
         try{
-            $sql = "INSERT INTO mobil(tahun, warna, noplat, nomesin,norangka,status) VALUES (:tahun, :warna, :noplat, :nomesin,:norangka,:status)";
+            $sql = "INSERT INTO mobil(tahun, warna, noplat, nomesin,norangka,status,id_tipe) VALUES (:tahun, :warna, :noplat, :nomesin,:norangka,:status,:id_tipe)";
             $stmt = $this->pdo->prepare($sql);
             $stmt->bindParam(":tahun", $tahun);
             $stmt->bindParam(":warna", $warna);
@@ -38,7 +38,7 @@ class Mobil {
 
     public function UpdateMobil($id_mobil,$tahun, $warna, $noplat, $nomesin, $norangka, $status, $id_tipe ){
         try{
-            $sql = "UPDATE mobil SET merek=:merek,model=:model,tahun=:tahun,harga_sewa=:harga_sewa,status=:status WHERE id_mobil = :id_mobil";
+            $sql = "UPDATE mobil SET tahun=:tahun,warna=:warna,noplat=:noplat,nomesin=:nomesin,norangka=:norangka,status=:status,id_tipe=:id_tipe WHERE id_mobil = :id_mobil";
             $stmt = $this->pdo->prepare($sql);
             $stmt->bindParam(":id_mobil", $id_mobil);
             $stmt->bindParam(":tahun", $tahun);
@@ -58,46 +58,39 @@ class Mobil {
         try{
             $sql = "DELETE FROM mobil WHERE id_mobil = :id_mobil";
             $stmt = $this->pdo->prepare($sql);
-            $stmt->bindParam(":id_mobil", $id_mobil);
-            return $stmt->execute();
+            return $stmt->execute(['id_mobil' =>$id_mobil]);
         }catch(PDOException $e){
-                echo "Data Gagal di Hapus :" .$e->getMessage();
-            }
+            echo "Data Gagal di Hapus :" .$e->getMessage();
+        }
     }
 
     public function searchmobil($keyword){
         try{
             $sql = "SELECT * FROM mobil 
                 WHERE tahun  LIKE :keyword
-                   OR model LIKE :keyword
                    OR warna LIKE :keyword
                    OR noplat LIKE :keyword
                    OR nomesin LIKE :keyword
                    OR status LIKE :keyword
-                   OR norengka LIKE :keyword
-                   OR id_tipe <= :keyword";
+                   OR norangka LIKE :keyword";
             $stmt = $this->pdo->prepare($sql);
             $search = "%" . $keyword . "%";
             $stmt->bindParam(':keyword',$search);
 
             $stmt->execute();
-            return $stmt->fetchAll(PDO::FETCH_ASSOC);
+            return $stmt->fetch(PDO::FETCH_ASSOC);
         }catch(PDOException $e){
-            echo "Data Gagagl di tambahkan, silahkan coba lagi :" .$e->getMessage();
+            echo "Data Gagal Di Temukan :" .$e->getMessage();
         }
     }
-
-public function statusmobil($status) {
-    try {
-        $sql = "SELECT COUNT(*) AS jumlah FROM mobil WHERE status = :status";
-        $stmt = $this->pdo->prepare($sql);
-        $stmt->bindParam(":status", $status);
-        $stmt->execute();
-        $result = $stmt->fetch(PDO::FETCH_ASSOC);
-        return $result['jumlah'];
-    } catch (PDOException $e) {
-        echo "Gagal mengambil data status mobil: " . $e->getMessage();
-    }
-}  
 }
+
+// $mobil = new Mobil();
+// $mobil->InsertMobil(2008,'merah','2123','1233','1203','rent',1);
+// $data = $mobil->SelectMobil();
+// var_dump($data);
+// $mobil->UpdateMobil(1,2008,'hitam','2928','8991','1239','ready',1);
+// $mobil->DeleteMobil(2);
+// $data = $mobil->searchmobil('rent');
+// var_dump($data);
 ?> 
