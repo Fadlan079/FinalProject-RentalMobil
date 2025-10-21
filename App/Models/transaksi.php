@@ -8,7 +8,7 @@ class Transaksi {
         $this->pdo = $db->getConnection();
     }
 
-    // 🔹 INSERT
+    // INSERT
     public function InsertTransaksi($nama_pelanggan, $mobil, $tgl_sewa, $tgl_kembali, $total_bayar, $status, $denda) {
         try{
             $sql = "INSERT INTO transaksi (nama_pelanggan, mobil, tgl_sewa, tgl_kembali, total_bayar, status, denda) VALUES (:nama_pelanggan, :mobil, :tgl_sewa, :tgl_kembali, :total_bayar, :status, :denda)";
@@ -26,7 +26,7 @@ class Transaksi {
         }
     }
 
-    // 🔹 SELECT
+    //  SELECT
     public function SelectTransaksi() {
     try{
         $sql = "SELECT * FROM transaksi";
@@ -37,7 +37,7 @@ class Transaksi {
         }
     }
 
-    public function pendapatanbulanini() {
+    public function     pendapatanbulanini() {
     try{
         $sql = "SELECT SUM(total_bayar) AS pendapatanbulanini FROM transaksi WHERE MONTH(tgl_dibuat) = MONTH(CURRENT_DATE()) AND YEAR(tgl_dibuat) = YEAR(CURRENT_DATE())";
         $stmt = $this->pdo->query($sql);
@@ -59,7 +59,7 @@ class Transaksi {
             }
         }
     
-    // 🔹 UPDATE
+    // UPDATE
     public function UpdateTransaksi($id, $nama_pelanggan, $mobil, $tgl_sewa, $tgl_kembali, $total_bayar, $status, $denda) {
     try{
             $sql = "UPDATE transaksi SET 
@@ -86,7 +86,7 @@ class Transaksi {
         }
     }
 
-    // 🔹 DELETE
+    //  DELETE
     public function DeleteTransaksi($id) {
     try{
         $sql = "DELETE FROM transaksi WHERE id_transaksi = :id";
