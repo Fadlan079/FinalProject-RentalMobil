@@ -9,12 +9,10 @@ class AuthController {
         $this->userModel = new User();
     }
 
-    // 🟢 Tampilkan form login
     public function showLogin() {
         require_once __DIR__ . '/../Views/auth/login.php';
     }
 
-    // 🟢 Proses login
     public function login() {
         if ($_SERVER['REQUEST_METHOD'] === "POST") {
 
@@ -74,7 +72,6 @@ class AuthController {
 
         }else {
 
-        // 2. Coba cari di tabel pegawai
         $data = $user->getUserBy($column, $identifier, 'pegawai');
 
         if ($data && password_verify($password, $data['password'])) {
@@ -93,12 +90,10 @@ class AuthController {
     }
 }
 
-    // 🟢 Tampilkan form signup
     public function showSignup() {
         require_once __DIR__ . '/../Views/Auth/signup.php';
     }
 
-    // 🟢 Proses signup
     public function signup() {
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $this->userModel->Insertuser(
@@ -110,14 +105,11 @@ class AuthController {
                 $_POST['tlp']
             );
 
-            header("Location: <div class="">
-            <div class="">
-            <signup class="php"></signup>?success=1");
+            header("Location: ../Views/auth/login.php");
             exit;
         }
     }
 
-    // 🟢 Logout
     public function logout() {
         session_unset();
         session_destroy();
