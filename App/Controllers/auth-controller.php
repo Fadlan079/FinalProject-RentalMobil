@@ -105,7 +105,7 @@ class AuthController {
                 $_POST['tlp']
             );
 
-            header("Location: ../Views/auth/login.php");
+            header("Location: ../Views/auth/signup.php");
             exit;
         }
     }
