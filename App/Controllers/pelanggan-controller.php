@@ -8,7 +8,7 @@ class PELANGGANController{
         $this->model = new Pelanggan();
     }
     public function index(){
-        include __DIR__ . "/../Views/pelanggan/pelanggan-select.php";
+        include __DIR__ . "/../Views/pelanggan/beranda.php";
     }
 }
 ?>

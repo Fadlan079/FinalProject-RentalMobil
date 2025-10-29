@@ -17,7 +17,7 @@ switch ($action) {
         $controller->edit($id_mobil);
         break;
 
-    case 'delete':
+    case 'delete':  
         $controller->delete($id_mobil);
         break;
 
