@@ -9,19 +9,20 @@ class User{
         $this->pdo = $db->getConnection();
     }
 
-    public function Insertuser($email,$password,$role=Null){
+    public function Insertuser($email,$password,$jk,$role=Null){
         try{
             $hash = Password_hash($password,PASSWORD_DEFAULT);
             if ($role) {
-                $sql = "INSERT INTO user (email, password, role) VALUES (:email, :password, :role)";
+                $sql = "INSERT INTO user (email, password,jk, role) VALUES (:email, :password,:jk, :role)";
                 $stmt = $this->pdo->prepare($sql);
                 $stmt->bindParam(':role', $role);
             } else {
-                $sql = "INSERT INTO user (email, password) VALUES (:email, :password)";
+                $sql = "INSERT INTO user (email, password,jk) VALUES (:email, :password,:jk)";
                 $stmt = $this->pdo->prepare($sql);
             }
             $stmt->bindParam(':email',$email);
             $stmt->bindParam(':password',$hash);
+            $stmt->bindParam(':jk',$jk);
             return $stmt->execute();
         }catch(PDOException $e){
             die('Gagal Menambahkan Data :' .  $e->getMessage());
