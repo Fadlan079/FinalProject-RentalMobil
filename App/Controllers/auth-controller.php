@@ -2,118 +2,109 @@
 session_start();
 require_once __DIR__ . '/../Models/user.php';
 
-class AuthController {
-    private $userModel;
+class AUTHController {
+    private $model;
 
     public function __construct() {
-        $this->userModel = new User();
+        $this->model = new User();
     }
 
-    public function showLogin() {
-        require_once __DIR__ . '/../Views/auth/login.php';
+    public function showlogin() {
+        require_once __DIR__ . '/../Views/Auth/login.php';
     }
 
     public function login() {
-        if ($_SERVER['REQUEST_METHOD'] === "POST") {
+        if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+            $email = trim($_POST['email']);
+            $password = trim($_POST['password']);
 
-    // Ambil input dari form login
-    $identifier = trim($_POST['identifier']);
-    $password = $_POST['password'];
+            // 1️⃣ Validasi input kosong
+            if (empty($email) || empty($password)) {
+                $_SESSION['error'] = 'Email dan password tidak boleh kosong!';
+                header("Location: ../../Public/?action=login");
+                exit;
+            }
 
-    // Validasi form
-    if (empty($identifier) || empty($password)) {
-        echo "<script>alert('Harap isi semua field!');</script>";
-        exit;
-    }
+            // 2️⃣ Ambil user dari database
+            $users = $this->model->Selectuser();
+            $foundUser = null;
 
-    // untuk memfilter form nya jika user mengisi email/nama dalam form tersebut
-    if (filter_var($identifier, FILTER_VALIDATE_EMAIL)) {
-        $column = "email";
-    }elseif (preg_match('/^(\+62|62|0)8[1-9][0-9]{6,9}$/', $identifier)) {
-        $column = "telp";
-        // ini opsional jika dalam database menyimpan nomor telepon dalam bentuk +62
-        $identifier = preg_replace('/^0/', '+62', $identifier);
-    }else {
-        $column = "nama";
-    }
+            foreach ($users as $user) {
+                if ($user['email'] === $email) {
+                    $foundUser = $user;
+                    break;
+                }
+            }
 
-    // Ambil data user dari database
-    $data = $user->getUserBy($column, $identifier,'pelanggan');
+            // 3️⃣ Jika user tidak ditemukan
+            if (!$foundUser) {
+                $_SESSION['error'] = 'Email tidak ditemukan!';
+                header("Location: ../../Public/?action=login");
+                exit;
+            }
 
-    if ($data) {
-        if (password_verify($password, $data['password'])) {
+            // 4️⃣ Verifikasi password
+            if (!password_verify($password, $foundUser['password'])) {
+                $_SESSION['error'] = 'Password salah!';
+                header("Location: ../../Public/?action=login");
+                exit;
+            }
+
+            // 5️⃣ Simpan ke session
             $_SESSION['user'] = [
-                'id_user' => $data['id_user'],
-                'nama' => $data['nama'],
+                'id_user' => $foundUser['id_user'],
+                'email'   => $foundUser['email'],
+                'role'    => $foundUser['role'] ?? 'pelanggan',
             ];
-            
-            header("location:");
-        } else {
-            echo "<script>alert('Password salah!');</script>";
-        }
-    } else {
-        echo "<script>alert('Nama/Email/Telepon tidak ditemukan!');</script>";
-        }
-    }
- 
 
- // Ambil data user dari database
-    $data = $user->getUserBy($column, $identifier,'pelanggan');
-
-        if ($data && password_verify($password, $data['password'])) {
-            $_SESSION['user'] = [
-                'id_user' => $data['id_user'],
-                'nama' => $data['nama'],
-                'role'    => 'pelanggan',
-            ];
-            
-            header("location:login.php");
+            // 6️⃣ Redirect ke dashboard
+            header("Location: ../Public/?action=index");
             exit;
-
-        }else {
-
-        $data = $user->getUserBy($column, $identifier, 'pegawai');
-
-        if ($data && password_verify($password, $data['password'])) {
-            $_SESSION['user'] = [
-                'id_user' => $data['id_pegawai'],
-                'nama'    => $data['nama'],
-                'role'    => 'pegawai',
-            ];
-            // Redirect pegawai
-            header('Location: login.php');
-            exit;
-
-        } else {
-            echo "<script>alert('Login gagal. Periksa kembali data Anda.');</script>";
         }
     }
-}
-
-    public function showSignup() {
+    
+    public function showsignup() {
         require_once __DIR__ . '/../Views/Auth/signup.php';
     }
 
     public function signup() {
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-            $this->userModel->Insertuser(
-                $_POST['nama'],
-                $_FILES['sim'],
-                $_POST['email'],
-                $_POST['password'],
-                $_FILES['ktp'],
-                $_POST['tlp']
-            );
+            $email = trim($_POST['email']);
+            $password = trim($_POST['password']);
+            $jk = trim($_POST['jk']);
 
-            header("Location: ../Views/auth/signup.php");
-            exit;
+            if (empty($email) || empty($password) || empty($jk)) {
+                $_SESSION['error'] = 'Data Tidak Boleh Kosong!';
+                header("Location: ../Views/Auth/signup.php");
+                exit;
+            }
+
+            $users = $this->model->Selectuser();
+            foreach ($users as $user) {
+                if ($user['email'] === $email) {
+                    $_SESSION['error'] = 'Email sudah terdaftar!';
+                    header("Location: ../Views/Auth/signup.php");
+                    exit;
+                }
+            }
+
+            if ($this->model->Insertuser($email, $password,$jk)) {
+                $_SESSION['success'] = 'Registrasi berhasil, silakan login.';
+                header("Location: ../Public/?action=login");
+                exit;
+            } else {
+                $_SESSION['error'] = 'Gagal mendaftar.';
+                header("Location: ../Views/Auth/signup.php");
+                exit;
+            }
         }
     }
 
+      
     public function logout() {
         session_unset();
         session_destroy();
-        header("Location: ../Views/auth/login.php");
+        header("Location: ../Views/Auth/login.php");
         exit;
     }
 
