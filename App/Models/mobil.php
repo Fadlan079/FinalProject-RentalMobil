@@ -1,7 +1,7 @@
 <?php
 require_once __DIR__ . '/../../Config/Database.php';
 
-class Mobil {
+class Mobil{
     private $pdo;
 
     public function __construct() {
@@ -50,7 +50,7 @@ class Mobil {
             $stmt->bindParam(":id_tipe", $id_tipe);
             return $stmt->execute();
         }catch(PDOException $e){
-            echo "Data Gagal di Ubah :" .$e->getMessage();
+            echo "Data Gagal diPerbarui :" .$e->getMessage();
         }
     }
 
@@ -61,26 +61,6 @@ class Mobil {
             return $stmt->execute(['id_mobil' =>$id_mobil]);
         }catch(PDOException $e){
             echo "Data Gagal di Hapus :" .$e->getMessage();
-        }
-    }
-
-    public function searchmobil($keyword){
-        try{
-            $sql = "SELECT * FROM mobil 
-                WHERE tahun  LIKE :keyword
-                   OR warna LIKE :keyword
-                   OR noplat LIKE :keyword
-                   OR nomesin LIKE :keyword
-                   OR status LIKE :keyword
-                   OR norangka LIKE :keyword";
-            $stmt = $this->pdo->prepare($sql);
-            $search = "%" . $keyword . "%";
-            $stmt->bindParam(':keyword',$search);
-
-            $stmt->execute();
-            return $stmt->fetch(PDO::FETCH_ASSOC);
-        }catch(PDOException $e){
-            echo "Data Gagal Di Temukan :" .$e->getMessage();
         }
     }
 }

@@ -9,9 +9,9 @@ class Pegawai{
         $this->pdo = $db->getConnection();
     }
 
-    public function Insertpegawai($id_user,$nama,$tmpt_lhr,$tgl_lhr,$alamat,$kel,$kec,$kab,$KP,$telp){
+    public function Insertpegawai($id_user,$nama,$tmpt_lhr,$tgl_lhr,$alamat,$kel,$kec,$kab,$KP,$telp,$bio,$pp){
         try{
-            $sql = "INSERT INTO pegawai(id_user,nama,tmpt_lhr,tgl_lhr,alamat,kel,kec,kab,KP,telp) VALUES(:id_user,:nama,:tmpt_lhr,:tgl_lhr,:alamat,:kel,:kec,:kab,:KP,:telp)";
+            $sql = "INSERT INTO pegawai(id_user,nama,tmpt_lhr,tgl_lhr,alamat,kel,kec,kab,KP,telp,bio,pp) VALUES(:id_user,:nama,:tmpt_lhr,:tgl_lhr,:alamat,:kel,:kec,:kab,:KP,:telp,:bio,:pp)";
             $stmt = $this->pdo->prepare($sql);
             $stmt->bindParam(':id_user',$id_user);
             $stmt->bindParam(':nama',$nama);
@@ -23,6 +23,8 @@ class Pegawai{
             $stmt->bindParam(':kab',$kab);
             $stmt->bindParam(':KP',$KP);
             $stmt->bindParam(':telp',$telp);
+            $stmt->bindParam(':bio',$bio);
+            $stmt->bindParam(':pp',$pp);
             return $stmt->execute();
         }catch(PDOException $e){
             die('Gagal Menambahkan Data :' .  $e->getMessage());
@@ -39,9 +41,9 @@ class Pegawai{
         }
     }
 
-    public function Updatepegawai($id_pegawai,$id_user,$nama,$tmpt_lhr,$tgl_lhr,$alamat,$kel,$kec,$kab,$KP,$telp){
+    public function Updatepegawai($id_pegawai,$id_user,$nama,$tmpt_lhr,$tgl_lhr,$alamat,$kel,$kec,$kab,$KP,$telp,$bio,$pp){
         try{
-            $sql = "UPDATE pegawai SET id_user=:id_user,nama=:nama,tmpt_lhr=:tmpt_lhr,tgl_lhr=:tgl_lhr,alamat=:alamat,kel=:kel,kec=:kec,kab=:kab,KP=:KP,telp=:telp WHERE id_pegawai=:id_pegawai LIMIT = 1";
+            $sql = "UPDATE pegawai SET id_user=:id_user,nama=:nama,tmpt_lhr=:tmpt_lhr,tgl_lhr=:tgl_lhr,alamat=:alamat,kel=:kel,kec=:kec,kab=:kab,KP=:KP,telp=:telp,bio=:bio,pp=:pp WHERE id_pegawai=:id_pegawai";
             $stmt = $this->pdo->prepare($sql);
             $stmt->bindParam(':id_pegawai',$id_pegawai);
             $stmt->bindParam(':id_user',$id_user);
@@ -54,6 +56,8 @@ class Pegawai{
             $stmt->bindParam(':kab',$kab);
             $stmt->bindParam(':KP',$KP);
             $stmt->bindParam(':telp',$telp);
+            $stmt->bindParam(':bio',$bio);
+            $stmt->bindParam(':pp',$pp);
             return $stmt->execute();
         }catch(PDOException $e){
             die('Gagal Memperbarui Data :' .  $e->getMessage());
@@ -62,7 +66,7 @@ class Pegawai{
 
     public function Deletepegawai($id_pegawai){
         try{
-            $sql = "DELETE FROM pegawai WHERE id_pegawai = :id_pegawai LIMIT = 1";
+            $sql = "DELETE FROM pegawai WHERE id_pegawai = :id_pegawai";
             $stmt = $this->pdo->prepare($sql);
             return $stmt->execute(['id_pegawai' => $id_pegawai]);
         }catch(PDOException $e){
@@ -72,8 +76,8 @@ class Pegawai{
 }
 
 // $pegawai = new Pegawai();
-// $pegawai->Insertpegawai(1,'','',Null,'','','','','','');
-// $pegawai->Updatepegawai(1,2,'Test1','Samarinda','2008-09-11','Jl Tanah Hitam','Gunung kelua','Samarinda Ulu','Samarinda',12346,'0822100732927');
+// $pegawai->Insertpegawai(1,'','',Null,'','','','','','','','');
+// $pegawai->Updatepegawai(1,2,'Test1','Samarinda','2008-09-11','Jl Tanah Hitam','Gunung kelua','Samarinda Ulu','Samarinda',12346,'0822100732927','','');
 // $pegawai->Deletepegawai(2);
 // $data = $pegawai->Selectpegawai();
 // var_dump($data);
