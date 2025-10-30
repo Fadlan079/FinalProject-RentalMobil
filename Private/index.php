@@ -8,22 +8,10 @@ $action = $_GET['action'] ?? 'index';
 $id_mobil = $_GET['id'] ?? null;
 
 switch ($action) {
-
-    case 'insert':
-        $controller->Insert();
-        break;
-
-    case 'update':
-        $controller->edit($id_mobil);
-        break;
-
-    case 'delete':  
-        $controller->delete($id_mobil);
-        break;
-
-        
+    // 404 Not Found    
     default:
-        $controller->index();
+        http_response_code(404);
+        include __DIR__ . '/../App/Views/errors/404.php';
         break;
 }
 ?>
