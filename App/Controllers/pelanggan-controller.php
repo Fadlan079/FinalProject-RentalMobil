@@ -7,8 +7,8 @@ class PELANGGANController{
     public function __construct(){
         $this->model = new Pelanggan();
     }
-    public function index(){
-        include __DIR__ . "/../Views/pelanggan/beranda.php";
+
+    public function getmobil(){
     }
 }
 ?>
