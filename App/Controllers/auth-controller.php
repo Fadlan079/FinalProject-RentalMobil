@@ -104,7 +104,7 @@ class AUTHController {
     public function logout() {
         session_unset();
         session_destroy();
-        header("Location: ../Views/Auth/login.php");
+        header("Location: ../Public/?action=index");
         exit;
     }
 
