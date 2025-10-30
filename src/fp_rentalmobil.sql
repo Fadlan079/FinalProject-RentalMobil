@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost:3306
--- Generation Time: Oct 16, 2025 at 01:08 AM
+-- Generation Time: Oct 30, 2025 at 06:58 AM
 -- Server version: 8.4.3
 -- PHP Version: 8.3.16
 
@@ -38,6 +38,14 @@ CREATE TABLE `mobil` (
   `id_tipe` int NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
+--
+-- Dumping data for table `mobil`
+--
+
+INSERT INTO `mobil` (`id_mobil`, `tahun`, `warna`, `noplat`, `nomesin`, `norangka`, `status`, `id_tipe`) VALUES
+(3, '2008', 'merah', '2928', '8991', '1239', 'ready', 1),
+(7, '2008', 'merah', '2123', '1233', '1203', 'rent', 1);
+
 -- --------------------------------------------------------
 
 --
@@ -46,20 +54,26 @@ CREATE TABLE `mobil` (
 
 CREATE TABLE `pegawai` (
   `id_pegawai` int NOT NULL,
+  `id_user` int DEFAULT NULL,
   `nama` varchar(255) NOT NULL,
-  `namakel` varchar(255) NOT NULL,
-  `JK` enum('L','P') NOT NULL,
   `tmpt_lhr` varchar(255) NOT NULL,
-  `tgl_lhr` date NOT NULL,
+  `tgl_lhr` date DEFAULT NULL,
   `alamat` varchar(255) NOT NULL,
   `kel` varchar(255) NOT NULL,
   `kec` varchar(255) NOT NULL,
   `kab` varchar(255) NOT NULL,
   `KP` varchar(5) NOT NULL,
   `telp` varchar(30) NOT NULL,
-  `email` varchar(255) NOT NULL,
-  `password` varchar(255) NOT NULL
+  `bio` text NOT NULL,
+  `pp` varchar(255) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+
+--
+-- Dumping data for table `pegawai`
+--
+
+INSERT INTO `pegawai` (`id_pegawai`, `id_user`, `nama`, `tmpt_lhr`, `tgl_lhr`, `alamat`, `kel`, `kec`, `kab`, `KP`, `telp`, `bio`, `pp`) VALUES
+(1, 2, 'Test1', 'Samarinda', '2008-09-11', 'Jl Tanah Hitam', 'Gunung kelua', 'Samarinda Ulu', 'Samarinda', '12346', '0822100732927', '', '');
 
 -- --------------------------------------------------------
 
@@ -69,6 +83,7 @@ CREATE TABLE `pegawai` (
 
 CREATE TABLE `pelanggan` (
   `id_pelanggan` int NOT NULL,
+  `id_user` int DEFAULT NULL,
   `nama` varchar(255) NOT NULL,
   `nik` varchar(255) NOT NULL,
   `alamat` text NOT NULL,
@@ -76,10 +91,17 @@ CREATE TABLE `pelanggan` (
   `kecamatan` varchar(255) NOT NULL,
   `kabkota` varchar(255) NOT NULL,
   `kp` varchar(5) NOT NULL,
-  `email` varchar(255) NOT NULL,
   `telp` varchar(255) NOT NULL,
-  `password` varchar(255) NOT NULL
+  `bio` text NOT NULL,
+  `pp` varchar(255) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+
+--
+-- Dumping data for table `pelanggan`
+--
+
+INSERT INTO `pelanggan` (`id_pelanggan`, `id_user`, `nama`, `nik`, `alamat`, `kelurahan`, `kecamatan`, `kabkota`, `kp`, `telp`, `bio`, `pp`) VALUES
+(3, 1, 'Fadlan', '1234', 'Jl Aw Syahrani', 'Gunung kelua', 'Samarinda Ulu', 'Samarinda', '12345', '0822100732928', 'testing', 'testing.jpg');
 
 -- --------------------------------------------------------
 
@@ -129,6 +151,39 @@ CREATE TABLE `tipemobil` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 --
+-- Dumping data for table `tipemobil`
+--
+
+INSERT INTO `tipemobil` (`id_tipe`, `merk`, `tipe`, `model`, `jenis`, `silinder`, `bhn_bkr`) VALUES
+(1, 'Test1', 'Testing1', 'Test1', 'Test', 4, 'solar'),
+(9, 'test2', 'testing2', 'test2', 'testing', 2, 'pertamax');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `user`
+--
+
+CREATE TABLE `user` (
+  `id_user` int NOT NULL,
+  `email` varchar(255) NOT NULL,
+  `password` varchar(255) NOT NULL,
+  `jk` enum('L','P') NOT NULL,
+  `role` enum('pelanggan','pegawai') CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL DEFAULT 'pelanggan',
+  `tgl_dibuat` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+
+--
+-- Dumping data for table `user`
+--
+
+INSERT INTO `user` (`id_user`, `email`, `password`, `jk`, `role`, `tgl_dibuat`) VALUES
+(1, 'fadlan@gmail.com', '$2y$12$OEUrePNEi3r2HsnBrCT7UONMUNbAMUfajUIn8Thhu3hY1802gWfK6', 'L', 'pelanggan', '2025-10-29 05:21:32'),
+(2, 'test1@gmail.com', '$2y$12$kRUzzW9nZqwHuEaEDr6WCu7hLRDq8smn1/BcvhlVGrXG2P6wpd2m6', 'L', 'pelanggan', '2025-10-29 06:05:49'),
+(4, 'Test2@gmail.com', '$2y$10$H.66mBQY0.LcmlGy7NyI3u.FOoaLEm4/CwTHmmuJZHTd9dNlVTFH2', 'L', 'pelanggan', '2025-10-29 11:25:21'),
+(5, 'Test3@gmail.com', '$2y$10$VaDzCwwQtuEx3OmYBWcB4uIVhBS5ukb8CYqFg5NUYL78ooow6LUWW', 'P', 'pelanggan', '2025-10-29 11:28:27');
+
+--
 -- Indexes for dumped tables
 --
 
@@ -146,13 +201,15 @@ ALTER TABLE `mobil`
 -- Indexes for table `pegawai`
 --
 ALTER TABLE `pegawai`
-  ADD PRIMARY KEY (`id_pegawai`);
+  ADD PRIMARY KEY (`id_pegawai`),
+  ADD UNIQUE KEY `uq_pegawai_user` (`id_user`);
 
 --
 -- Indexes for table `pelanggan`
 --
 ALTER TABLE `pelanggan`
-  ADD PRIMARY KEY (`id_pelanggan`);
+  ADD PRIMARY KEY (`id_pelanggan`),
+  ADD UNIQUE KEY `uq_pelanggan_user` (`id_user`);
 
 --
 -- Indexes for table `rental`
@@ -176,6 +233,12 @@ ALTER TABLE `tipemobil`
   ADD PRIMARY KEY (`id_tipe`);
 
 --
+-- Indexes for table `user`
+--
+ALTER TABLE `user`
+  ADD PRIMARY KEY (`id_user`);
+
+--
 -- AUTO_INCREMENT for dumped tables
 --
 
@@ -183,19 +246,19 @@ ALTER TABLE `tipemobil`
 -- AUTO_INCREMENT for table `mobil`
 --
 ALTER TABLE `mobil`
-  MODIFY `id_mobil` int NOT NULL AUTO_INCREMENT;
+  MODIFY `id_mobil` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
 
 --
 -- AUTO_INCREMENT for table `pegawai`
 --
 ALTER TABLE `pegawai`
-  MODIFY `id_pegawai` int NOT NULL AUTO_INCREMENT;
+  MODIFY `id_pegawai` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT for table `pelanggan`
 --
 ALTER TABLE `pelanggan`
-  MODIFY `id_pelanggan` int NOT NULL AUTO_INCREMENT;
+  MODIFY `id_pelanggan` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT for table `rental`
@@ -207,7 +270,13 @@ ALTER TABLE `rental`
 -- AUTO_INCREMENT for table `tipemobil`
 --
 ALTER TABLE `tipemobil`
-  MODIFY `id_tipe` int NOT NULL AUTO_INCREMENT;
+  MODIFY `id_tipe` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
+
+--
+-- AUTO_INCREMENT for table `user`
+--
+ALTER TABLE `user`
+  MODIFY `id_user` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
 -- Constraints for dumped tables
@@ -218,6 +287,18 @@ ALTER TABLE `tipemobil`
 --
 ALTER TABLE `mobil`
   ADD CONSTRAINT `mobil_ibfk_1` FOREIGN KEY (`id_tipe`) REFERENCES `tipemobil` (`id_tipe`);
+
+--
+-- Constraints for table `pegawai`
+--
+ALTER TABLE `pegawai`
+  ADD CONSTRAINT `fk_pegawai_user` FOREIGN KEY (`id_user`) REFERENCES `user` (`id_user`) ON DELETE CASCADE ON UPDATE CASCADE;
+
+--
+-- Constraints for table `pelanggan`
+--
+ALTER TABLE `pelanggan`
+  ADD CONSTRAINT `fk_pelanggan_user` FOREIGN KEY (`id_user`) REFERENCES `user` (`id_user`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
 -- Constraints for table `rental`
