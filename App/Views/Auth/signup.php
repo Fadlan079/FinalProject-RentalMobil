@@ -1,30 +1,3 @@
-<!-- <!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>SignUp - Cylc Rent Car</title>
-    <link rel="stylesheet" href="output.css">
-</head>
-<body>
-    <form action="index.php?action=storesignup" method="post">
-        <label>Email</label>
-        <input name="email" type="email" placeholder="Example@gmail.com" required>
-        <label>Password</label>
-        <input name="password" type="password" placeholder="********" required>
-        <br>
-        <label>Jenis kelamin</label>
-        <br>
-        <select name="jk">
-            <option value="L">Laki-laki</option>
-            <option value="P">Perempuan</option>
-        </select>
-        <input type="submit" value="Kirim">
-        <a href="index.php?action=login">Sudah Punya Akun? Login</a>
-    </form>
-</body>
-</html> -->
-
 <!DOCTYPE html>
 <html lang="id">
 <head>
@@ -33,6 +6,29 @@
   <title>SignUp - Cylc Rent Car</title>
   <link rel="stylesheet" href="output.css">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css">
+  <style>
+    html {
+      scroll-behavior: smooth;
+    }
+
+    .scrollbar-hide::-webkit-scrollbar { display: none; }
+
+    ::-webkit-scrollbar {
+      width: 10px;
+    }
+
+    ::-webkit-scrollbar-track {
+      background: #171717;
+    }
+
+    ::-webkit-scrollbar-thumb {
+      background: #f97316;
+    }
+
+    ::-webkit-scrollbar-thumb:hover {
+      background: #ea580c;
+    }
+  </style>
 </head>
 <body class="min-h-screen bg-gradient-to-br from-neutral-900 via-neutral-800 to-neutral-900 flex items-center justify-center text-gray-100">
 
