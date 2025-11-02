@@ -1,9 +1,11 @@
 <?php
-require_once __DIR__ . '/../App/Controllers/pelanggan-controller.php';
 require_once __DIR__ . '/../App/Controllers/auth-controller.php';
+require_once __DIR__ . '/../App/Controllers/pelanggan-controller.php';
+require_once __DIR__ . '/../App/Controllers/pegawai-controller.php';
 
 $Authcontroller = new AUTHController;
-$controller = new PELANGGANController;
+$Pelanggancontroller = new PELANGGANController;
+$Pegawaicontroller = new PEGAWAIController;
 
 $action = $_GET['action'] ?? 'index';
 $id = $_GET['id'] ?? null;
@@ -27,11 +29,25 @@ switch ($action) {
         $Authcontroller->logout();
         break;      
     
-    // Tampilan Pelanggan    
+    // PELANGGAN    
     case 'index':
-        require_once __DIR__ . '/../App/Views/Pelanggan/index.php';
+        $Pelanggancontroller->index();
         break;
+    case 'profile-pelanggan':
+        $Pelanggancontroller->Showprofile();
+        break;    
+    case 'store-profile-pelanggan':
+        $Pelanggancontroller->Storeprofile();
+        break;     
 
+    //PEGAWAI
+    case 'profile-pegawai':
+        $Pegawaicontroller->Showprofile();
+        break;    
+    case 'store-profile-pegawai':
+        $Pegawaicontroller->Storeprofile();
+        break;  
+    
     // 404 Not Found    
     default:
         http_response_code(404);
