@@ -41,11 +41,21 @@ class Pegawai{
         }
     }
 
-    public function Updatepegawai($id_pegawai,$id_user,$nama,$tmpt_lhr,$tgl_lhr,$alamat,$kel,$kec,$kab,$KP,$telp,$bio,$pp){
+    public function getpegawaibyiduser($id_user){
         try{
-            $sql = "UPDATE pegawai SET id_user=:id_user,nama=:nama,tmpt_lhr=:tmpt_lhr,tgl_lhr=:tgl_lhr,alamat=:alamat,kel=:kel,kec=:kec,kab=:kab,KP=:KP,telp=:telp,bio=:bio,pp=:pp WHERE id_pegawai=:id_pegawai";
+            $sql = "SELECT * FROM pegawai WHERE id_user = :id_user";
             $stmt = $this->pdo->prepare($sql);
-            $stmt->bindParam(':id_pegawai',$id_pegawai);
+            $stmt->execute(['id_user' => $id_user]);
+            return $stmt->fetch(PDO::FETCH_ASSOC);
+        }catch(PDOException $e){
+            die('Gagal Menampilkan Data Berdasarkan ID User :' .  $e->getMessage());
+        }
+    }
+
+    public function Updatepegawai($id_user,$nama,$tmpt_lhr,$tgl_lhr,$alamat,$kel,$kec,$kab,$KP,$telp,$bio,$pp){
+        try{
+            $sql = "UPDATE pegawai SET nama=:nama,tmpt_lhr=:tmpt_lhr,tgl_lhr=:tgl_lhr,alamat=:alamat,kel=:kel,kec=:kec,kab=:kab,KP=:KP,telp=:telp,bio=:bio,pp=:pp WHERE id_user=:id_user";
+            $stmt = $this->pdo->prepare($sql);
             $stmt->bindParam(':id_user',$id_user);
             $stmt->bindParam(':nama',$nama);
             $stmt->bindParam(':tmpt_lhr',$tmpt_lhr);

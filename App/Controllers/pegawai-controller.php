@@ -1,51 +1,27 @@
 <?php
-require_once __DIR__ . '/../Models/pelanggan.php';
+require_once __DIR__ . '/../Models/pegawai.php';
 require_once __DIR__ . '/../Middleware/middleware.php';
-require_once __DIR__ . '/../Models/mobil.php';
 
-class PELANGGANController{
+class PEGAWAIController{
     private $model;
-    private $mobilmodel;
 
     public function __construct(){
-        $this->model = new Pelanggan();   
-        $this->mobilmodel = new Mobil(); 
+        $this->model = new Pegawai();
     }
-
-public function index(){
-    $query = $_GET['q'] ?? '';
-    $limit = 9;
-    $page = isset($_GET['page']) ? (int)$_GET['page'] : 1;
-    $offset = ($page - 1) * $limit;
-
-    if (!empty($query)) {
-        // jika ada pencarian
-        $data = $this->mobilmodel->searchmobil($query);
-        $totalData = count($data);
-        $totalPages = 1; // biar gak error pagination
-    } else {
-        // jika tidak ada pencarian
-        $data = $this->mobilmodel->getMobilWithLimit($limit, $offset);
-        $totalData = $this->mobilmodel->countAllMobil();
-        $totalPages = ceil($totalData / $limit);
-    }
-
-    include __DIR__ . '/../../App/Views/Pelanggan/index.php';
-}
 
     public function Showprofile(){
-        Middleware::requirerole('pelanggan');  
+        Middleware::requirerole('pegawai');
         $id_user = $_SESSION['user']['id_user'];
-        $data = $this->model->getpelangganbyiduser($id_user); 
+        $data = $this->model->getpegawaibyiduser($id_user); 
 
-        require_once __DIR__ . '/../../App/Views/Pelanggan/profile-pelanggan.php';
+        require_once __DIR__ . '/../../App/Views/Pegawai/profile-pegawai.php';
     }
-    
+
     public function Storeprofile(){
-        Middleware::requirerole('pelanggan'); 
+        Middleware::requirerole('pegawai');
 
         $id_user = $_SESSION['user']['id_user'];
-        $dataLama = $this->model->getpelangganbyiduser($id_user);
+        $dataLama = $this->model->getpegawaibyiduser($id_user);
 
          // 🟩 handle upload foto
         $fotoBaru = $dataLama['pp']; // default: pakai foto lama
@@ -70,26 +46,26 @@ public function index(){
                 }
             }
         }
-
-        $this->model->Updatepelanggan(
+    
+        $this->model->Updatepegawai(
             $id_user = $_SESSION['user']['id_user'],
             $nama = $_POST['nama'],
-            $nik = $_POST['nik'],
+            $tmpt_lhr = $_POST['tmpt_lhr'],
+            $tgl_lhr = !empty($_POST['tgl_lhr']) ? $_POST['tgl_lhr'] : null,
             $alamat = $_POST['alamat'],
             $kelurahan = $_POST['kelurahan'],
             $kecamatan = $_POST['kecamatan'],
-            $kabkota = $_POST['kabkota'],
+            $kabupaten = $_POST['kabupaten'],
             $kp = $_POST['kp'],
             $telp = $_POST['telp'],
             $bio = $_POST['bio'],
             $fotoBaru
         );
 
-        header("Location: index.php?action=profile-pelanggan");
-        exit;
-    }
+       
 
-    public function getmobil(){
+        header("Location: index.php?action=profile-pegawai");
+        exit;
     }
 }
 ?>

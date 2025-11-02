@@ -1,12 +1,18 @@
 <?php
 session_start();
 require_once __DIR__ . '/../Models/user.php';
+require_once __DIR__ . '/../Models/pelanggan.php';
+require_once __DIR__ . '/../Models/pegawai.php';
 
 class AUTHController {
     private $model;
+    private $pelangganmodel;
+    private $pegawaimodel;
 
     public function __construct() {
         $this->model = new User();
+        $this->pelangganmodel = new Pelanggan();
+        $this->pegawaimodel = new Pegawai();
     }
 
     public function showlogin() {
@@ -26,15 +32,7 @@ class AUTHController {
             }
 
             // 2️⃣ Ambil user dari database
-            $users = $this->model->Selectuser();
-            $foundUser = null;
-
-            foreach ($users as $user) {
-                if ($user['email'] === $email) {
-                    $foundUser = $user;
-                    break;
-                }
-            }
+            $foundUser = $this->model->getuserbyemail($email);
 
             // 3️⃣ Jika user tidak ditemukan
             if (!$foundUser) {
@@ -56,6 +54,17 @@ class AUTHController {
                 'email'   => $foundUser['email'],
                 'role'    => $foundUser['role'] ?? 'pelanggan',
             ];
+            
+            // Insert Data kosong ke table Pelanggan/Pegawai
+            if ($foundUser['role'] === 'pelanggan') {
+                if (!$this->pelangganmodel->getpelangganbyiduser($foundUser['id_user'])) {
+                    $this->pelangganmodel->Insertpelanggan($foundUser['id_user'], '', '', '', '', '', '', '', '', '', '');
+                }
+            } elseif ($foundUser['role'] === 'pegawai') {
+                if (!$this->pegawaimodel->getpegawaibyiduser($foundUser['id_user'])) {
+                    $this->pegawaimodel->Insertpegawai($foundUser['id_user'], '', '', Null , '', '', '', '','','','','');
+                }
+            }
 
             // 6️⃣ Redirect ke dashboard
             header("Location: ../Public/?action=index");
@@ -107,18 +116,5 @@ class AUTHController {
         header("Location: ../Public/?action=index");
         exit;
     }
-
-    // public function middleware(){
-    //     session_start();
-    //     if (!isset($_SESSION['user'])) {
-    //         header("Location: ../../App/Controllers/login.php");
-    //         exit;
-    //     }
-
-    //     if ($_SESSION['user']['role'] !== 'pegawai') {
-    //         header("Location: ../../index.php");
-    //         exit;
-    //     }
-    // }
 }
 ?>

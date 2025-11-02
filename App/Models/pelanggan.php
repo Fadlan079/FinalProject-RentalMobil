@@ -40,11 +40,21 @@ class Pelanggan{
         }
     }
 
-    public function Updatepelanggan($id_pelanggan,$id_user,$nama,$nik,$alamat,$kelurahan,$kecamatan,$kabkota,$kp,$telp,$bio,$pp){
+    public function getpelangganbyiduser($id_user){
         try{
-            $sql = "UPDATE pelanggan SET id_user=:id_user,nama=:nama,nik=:nik,alamat=:alamat,kelurahan=:kelurahan,kecamatan=:kecamatan,kabkota=:kabkota,kp=:kp,telp=:telp,bio=:bio,pp=:pp WHERE id_pelanggan=:id_pelanggan";
+            $sql = "SELECT * FROM pelanggan WHERE id_user = :id_user";
             $stmt = $this->pdo->prepare($sql);
-            $stmt->bindParam(':id_pelanggan',$id_pelanggan);
+            $stmt->execute(['id_user'=>$id_user]);
+            return $stmt->fetch(PDO::FETCH_ASSOC);
+        }catch(PDOException $e){
+            die('Gagal Menampilkan Data Dengan ID User :' .  $e->getMessage());
+        }
+    }
+
+    public function Updatepelanggan($id_user,$nama,$nik,$alamat,$kelurahan,$kecamatan,$kabkota,$kp,$telp,$bio,$pp){
+        try{
+            $sql = "UPDATE pelanggan SET nama=:nama,nik=:nik,alamat=:alamat,kelurahan=:kelurahan,kecamatan=:kecamatan,kabkota=:kabkota,kp=:kp,telp=:telp,bio=:bio,pp=:pp WHERE id_user=:id_user";
+            $stmt = $this->pdo->prepare($sql);
             $stmt->bindParam(':id_user',$id_user);
             $stmt->bindParam(':nama',$nama);
             $stmt->bindParam(':nik',$nik);
@@ -78,5 +88,6 @@ class Pelanggan{
 // $pelanggan->Updatepelanggan(3,1,'Fadlan',1234,'Jl Aw Syahrani','Gunung kelua','Samarinda Ulu','Samarinda',12345,'0822100732928','testing','testing.jpg');
 // $pelanggan->Deletepelanggan(2);
 // $data = $pelanggan->Selectpelanggan();
+// $data = $pelanggan->getpelangganbyiduser(1);
 // var_dump($data);
 ?>

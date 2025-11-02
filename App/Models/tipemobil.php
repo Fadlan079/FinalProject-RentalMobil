@@ -61,26 +61,6 @@ class Tipemobil{
             echo "Data Gagal di Hapus :" .$e->getMessage();
         }
     }
-
-    public function searchmobil($keyword){
-        try{
-            $sql = "SELECT * FROM tipemobil 
-                WHERE merk  LIKE :keyword
-                   OR tipe LIKE :keyword
-                   OR model LIKE :keyword
-                   OR jenis LIKE :keyword
-                   OR silinder LIKE :keyword
-                   OR bhn_bkr LIKE :keyword";
-            $stmt = $this->pdo->prepare($sql);
-            $search = "%" . $keyword . "%";
-            $stmt->bindParam(':keyword',$search);
-
-            $stmt->execute();
-            return $stmt->fetch(PDO::FETCH_ASSOC);
-        }catch(PDOException $e){
-            echo "Data Gagal Di Temukan :" .$e->getMessage();
-        }
-    }
 }
 
 // $tipemobil = new Tipemobil();

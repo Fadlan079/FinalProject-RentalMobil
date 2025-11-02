@@ -38,6 +38,17 @@ class User{
             die('Gagal Menampilkan Data :' .  $e->getMessage());
         }
     }
+
+    public function getuserbyemail($email){
+        try{
+            $sql = "SELECT * FROM user WHERE email = :email";
+            $stmt = $this->pdo->prepare($sql);
+            $stmt->execute(['email' => $email]);
+            return $stmt->fetch(PDO::FETCH_ASSOC);
+        }catch(PDOException $e){
+            die('Gagal Menampilkan Data :' .  $e->getMessage());
+        }
+    }
 }
 
 // $user = new User();
