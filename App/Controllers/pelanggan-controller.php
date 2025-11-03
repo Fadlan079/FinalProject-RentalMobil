@@ -12,26 +12,25 @@ class PELANGGANController{
         $this->mobilmodel = new Mobil(); 
     }
 
-public function index(){
-    $query = $_GET['q'] ?? '';
-    $limit = 9;
-    $page = isset($_GET['page']) ? (int)$_GET['page'] : 1;
-    $offset = ($page - 1) * $limit;
+    public function index() {
+        $query = $_GET['q'] ?? '';
+        $limit = 9;
+        $page = isset($_GET['page']) ? (int)$_GET['page'] : 1;
+        $offset = ($page - 1) * $limit;
 
     if (!empty($query)) {
-        // jika ada pencarian
-        $data = $this->mobilmodel->searchmobil($query);
-        $totalData = count($data);
-        $totalPages = 1; // biar gak error pagination
+        $data = $this->mobilmodel->searchmobil($query, $limit, $offset);
+        $totalData = $this->mobilmodel->countSearchMobil($query);
+        $totalPages = ceil($totalData / $limit);
     } else {
-        // jika tidak ada pencarian
         $data = $this->mobilmodel->getMobilWithLimit($limit, $offset);
         $totalData = $this->mobilmodel->countAllMobil();
         $totalPages = ceil($totalData / $limit);
     }
 
-    include __DIR__ . '/../../App/Views/Pelanggan/index.php';
-}
+        include __DIR__ . '/../../App/Views/Pelanggan/index.php';
+    }
+
 
     public function Showprofile(){
         Middleware::requirerole('pelanggan');  
@@ -89,7 +88,8 @@ public function index(){
         exit;
     }
 
-    public function getmobil(){
+    public function detailmobil(){
+        include __DIR__ . '/../Views/Pelanggan/detil-mobil.php';
     }
 }
 ?>

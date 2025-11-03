@@ -1,7 +1,7 @@
 <?php
-require_once __DIR__ . '/../App/Controllers/mobil-controller.php';
+require_once __DIR__ . '/../App/Controllers/pegawai-controller.php';
 
-$controller = new MOBILController();
+$Pegawaicontroller = new PEGAWAIController();
 
 $action = $_GET['action'] ?? 'index';
 

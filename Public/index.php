@@ -38,7 +38,10 @@ switch ($action) {
         break;    
     case 'store-profile-pelanggan':
         $Pelanggancontroller->Storeprofile();
-        break;     
+        break;  
+    case 'detail-mobil':
+        $Pelanggancontroller->detailmobil();
+        break;       
 
     //PEGAWAI
     case 'profile-pegawai':
