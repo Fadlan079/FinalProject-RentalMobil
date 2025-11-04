@@ -33,9 +33,6 @@ switch ($action) {
     case 'index':
         $Pelanggancontroller->index();
         break;
-    case 'profile-pelanggan':
-        $Pelanggancontroller->Showprofile();
-        break;    
     case 'store-profile-pelanggan':
         $Pelanggancontroller->Storeprofile();
         break;  
@@ -50,6 +47,9 @@ switch ($action) {
     case 'store-profile-pegawai':
         $Pegawaicontroller->Storeprofile();
         break;  
+
+    //ADMIN
+        
     
     // 404 Not Found    
     default:

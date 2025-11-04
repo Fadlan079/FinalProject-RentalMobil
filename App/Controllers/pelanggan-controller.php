@@ -13,31 +13,37 @@ class PELANGGANController{
     }
 
     public function index() {
+        Middleware::requirerole('pelanggan');  
+        $id_user = $_SESSION['user']['id_user'];
+        $profile = $this->model->getpelangganbyiduser($id_user); 
+
         $query = $_GET['q'] ?? '';
         $limit = 9;
         $page = isset($_GET['page']) ? (int)$_GET['page'] : 1;
         $offset = ($page - 1) * $limit;
 
-    if (!empty($query)) {
-        $data = $this->mobilmodel->searchmobil($query, $limit, $offset);
-        $totalData = $this->mobilmodel->countSearchMobil($query);
-        $totalPages = ceil($totalData / $limit);
-    } else {
-        $data = $this->mobilmodel->getMobilWithLimit($limit, $offset);
-        $totalData = $this->mobilmodel->countAllMobil();
-        $totalPages = ceil($totalData / $limit);
-    }
+        $harga = $_GET['harga'] ?? null;
+        $transmisi = $_GET['transmisi'] ?? null;
+        $bahan_bkr = $_GET['bahan_bkr'] ?? null;
+        $kapasitas = $_GET['kapasitas'] ?? null;
+
+        $hasFilter = !empty($harga) || !empty($transmisi) || !empty($bahan_bkr) || !empty($kapasitas);
+
+        if ($hasFilter) {
+            $data = $this->mobilmodel->filterMobil($harga, $transmisi, $bahan_bkr, $kapasitas, $limit, $offset);
+            $totalData = $this->mobilmodel->countFilterMobil($harga, $transmisi, $bahan_bkr, $kapasitas);
+            $totalPages = ceil($totalData / $limit);
+        } elseif (!empty($query)) {
+            $data = $this->mobilmodel->searchmobil($query, $limit, $offset);
+            $totalData = $this->mobilmodel->countSearchMobil($query);
+            $totalPages = ceil($totalData / $limit);
+        } else {
+            $data = $this->mobilmodel->getMobilWithLimit($limit, $offset);
+            $totalData = $this->mobilmodel->countAllMobil();
+            $totalPages = ceil($totalData / $limit);
+        }
 
         include __DIR__ . '/../../App/Views/Pelanggan/index.php';
-    }
-
-
-    public function Showprofile(){
-        Middleware::requirerole('pelanggan');  
-        $id_user = $_SESSION['user']['id_user'];
-        $data = $this->model->getpelangganbyiduser($id_user); 
-
-        require_once __DIR__ . '/../../App/Views/Pelanggan/profile-pelanggan.php';
     }
     
     public function Storeprofile(){
@@ -77,14 +83,14 @@ class PELANGGANController{
             $alamat = $_POST['alamat'],
             $kelurahan = $_POST['kelurahan'],
             $kecamatan = $_POST['kecamatan'],
-            $kabkota = $_POST['kabkota'],
+            $kabkota = $_POST['kota'],
             $kp = $_POST['kp'],
             $telp = $_POST['telp'],
             $bio = $_POST['bio'],
             $fotoBaru
         );
 
-        header("Location: index.php?action=profile-pelanggan");
+        header("Location: index.php?action=index");
         exit;
     }
 

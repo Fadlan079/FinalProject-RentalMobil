@@ -9,9 +9,9 @@ class Pelanggan{
         $this->pdo = $db->getConnection();
     }
 
-    public function Insertpelanggan($id_user,$nama,$nik,$alamat,$kelurahan,$kecamatan,$kabkota,$kp,$telp,$bio,$pp){
+    public function Insertpelanggan($id_user,$nama,$nik,$alamat,$kelurahan,$kecamatan,$kota,$kp,$telp,$bio,$pp){
         try{
-            $sql = "INSERT INTO pelanggan(id_user,nama,nik,alamat,kelurahan,kecamatan,kabkota,kp,telp,bio,pp) VALUES(:id_user,:nama,:nik,:alamat,:kelurahan,:kecamatan,:kabkota,:kp,:telp,:bio,:pp)";
+            $sql = "INSERT INTO pelanggan(id_user,nama,nik,alamat,kelurahan,kecamatan,kota,kp,telp,bio,pp) VALUES(:id_user,:nama,:nik,:alamat,:kelurahan,:kecamatan,:kota,:kp,:telp,:bio,:pp)";
             $stmt = $this->pdo->prepare($sql);
             $stmt->bindParam(':id_user',$id_user);
             $stmt->bindParam(':nama',$nama);
@@ -19,7 +19,7 @@ class Pelanggan{
             $stmt->bindParam(':alamat',$alamat);
             $stmt->bindParam(':kelurahan',$kelurahan);
             $stmt->bindParam(':kecamatan',$kecamatan);
-            $stmt->bindParam(':kabkota',$kabkota);
+            $stmt->bindParam(':kota',$kota);
             $stmt->bindParam(':kp',$kp);
             $stmt->bindParam(':telp',$telp);
             $stmt->bindParam(':bio',$bio);
@@ -51,9 +51,9 @@ class Pelanggan{
         }
     }
 
-    public function Updatepelanggan($id_user,$nama,$nik,$alamat,$kelurahan,$kecamatan,$kabkota,$kp,$telp,$bio,$pp){
+    public function Updatepelanggan($id_user,$nama,$nik,$alamat,$kelurahan,$kecamatan,$kota,$kp,$telp,$bio,$pp){
         try{
-            $sql = "UPDATE pelanggan SET nama=:nama,nik=:nik,alamat=:alamat,kelurahan=:kelurahan,kecamatan=:kecamatan,kabkota=:kabkota,kp=:kp,telp=:telp,bio=:bio,pp=:pp WHERE id_user=:id_user";
+            $sql = "UPDATE pelanggan SET nama=:nama,nik=:nik,alamat=:alamat,kelurahan=:kelurahan,kecamatan=:kecamatan,kota=:kota,kp=:kp,telp=:telp,bio=:bio,pp=:pp WHERE id_user=:id_user";
             $stmt = $this->pdo->prepare($sql);
             $stmt->bindParam(':id_user',$id_user);
             $stmt->bindParam(':nama',$nama);
@@ -61,7 +61,7 @@ class Pelanggan{
             $stmt->bindParam(':alamat',$alamat);
             $stmt->bindParam(':kelurahan',$kelurahan);
             $stmt->bindParam(':kecamatan',$kecamatan);
-            $stmt->bindParam(':kabkota',$kabkota);
+            $stmt->bindParam(':kota',$kota);
             $stmt->bindParam(':kp',$kp);
             $stmt->bindParam(':telp',$telp);
             $stmt->bindParam(':bio',$bio);

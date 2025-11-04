@@ -6,7 +6,7 @@ class Middleware{
         }
 
         if (!isset($_SESSION['user'])) {
-            header("Location: ../Public/?action=index");
+            header("Location: ../Public/?action=login");
             exit;
         }
     }

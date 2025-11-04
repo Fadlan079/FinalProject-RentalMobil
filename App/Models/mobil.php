@@ -26,59 +26,59 @@ class Mobil{
         }
     }
 
-    public function getspesifikasimobil(){
+    public function filterMobil($harga = null,$transmisi = null, $bahan_bkr = null, $kapasitas = null,$limit = null,$offset = null){
         try{
-            $sql = "SELECT DISTINCT mobil.id_mobil,mobil.img,mobil.noplat,mobil.warna,mobil.status,tipemobil.merk,tipemobil.model,tipemobil.tipe,tipemobil.transmisi,tipemobil.harga,tipemobil.kursi,tipemobil.pintu FROM mobil JOIN tipemobil ON mobil.id_tipe = tipemobil.id_tipe";
-            $stmt = $this->pdo->query($sql);
-            return $stmt->fetchAll(PDO::FETCH_ASSOC);
-        }catch(PDOException $e){
-            echo "Data Spesifikasi Gagal Di Tampilkan :" .$e->getMessage();
-        }
-    }
+            $sql = 'SELECT DISTINCT 
+            mobil.id_mobil,
+            mobil.img,
+            mobil.noplat,
+            mobil.warna,
+            mobil.status,
+            tipemobil.merk,
+            tipemobil.model,
+            tipemobil.tipe,
+            tipemobil.transmisi,
+            tipemobil.harga,
+            tipemobil.kursi,
+            tipemobil.bhn_bkr, 
+            tipemobil.pintu 
+            FROM mobil JOIN tipemobil ON mobil.id_tipe = tipemobil.id_tipe 
+            WHERE 1=1';
+            $params = [];
 
-    public function getMobilWithLimit($limit, $offset) {
-        $stmt = $this->pdo->prepare("SELECT DISTINCT mobil.id_mobil,mobil.img,mobil.noplat,mobil.warna,mobil.status,tipemobil.merk,tipemobil.model,tipemobil.tipe,tipemobil.transmisi,tipemobil.harga,tipemobil.kursi,tipemobil.pintu FROM mobil JOIN tipemobil ON mobil.id_tipe = tipemobil.id_tipe LIMIT :offset, :limit");
-        $stmt->bindValue(':offset', $offset, PDO::PARAM_INT);
-        $stmt->bindValue(':limit', $limit, PDO::PARAM_INT);
-        $stmt->execute();
-        return $stmt->fetchAll(PDO::FETCH_ASSOC);
-    }
+            if ($harga === 'lt1jt') $sql .= " AND harga < 1000000";
+            elseif ($harga === 'lt5jt') $sql .= " AND harga < 5000000";
 
-    public function countAllMobil() {
-        return $this->pdo->query("SELECT COUNT(*) FROM mobil")->fetchColumn();
-    }
-
-    public function searchmobil($keyword, $limit = null, $offset = null){
-        try{
-            $sql = "SELECT DISTINCT mobil.id_mobil,mobil.img,mobil.noplat,mobil.warna,mobil.status,tipemobil.merk,tipemobil.model,tipemobil.tipe,tipemobil.transmisi,tipemobil.harga,tipemobil.kursi,tipemobil.pintu FROM mobil JOIN tipemobil ON mobil.id_tipe = tipemobil.id_tipe 
-                WHERE merk  LIKE :keyword
-                   OR kursi LIKE :keyword
-                   OR pintu LIKE :keyword
-                   OR transmisi LIKE :keyword
-                   OR tipe LIKE :keyword
-                   OR model LIKE :keyword
-                   OR warna LIKE :keyword
-                   OR status LIKE :keyword";
-            if (is_numeric($keyword)) {
-                $sql .= " OR harga BETWEEN :minharga AND :maxharga";
+            if (!empty($transmisi) && $transmisi != 'semua') {
+            $sql .= " AND transmisi = ?";
+            $params[] = $transmisi;
             }
-            
+
+            if (!empty($bahan_bkr) && $bahan_bkr != 'semua') {
+            $sql .= " AND bahan_bkr = ?";
+            $params[] = $bahan_bkr;
+            }
+
+            if (!empty($kapasitas) && $kapasitas != 'semua') {
+            $sql .= " AND kursi = ?";
+            $params[] = $kapasitas;
+            }
+
             if ($limit !== null && $offset !== null) {
-                $sql .= " GROUP BY mobil.id_mobil LIMIT $offset, $limit";
-            } else {
-                $sql .= " GROUP BY mobil.id_mobil";
+                $sql .= " LIMIT :offset, :limit";
             }
 
             $stmt = $this->pdo->prepare($sql);
-            $search = "%" . $keyword . "%";
-            $stmt->bindParam(':keyword',$search);
-            if (is_numeric($keyword)) {
-                $minharga = $keyword * 0.9;
-                $maxharga = $keyword * 1.1;
-                $stmt->bindParam(':minharga', $minharga);
-                $stmt->bindParam(':maxharga', $maxharga);
+
+            $i = 1;
+            foreach ($params as $p) {
+                $stmt->bindValue($i++, $p);
             }
 
+            if ($limit !== null && $offset !== null) {
+                $stmt->bindValue(':offset', (int)$offset, PDO::PARAM_INT);
+                $stmt->bindValue(':limit', (int)$limit, PDO::PARAM_INT);
+            }
             $stmt->execute();
             return $stmt->fetchAll(PDO::FETCH_ASSOC);
         }catch(PDOException $e){
@@ -86,50 +86,137 @@ class Mobil{
         }
     }
 
-    public function countSearchMobil($keyword) {
+    public function countFilterMobil($harga = null, $transmisi = null, $bahan_bkr = null, $kapasitas = null) {
         try {
             $sql = "SELECT COUNT(DISTINCT mobil.id_mobil) AS total
                     FROM mobil 
                     JOIN tipemobil ON mobil.id_tipe = tipemobil.id_tipe 
-                    WHERE merk LIKE :keyword
-                    OR kursi LIKE :keyword
-                    OR pintu LIKE :keyword
-                    OR transmisi LIKE :keyword
-                    OR tipe LIKE :keyword
-                    OR model LIKE :keyword
-                    OR warna LIKE :keyword
-                    OR status LIKE :keyword";
+                    WHERE 1=1";
+            $params = [];
 
-            if (is_numeric($keyword)) {
-                $sql .= " OR harga BETWEEN :minharga AND :maxharga";
+            if ($harga === 'lt1jt') $sql .= " AND harga < 1000000";
+            elseif ($harga === 'lt5jt') $sql .= " AND harga < 5000000";
+
+            if (!empty($transmisi) && $transmisi != 'semua') {
+                $sql .= " AND transmisi = ?";
+                $params[] = $transmisi;
+            }
+
+            if (!empty($bahan_bkr) && $bahan_bkr != 'semua') {
+                $sql .= " AND bhn_bkr = ?";
+                $params[] = $bahan_bkr;
+            }
+
+            if (!empty($kapasitas) && $kapasitas != 'semua') {
+                $sql .= " AND kursi = ?";
+                $params[] = $kapasitas;
             }
 
             $stmt = $this->pdo->prepare($sql);
-            $search = "%" . $keyword . "%";
-            $stmt->bindParam(':keyword', $search);
-
-            if (is_numeric($keyword)) {
-                $minharga = $keyword * 0.7;
-                $maxharga = $keyword * 1.3;
-                $stmt->bindParam(':minharga', $minharga);
-                $stmt->bindParam(':maxharga', $maxharga);
-            }
-
-            $stmt->execute();
+            $stmt->execute($params);
             return $stmt->fetchColumn();
-
         } catch(PDOException $e) {
-            echo "Gagal Menghitung Data: " . $e->getMessage();
+            echo "Gagal Menghitung Filter: " . $e->getMessage();
         }
     }
 
-    public function SelectMobil() {
+    public function getMobilWithLimit($limit, $offset) {
         try{
-            $sql = "SELECT * FROM mobil";
-            $stmt = $this->pdo->query($sql);
+            $stmt = $this->pdo->prepare("SELECT DISTINCT 
+            mobil.id_mobil,
+            mobil.img,
+            mobil.noplat,
+            mobil.warna,
+            mobil.status,
+            tipemobil.merk,
+            tipemobil.model,
+            tipemobil.tipe,
+            tipemobil.transmisi,
+            tipemobil.harga,
+            tipemobil.kursi,
+            tipemobil.bhn_bkr,
+            tipemobil.pintu 
+            FROM mobil JOIN tipemobil ON mobil.id_tipe = tipemobil.id_tipe 
+            ORDER BY CASE 
+            WHEN status = 'ready' THEN 1 
+            WHEN status = 'rent' THEN 2 
+            WHEN status = 'maintenance' THEN 3 
+            END  
+            LIMIT :offset, :limit");
+            $stmt->bindValue(':offset', $offset, PDO::PARAM_INT);
+            $stmt->bindValue(':limit', $limit, PDO::PARAM_INT);
+            $stmt->execute();
             return $stmt->fetchAll(PDO::FETCH_ASSOC);
         }catch(PDOException $e){
-            echo "Data Gagal Di Tampilkan :" .$e->getMessage();
+            echo "Data Gagal Di Temukan :" .$e->getMessage();
+        }
+    }
+
+    public function countAllMobil() {
+        try{
+            return $this->pdo->query("SELECT COUNT(*) FROM mobil")->fetchColumn();
+        }catch(PDOException $e){
+            echo "Data Gagal Di Temukan :" .$e->getMessage();
+        }   
+    }
+
+    public function searchmobil($keyword, $limit = null, $offset = null) {
+        try {
+            $sql = "SELECT DISTINCT mobil.id_mobil,
+                        mobil.img,
+                        mobil.noplat,
+                        mobil.warna,
+                        mobil.status,
+                        tipemobil.merk,
+                        tipemobil.model,
+                        tipemobil.tipe,
+                        tipemobil.transmisi,
+                        tipemobil.harga,
+                        tipemobil.kursi,
+                        tipemobil.bhn_bkr,
+                        tipemobil.pintu
+                    FROM mobil
+                    JOIN tipemobil ON mobil.id_tipe = tipemobil.id_tipe
+                    WHERE CONCAT_WS(' ', merk, model, tipe, transmisi, warna, bhn_bkr, status) LIKE :keyword
+                    ORDER BY CASE 
+                        WHEN status = 'ready' THEN 1
+                        WHEN status = 'rent' THEN 2
+                        WHEN status = 'maintenance' THEN 3
+                    END";
+
+            if ($limit !== null && $offset !== null) {
+                $sql .= " LIMIT :offset, :limit";
+            }
+
+            $stmt = $this->pdo->prepare($sql);
+            $stmt->bindValue(':keyword', "%$keyword%", PDO::PARAM_STR);
+
+            if ($limit !== null && $offset !== null) {
+                $stmt->bindValue(':offset', (int)$offset, PDO::PARAM_INT);
+                $stmt->bindValue(':limit', (int)$limit, PDO::PARAM_INT);
+            }
+
+            $stmt->execute();
+            return $stmt->fetchAll(PDO::FETCH_ASSOC);
+
+        } catch(PDOException $e){
+            echo "Data Gagal Di Temukan: " . $e->getMessage();
+        }
+    }
+
+    public function countSearchMobil($keyword) {
+        try {
+            $sql = "SELECT COUNT(DISTINCT mobil.id_mobil) AS total
+                    FROM mobil
+                    JOIN tipemobil ON mobil.id_tipe = tipemobil.id_tipe
+                    WHERE CONCAT_WS(' ', merk, model, tipe, transmisi, warna, bhn_bkr, status) LIKE :keyword";
+
+            $stmt = $this->pdo->prepare($sql);
+            $stmt->bindValue(':keyword', "%$keyword%", PDO::PARAM_STR);
+            $stmt->execute();
+            return (int)$stmt->fetchColumn();
+        } catch(PDOException $e){
+            echo "Gagal Menghitung Data: " . $e->getMessage();
         }
     }
 
@@ -168,8 +255,7 @@ class Mobil{
 // var_dump($data);
 // $mobil->UpdateMobil(1,2008,'hitam','2928','8991','1239','ready',1);
 // $mobil->DeleteMobil(2);
-// $data = $mobil->searchmobil('rent');
-// $data = $mobil->getspesifikasimobil();
-// $data = $mobil->searchmobil('Mc');
+// $data = $mobil->searchmobil('ferrari');
 // var_dump($data);
+// $data = $mobil->getspesifikasimobil();
 ?> 

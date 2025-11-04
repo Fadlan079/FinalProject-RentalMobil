@@ -1,0 +1,1 @@
+&copy; 2025 <span class="text-orange-500 font-semibold">Cylc Rent Car</span>. All rights reserved.
