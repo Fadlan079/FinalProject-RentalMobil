@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost:3306
--- Generation Time: Nov 04, 2025 at 11:58 PM
+-- Generation Time: Nov 05, 2025 at 12:02 PM
 -- Server version: 8.4.3
 -- PHP Version: 8.3.16
 
@@ -32,10 +32,10 @@ CREATE TABLE `mobil` (
   `img` varchar(255) NOT NULL,
   `tahun` year NOT NULL,
   `warna` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL,
+  `status` enum('ready','rent','maintenance','nonactive') CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL,
   `noplat` varchar(255) NOT NULL,
   `nomesin` varchar(255) NOT NULL,
   `norangka` varchar(255) NOT NULL,
-  `status` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL,
   `id_tipe` int NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
@@ -43,27 +43,27 @@ CREATE TABLE `mobil` (
 -- Dumping data for table `mobil`
 --
 
-INSERT INTO `mobil` (`id_mobil`, `img`, `tahun`, `warna`, `noplat`, `nomesin`, `norangka`, `status`, `id_tipe`) VALUES
-(38, 'koenigsegg-merah.jpg', '2024', 'Merah', 'B 1 KSG', 'KJ5000V8X001', 'RNGKJ5000X001', 'maintenance', 10),
-(39, 'koenigsegg-biru.jpg', '2024', 'Biru', 'B 2 KSG', 'KJ5000V8X002', 'RNGKJ5000X002', 'maintenance', 10),
-(40, 'ferrari-merah.jpg', '2023', 'Merah', 'B 3 FER', 'FE3990V8X003', 'RNGFE3990X003', 'maintenance', 11),
-(41, 'ferrari-kuning.jpg', '2023', 'Kuning', 'B 4 FER', 'FE3990V8X004', 'RNGFE3990X004', 'rent', 11),
-(42, 'porsche-hitam.jpg', '2023', 'Hitam', 'B 5 POR', 'PO3745V6X005', 'RNGPO3745X005', 'rent', 12),
-(43, 'lamborghini-hijau.jpg', '2024', 'Hijau', 'B 6 LAM', 'LA6498V12X006', 'RNGLA6498X006', 'rent', 13),
-(44, 'bugatti-biru.jpg', '2024', 'Biru', 'B 7 BUG', 'BU7993V16X007', 'RNGBU7993X007', 'rent', 14),
-(45, 'mclaren-orange.jpg', '2023', 'Orange', 'B 8 MCL', 'MC3994V8X008', 'RNGMC3994X008', 'ready', 15),
-(46, 'astonmartin-silver.jpg', '2024', 'Silver', 'B 9 AST', 'AM6500V12X009', 'RNGAM6500X009', 'ready', 16),
-(47, 'pagani-hitam.jpg', '2024', 'Hitam', 'B 10 PAG', 'PA5980V12X010', 'RNGPA5980X010', 'ready', 17),
-(48, 'mercedesbenz-putih.jpg', '2023', 'Putih', 'B 11 MER', 'MB1599V6X011', 'RNGMB1599X011', 'ready', 18),
-(49, 'rimac-biru.jpg', '2024', 'Biru', 'B 12 RIM', 'RI0V8X012', 'RNGRI0X012', 'ready', 19),
-(50, 'tesla-merah.jpg', '2024', 'Merah', 'B 13 TES', 'TS0EVX013', 'RNGTS0X013', 'ready', 20),
-(51, 'lucid-putih.jpg', '2024', 'Putih', 'B 14 LUC', 'LU0EVX014', 'RNGLU0X014', 'ready', 21),
-(52, 'lotus-hijau.jpg', '2024', 'Hijau', 'B 15 LOT', 'LO0EVX015', 'RNGLO0X015', 'ready', 22),
-(53, 'bmw-biru.jpg', '2023', 'Biru', 'B 16 BMW', 'BM1500V6X016', 'RNGBM1500X016', 'ready', 23),
-(54, 'pagani-abu.jpg', '2024', 'Abu', 'B 17 PAG', 'PA7500V12X017', 'RNGPA7500X017', 'ready', 24),
-(55, 'koenigsegg-hitam.jpg', '2024', 'Hitam', 'B 18 KSG', 'KJ5000V8X018', 'RNGKJ5000X018', 'ready', 10),
-(56, 'ferrari-putih.jpg', '2023', 'Putih', 'B 19 FER', 'FE3990V8X019', 'RNGFE3990X019', 'ready', 11),
-(57, 'porsche-merah.jpg', '2023', 'Merah', 'B 20 POR', 'PO3745V6X020', 'RNGPO3745X020', 'ready', 12);
+INSERT INTO `mobil` (`id_mobil`, `img`, `tahun`, `warna`, `status`, `noplat`, `nomesin`, `norangka`, `id_tipe`) VALUES
+(38, 'koenigsegg-merah.jpg', '2024', 'Merah', 'ready', 'B 1 KSG', 'KJ5000V8X001', 'RNGKJ5000X001', 10),
+(39, 'koenigsegg-biru.jpg', '2024', 'Biru', 'ready', 'B 2 KSG', 'KJ5000V8X002', 'RNGKJ5000X002', 10),
+(40, 'ferrari-merah.jpg', '2023', 'Merah', 'ready', 'B 3 FER', 'FE3990V8X003', 'RNGFE3990X003', 11),
+(41, 'ferrari-kuning.jpg', '2023', 'Kuning', 'ready', 'B 4 FER', 'FE3990V8X004', 'RNGFE3990X004', 11),
+(42, 'porsche-hitam.jpg', '2023', 'Hitam', 'ready', 'B 5 POR', 'PO3745V6X005', 'RNGPO3745X005', 12),
+(43, 'lamborghini-hijau.jpg', '2024', 'Hijau', 'ready', 'B 6 LAM', 'LA6498V12X006', 'RNGLA6498X006', 13),
+(44, 'bugatti-biru.jpg', '2024', 'Biru', 'ready', 'B 7 BUG', 'BU7993V16X007', 'RNGBU7993X007', 14),
+(45, 'mclaren-orange.jpg', '2023', 'Orange', 'ready', 'B 8 MCL', 'MC3994V8X008', 'RNGMC3994X008', 15),
+(46, 'astonmartin-silver.jpg', '2024', 'Silver', 'ready', 'B 9 AST', 'AM6500V12X009', 'RNGAM6500X009', 16),
+(47, 'pagani-hitam.jpg', '2024', 'Hitam', 'ready', 'B 10 PAG', 'PA5980V12X010', 'RNGPA5980X010', 17),
+(48, 'mercedesbenz-putih.jpg', '2023', 'Putih', 'ready', 'B 11 MER', 'MB1599V6X011', 'RNGMB1599X011', 18),
+(49, 'rimac-biru.jpg', '2024', 'Biru', 'ready', 'B 12 RIM', 'RI0V8X012', 'RNGRI0X012', 19),
+(50, 'tesla-merah.jpg', '2024', 'Merah', 'ready', 'B 13 TES', 'TS0EVX013', 'RNGTS0X013', 20),
+(51, 'lucid-putih.jpg', '2024', 'Putih', 'ready', 'B 14 LUC', 'LU0EVX014', 'RNGLU0X014', 21),
+(52, 'lotus-hijau.jpg', '2024', 'Hijau', 'ready', 'B 15 LOT', 'LO0EVX015', 'RNGLO0X015', 22),
+(53, 'bmw-biru.jpg', '2023', 'Biru', 'ready', 'B 16 BMW', 'BM1500V6X016', 'RNGBM1500X016', 23),
+(54, 'pagani-abu.jpg', '2024', 'Abu', 'ready', 'B 17 PAG', 'PA7500V12X017', 'RNGPA7500X017', 24),
+(55, 'koenigsegg-hitam.jpg', '2024', 'Hitam', 'ready', 'B 18 KSG', 'KJ5000V8X018', 'RNGKJ5000X018', 10),
+(56, 'ferrari-putih.jpg', '2023', 'Putih', 'ready', 'B 19 FER', 'FE3990V8X019', 'RNGFE3990X019', 11),
+(57, 'porsche-merah.jpg', '2023', 'Merah', 'ready', 'B 20 POR', 'PO3745V6X020', 'RNGPO3745X020', 12);
 
 -- --------------------------------------------------------
 
@@ -122,38 +122,8 @@ CREATE TABLE `pelanggan` (
 
 INSERT INTO `pelanggan` (`id_pelanggan`, `id_user`, `nama`, `nik`, `alamat`, `kelurahan`, `kecamatan`, `kota`, `kp`, `telp`, `bio`, `pp`) VALUES
 (3, 1, 'Fadlan', '1234', 'Jl Aw Syahrani', 'Gunung kelua', 'Samarinda Ulu', 'Samarinda', '12345', '0822100732928', 'testing', 'testing.jpg'),
-(4, 4, 'Test 2', '', '', '', '', '', '', '', '', 'pp_6909dc3a3eb0c.jpg');
-
--- --------------------------------------------------------
-
---
--- Table structure for table `rental`
---
-
-CREATE TABLE `rental` (
-  `id_rental` int NOT NULL,
-  `tgl_rental` date NOT NULL,
-  `ttltagihan` int NOT NULL,
-  `id_pelanggan` int NOT NULL,
-  `id_pegawai` int NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
-
--- --------------------------------------------------------
-
---
--- Table structure for table `rentalmboil`
---
-
-CREATE TABLE `rentalmboil` (
-  `id_rental` int NOT NULL,
-  `id_mobil` int NOT NULL,
-  `tgl_klr` date NOT NULL,
-  `jam_klr` time NOT NULL,
-  `tgl_msk` date NOT NULL,
-  `jam_msk` time NOT NULL,
-  `status` enum('ready','rent','maintenance') DEFAULT NULL,
-  `jmlh_byr` decimal(10,0) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+(4, 4, 'Test 2', '', '', '', '', '', '', '', '', 'pp_6909dc3a3eb0c.jpg'),
+(7, 8, '', '', '', '', '', '', '', '', '', 'pp_690a94c260f52.jpg');
 
 -- --------------------------------------------------------
 
@@ -199,6 +169,24 @@ INSERT INTO `tipemobil` (`id_tipe`, `merk`, `tipe`, `model`, `jenis`, `silinder`
 -- --------------------------------------------------------
 
 --
+-- Table structure for table `transaksi`
+--
+
+CREATE TABLE `transaksi` (
+  `id_transaksi` int NOT NULL,
+  `id_mobil` int NOT NULL,
+  `id_pelanggan` int NOT NULL,
+  `id_pegawai` int DEFAULT NULL,
+  `tgl_sewa` datetime NOT NULL,
+  `tgl_kembali` datetime NOT NULL,
+  `total_bayar` decimal(12,2) NOT NULL,
+  `durasi_sewa` int NOT NULL,
+  `status` enum('berjalan','selesai','batal') NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+
+-- --------------------------------------------------------
+
+--
 -- Table structure for table `user`
 --
 
@@ -221,7 +209,8 @@ INSERT INTO `user` (`id_user`, `email`, `password`, `jk`, `role`, `tgl_dibuat`) 
 (4, 'Test2@gmail.com', '$2y$10$H.66mBQY0.LcmlGy7NyI3u.FOoaLEm4/CwTHmmuJZHTd9dNlVTFH2', 'L', 'pelanggan', '2025-10-29 11:25:21'),
 (5, 'Test3@gmail.com', '$2y$10$VaDzCwwQtuEx3OmYBWcB4uIVhBS5ukb8CYqFg5NUYL78ooow6LUWW', 'P', 'pelanggan', '2025-10-29 11:28:27'),
 (6, 'test4@gmail.com', '$2y$10$q3Fh4P0HwqdMc1lpvlOT6eb0qkDcjz4RK2wg0dY0jIqAM1h4jxxBK', 'P', 'pelanggan', '2025-10-30 14:03:25'),
-(7, 'pegawai1@rentcar.com', '$2y$10$lpy/ycuTWcTE.uy8Es09R.dKw.DwkXmkHu0HD8CHcNuH3txINoQq2', 'P', 'pegawai', '2025-11-01 11:52:16');
+(7, 'pegawai1@rentcar.com', '$2y$10$lpy/ycuTWcTE.uy8Es09R.dKw.DwkXmkHu0HD8CHcNuH3txINoQq2', 'P', 'pegawai', '2025-11-01 11:52:16'),
+(8, 'Test5@gmail.com', '$2y$10$4HWauxcEifr1ohO586LcT.9ttv3HFzZ0/JAdJmdj/gvrFLoSDhimu', 'P', 'pelanggan', '2025-11-05 00:00:36');
 
 --
 -- Indexes for dumped tables
@@ -252,25 +241,19 @@ ALTER TABLE `pelanggan`
   ADD UNIQUE KEY `uq_pelanggan_user` (`id_user`);
 
 --
--- Indexes for table `rental`
---
-ALTER TABLE `rental`
-  ADD PRIMARY KEY (`id_rental`),
-  ADD KEY `id_pelanggan` (`id_pelanggan`),
-  ADD KEY `id_pegawai` (`id_pegawai`);
-
---
--- Indexes for table `rentalmboil`
---
-ALTER TABLE `rentalmboil`
-  ADD KEY `id_rental` (`id_rental`),
-  ADD KEY `id_mobil` (`id_mobil`);
-
---
 -- Indexes for table `tipemobil`
 --
 ALTER TABLE `tipemobil`
   ADD PRIMARY KEY (`id_tipe`);
+
+--
+-- Indexes for table `transaksi`
+--
+ALTER TABLE `transaksi`
+  ADD PRIMARY KEY (`id_transaksi`),
+  ADD KEY `fk_transaksi_mobil` (`id_mobil`),
+  ADD KEY `fk_transaksi_pelanggan` (`id_pelanggan`),
+  ADD KEY `fk_transaksi_pegawai` (`id_pegawai`);
 
 --
 -- Indexes for table `user`
@@ -298,13 +281,7 @@ ALTER TABLE `pegawai`
 -- AUTO_INCREMENT for table `pelanggan`
 --
 ALTER TABLE `pelanggan`
-  MODIFY `id_pelanggan` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
-
---
--- AUTO_INCREMENT for table `rental`
---
-ALTER TABLE `rental`
-  MODIFY `id_rental` int NOT NULL AUTO_INCREMENT;
+  MODIFY `id_pelanggan` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
 
 --
 -- AUTO_INCREMENT for table `tipemobil`
@@ -313,10 +290,16 @@ ALTER TABLE `tipemobil`
   MODIFY `id_tipe` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=25;
 
 --
+-- AUTO_INCREMENT for table `transaksi`
+--
+ALTER TABLE `transaksi`
+  MODIFY `id_transaksi` int NOT NULL AUTO_INCREMENT;
+
+--
 -- AUTO_INCREMENT for table `user`
 --
 ALTER TABLE `user`
-  MODIFY `id_user` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
+  MODIFY `id_user` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
 
 --
 -- Constraints for dumped tables
@@ -341,18 +324,12 @@ ALTER TABLE `pelanggan`
   ADD CONSTRAINT `fk_pelanggan_user` FOREIGN KEY (`id_user`) REFERENCES `user` (`id_user`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
--- Constraints for table `rental`
+-- Constraints for table `transaksi`
 --
-ALTER TABLE `rental`
-  ADD CONSTRAINT `rental_ibfk_1` FOREIGN KEY (`id_pelanggan`) REFERENCES `pelanggan` (`id_pelanggan`),
-  ADD CONSTRAINT `rental_ibfk_2` FOREIGN KEY (`id_pegawai`) REFERENCES `pegawai` (`id_pegawai`);
-
---
--- Constraints for table `rentalmboil`
---
-ALTER TABLE `rentalmboil`
-  ADD CONSTRAINT `rentalmboil_ibfk_1` FOREIGN KEY (`id_rental`) REFERENCES `rental` (`id_rental`),
-  ADD CONSTRAINT `rentalmboil_ibfk_2` FOREIGN KEY (`id_mobil`) REFERENCES `mobil` (`id_mobil`);
+ALTER TABLE `transaksi`
+  ADD CONSTRAINT `fk_transaksi_mobil` FOREIGN KEY (`id_mobil`) REFERENCES `mobil` (`id_mobil`) ON DELETE RESTRICT ON UPDATE CASCADE,
+  ADD CONSTRAINT `fk_transaksi_pegawai` FOREIGN KEY (`id_pegawai`) REFERENCES `pegawai` (`id_pegawai`) ON DELETE SET NULL ON UPDATE CASCADE,
+  ADD CONSTRAINT `fk_transaksi_pelanggan` FOREIGN KEY (`id_pelanggan`) REFERENCES `pelanggan` (`id_pelanggan`) ON DELETE RESTRICT ON UPDATE CASCADE;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

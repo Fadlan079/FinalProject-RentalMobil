@@ -181,6 +181,8 @@
 
   // === Sidebar profile ===
   const Profilesidebar = setupToggle('ProfileBtn', 'ProfileSidebar', 'CloseProfile');
+  
+  const ProfileNavsidebar = setupToggle('ProfileNavBtn', 'ProfileSidebar', 'CloseProfile');
 
   // === Sidebar Filter Submit ===
   const typebar = document.getElementById('typebar');

@@ -143,7 +143,6 @@
         border-red-500 
         border-yellow-500">
         </div>
-
         <div class="absolute -inset-4 opacity-0 group-hover:opacity-40 border-17 rounded-xl scale-95 group-hover:scale-100 border-<?= $borderColor ?> pointer-events-none transition-all duration-500 z-0"></div>
         <div class="z-10 relative">
         <img src="<?= $imgPath?>" alt="foto mobil"

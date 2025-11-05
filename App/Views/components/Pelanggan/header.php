@@ -20,7 +20,7 @@
 
                     <ul class="absolute right-0 mt-3 w-44 bg-neutral-800 border border-neutral-700 rounded-xl shadow-lg py-2 overflow-hidden transition-all duration-200">
                         <li>
-                            <button type="button" id="ProfileBtn" class="w-full flex items-center gap-2 px-4 py-2 text-neutral-100 hover:bg-neutral-700 transition-all">
+                            <button type="button" id="ProfileNavBtn" class="w-full flex items-center gap-2 px-4 py-2 text-neutral-100 hover:bg-neutral-700 transition-all">
                             <i class="fa-solid fa-id-badge text-orange-400"></i>
                             <span>Profil Saya</span>
                             </button>  
