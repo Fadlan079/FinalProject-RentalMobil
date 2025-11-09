@@ -26,9 +26,20 @@ class Mobil{
         }
     }
 
-    public function filterMobil($harga = null,$transmisi = null, $bahan_bkr = null, $kapasitas = null,$limit = null,$offset = null){
+    public function detailmobil($id_mobil){
         try{
-            $sql = 'SELECT DISTINCT 
+            $sql = "SELECT * FROM mobil JOIN tipemobil ON mobil.id_tipe = tipemobil.id_tipe WHERE id_mobil = :id_mobil";
+            $stmt = $this->pdo->prepare($sql);
+            $stmt->execute(['id_mobil' => $id_mobil]);
+            return $stmt->fetch(PDO::FETCH_ASSOC);
+        }catch(PDOException $e){
+            echo "Data Detail Mobil gagal di tampilkan :" .$e->getMessage();
+        }
+    }
+
+    public function filterMobil($harga = null,$transmisi = null, $bhn_bkr = null,$limit = null,$offset = null){
+        try{
+            $sql = 'SELECT
             mobil.id_mobil,
             mobil.img,
             mobil.noplat,
@@ -54,15 +65,17 @@ class Mobil{
             $params[] = $transmisi;
             }
 
-            if (!empty($bahan_bkr) && $bahan_bkr != 'semua') {
-            $sql .= " AND bahan_bkr = ?";
-            $params[] = $bahan_bkr;
+            if (!empty($bhn_bkr) && $bhn_bkr != 'semua') {
+            $sql .= " AND bhn_bkr = ?";
+            $params[] = $bhn_bkr;
             }
+                    $sql .= " ORDER BY 
+        CASE 
+            WHEN mobil.status = 'ready' THEN 1
+            WHEN mobil.status = 'rent' THEN 2
+            WHEN mobil.status = 'maintenance' THEN 3
+        END";
 
-            if (!empty($kapasitas) && $kapasitas != 'semua') {
-            $sql .= " AND kursi = ?";
-            $params[] = $kapasitas;
-            }
 
             if ($limit !== null && $offset !== null) {
                 $sql .= " LIMIT :offset, :limit";
@@ -86,7 +99,7 @@ class Mobil{
         }
     }
 
-    public function countFilterMobil($harga = null, $transmisi = null, $bahan_bkr = null, $kapasitas = null) {
+    public function countFilterMobil($harga = null, $transmisi = null, $bahan_bkr = null) {
         try {
             $sql = "SELECT COUNT(DISTINCT mobil.id_mobil) AS total
                     FROM mobil 
@@ -105,11 +118,6 @@ class Mobil{
             if (!empty($bahan_bkr) && $bahan_bkr != 'semua') {
                 $sql .= " AND bhn_bkr = ?";
                 $params[] = $bahan_bkr;
-            }
-
-            if (!empty($kapasitas) && $kapasitas != 'semua') {
-                $sql .= " AND kursi = ?";
-                $params[] = $kapasitas;
             }
 
             $stmt = $this->pdo->prepare($sql);
@@ -255,7 +263,8 @@ class Mobil{
 // var_dump($data);
 // $mobil->UpdateMobil(1,2008,'hitam','2928','8991','1239','ready',1);
 // $mobil->DeleteMobil(2);
-// $data = $mobil->searchmobil('ferrari');
-// var_dump($data);
+// $data = $mobil->searchmobil('listrik');
 // $data = $mobil->getspesifikasimobil();
+// $data = $mobil->detailmobil(38);
+// var_dump($data);
 ?> 

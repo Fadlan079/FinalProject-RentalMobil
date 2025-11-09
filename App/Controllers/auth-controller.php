@@ -27,7 +27,7 @@ class AUTHController {
             // 1️⃣ Validasi input kosong
             if (empty($email) || empty($password)) {
                 $_SESSION['error'] = 'Email dan password tidak boleh kosong!';
-                header("Location: ../../Public/?action=login");
+                header("Location: ../Public/?action=login");
                 exit;
             }
 
@@ -37,14 +37,14 @@ class AUTHController {
             // 3️⃣ Jika user tidak ditemukan
             if (!$foundUser) {
                 $_SESSION['error'] = 'Email tidak ditemukan!';
-                header("Location: ../../Public/?action=login");
+                header("Location: ../Public/?action=login");
                 exit;
             }
 
             // 4️⃣ Verifikasi password
             if (!password_verify($password, $foundUser['password'])) {
                 $_SESSION['error'] = 'Password salah!';
-                header("Location: ../../Public/?action=login");
+                header("Location: ../Public/?action=login");
                 exit;
             }
 

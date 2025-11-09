@@ -24,14 +24,14 @@ class PELANGGANController{
 
         $harga = $_GET['harga'] ?? null;
         $transmisi = $_GET['transmisi'] ?? null;
-        $bahan_bkr = $_GET['bahan_bkr'] ?? null;
-        $kapasitas = $_GET['kapasitas'] ?? null;
+        $bhn_bkr = $_GET['bhn_bkr'] ?? null;
+        // $kapasitas = $_GET['kapasitas'] ?? null;
 
-        $hasFilter = !empty($harga) || !empty($transmisi) || !empty($bahan_bkr) || !empty($kapasitas);
+        $hasFilter = !empty($harga) || !empty($transmisi) || !empty($bhn_bkr) || !empty($kapasitas);
 
         if ($hasFilter) {
-            $data = $this->mobilmodel->filterMobil($harga, $transmisi, $bahan_bkr, $kapasitas, $limit, $offset);
-            $totalData = $this->mobilmodel->countFilterMobil($harga, $transmisi, $bahan_bkr, $kapasitas);
+            $data = $this->mobilmodel->filterMobil($harga, $transmisi, $bhn_bkr, $limit, $offset);
+            $totalData = $this->mobilmodel->countFilterMobil($harga, $transmisi, $bhn_bkr);
             $totalPages = ceil($totalData / $limit);
         } elseif (!empty($query)) {
             $data = $this->mobilmodel->searchmobil($query, $limit, $offset);
@@ -94,8 +94,9 @@ class PELANGGANController{
         exit;
     }
 
-    public function detailmobil(){
-        include __DIR__ . '/../Views/Pelanggan/detil-mobil.php';
+    public function detailmobil($id){
+        $detail = $this->mobilmodel->detailmobil($id);
+        require_once __DIR__ . "/../Views/components/Pelanggan/detail-mobil.php";
     }
 }
 ?>
