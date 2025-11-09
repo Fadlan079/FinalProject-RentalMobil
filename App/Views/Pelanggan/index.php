@@ -15,6 +15,7 @@
 
     ::-webkit-scrollbar {
       width: 5px;
+      transition: width 0.3s ease;
     }
 
     ::-webkit-scrollbar-track {
@@ -23,39 +24,48 @@
 
     ::-webkit-scrollbar-thumb {
       background: #f97316;
+      border-radius: 10px;
+      transition: all 0.3s ease;
     }
 
     ::-webkit-scrollbar-thumb:hover {
       background: #ea580c;
+      box-shadow: 0 0 0 2px #ea580c;
     }
+
   </style>
 </head>
 <body>
   <header>
-    <?php include __DIR__ . "/../components/Pelanggan/header.php";?>
-    <?php include __DIR__ . "/../components/Pelanggan/profile.php";?>
+    <?php include __DIR__ . "/../components/Pelanggan/header.php"?>
+    <?php include __DIR__ . "/../components/Pelanggan/profile.php"?>
   </header>
+
   <main>
-    <section id="beranda" class="h-screen p-2 bg-neutral-100">
-      <?php include __DIR__ . "/../components/Pelanggan/beranda.php";?>
+    <section id="beranda" class="h-auto p-2 bg-neutral-100">
+      <?php include __DIR__ . "/../components/Pelanggan/beranda.php"?>
     </section>
 
     <section id="kenapa" class="h-auto p-2 bg-neutral-900">
-      <?php include __DIR__ . "/../components/Pelanggan/why-cylc.php";?>
+      <?php include __DIR__ . "/../components/Pelanggan/why-cylc.php"?>
     </section>
 
-    <section id="daftar-mobil" class="h-auto p-2 bg-neutral-100">
-      <?php include __DIR__ . "/../components/Pelanggan/list-mobil.php";?>
+    <section id="tentang" class="h-auto p-2 bg-neutral-100 text-neutral-900">
+      <?php include __DIR__ . "/../components/Pelanggan/tentang-kami.php"?>
     </section>
 
-    <section id="pelayanan" class="h-screen p-2 bg-neutral-900">
-      <?php include __DIR__ . "/../components/Pelanggan/pelayanan-pelanggan.php";?>
+    <section id="daftar-mobil" class="h-auto p-2 bg-neutral-900 border-t-2">
+      <?php include __DIR__ . "/../components/Pelanggan/list-mobil.php"?>
+    </section>
+
+    <section id="pelayanan" class="h-auto bg-neutral-100">
+      <?php include __DIR__ . "/../components/Pelanggan/pelayanan-pelanggan.php"?>
     </section>
   </main>
-  <footer class="bg-neutral-900 text-gray-400 text-center py-4 text-sm">
-    <?php include __DIR__ . "/../components/Pelanggan/footer.php";?>
-  </footer>
 
+  <footer class="bg-neutral-900 text-neutral-50">
+     <?php include __DIR__ . "/../components/Pelanggan/footer.php"?>
+  </footer>
   <script>
     const profileMenu = document.getElementById('profileMenu');
 

@@ -7,8 +7,9 @@
     <div id="navbar" class="hidden lg:flex justify-between gap-6 items-center text-center">
         <div class="text-sm flex gap-4 text-neutral-400">
             <a  href="#beranda" class="nav-link"><i class="fa-solid fa-house"></i> <span>Beranda</span></a>
-            <a href="#kenapa" class="nav-link"><i class="fa-solid fa-circle-question"></i> <span>kenapa Harus Cylc?</span></a>
-            <a href="#daftar-mobil" class="nav-link"><i class="fa-solid fa-car-on"></i> <span>Daftar Mobil</span></a>
+            <a href="#kenapa" class="nav-link"><i class="fa-solid fa-circle-question"></i> <span>Mengapa Cylc?</span></a>
+            <a href="#tentang" class="nav-link"><i class="fa-solid fa-building"></i> <span>Tentang Kami</span></a>
+            <a href="#daftar-mobil" class="nav-link"><i class="fa-solid fa-car-on"></i> <span>koleksi Mobil</span></a>
             <a href="#pelayanan" class="nav-link"><i class="fa-solid fa-headset"></i> <span>pelayanan Pelanggan</span></a>
         </div>
         <div class="relative">
@@ -25,6 +26,12 @@
                             <span>Profil Saya</span>
                             </button>  
                         </li>
+                        <!-- <li>
+                            <a href="index.php?action=logout" class="flex items-center gap-2 px-4 py-2 text-orange-400 hover:bg-neutral-700 transition-all">
+                                <i class="fa-solid fa-clock-rotate-left"></i>
+                                <span>Riwayat</span>
+                            </a>
+                        </li> -->
                         <li>
                             <a href="index.php?action=logout" class="flex items-center gap-2 px-4 py-2 text-red-400 hover:bg-neutral-700 transition-all">
                                 <i class="fa-solid fa-door-open"></i>
@@ -54,6 +61,7 @@
     <nav class="text-orange-50 flex flex-col gap-5 mt-5">
         <a href="#beranda" class="p-4"><i class="fa-solid fa-house text-orange-500"></i> <span>Beranda</span></a>
         <a href="#kenapa" class="p-4"><i class="fa-solid fa-circle-question text-orange-500"></i> <span>kenapa Harus Cylc?</span></a>
+        <a href="#tentang" class="p-4"><i class="fa-solid fa-building text-orange-500"></i> <span>Tentang Kami</span></a>
         <a href="#daftar-mobil" class="p-4"><i class="fa-solid fa-car-on text-orange-500"></i> <span>Daftar Mobil</span></a>
         <a href="#pelayanan" class="p-4"><i class="fa-solid fa-headset text-orange-500"></i> <span>pelayanan Pelanggan</span></a>
         <?php if(isset($_SESSION['user'])):?>

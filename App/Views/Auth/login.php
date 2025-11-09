@@ -1,3 +1,17 @@
+<?php if (isset($_SESSION['error'])): ?>
+  <div class="bg-red-600 text-white p-2 rounded mb-3 text-center">
+    <?= $_SESSION['error']; ?>
+  </div>
+  <?php unset($_SESSION['error']); ?>
+<?php endif; ?>
+
+<?php if (isset($_SESSION['success'])): ?>
+  <div class="bg-green-600 text-white p-2 rounded mb-3 text-center">
+    <?= $_SESSION['success']; ?>
+  </div>
+  <?php unset($_SESSION['success']); ?>
+<?php endif; ?>
+
 <!DOCTYPE html>
 <html lang="id">
 <head>

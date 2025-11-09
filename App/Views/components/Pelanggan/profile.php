@@ -32,7 +32,7 @@
     <input type="text" name="nama" value="<?= htmlspecialchars($profile['nama'])?>" placeholder="Masukkan nama lengkap Anda" class="p-2 border-2 border-neutral-800 rounded-xl focus:outline-none focus:ring-2 focus:ring-orange-500 transition-all duration-300">
 
     <label for="">NIK</label>
-    <input type="number" name="nik" value="<?= htmlspecialchars($profile['nik'])?>" minlength="16" maxlength="16" placeholder="Masukkan NIK (16 digit)" class="p-2 border-2 border-neutral-800 rounded-xl focus:outline-none focus:ring-2 focus:ring-orange-500 transition-all duration-300">
+    <input type="text" name="nik" value="<?= htmlspecialchars($profile['nik'])?>" minlength="16" maxlength="16" placeholder="Masukkan NIK (16 digit)" class="p-2 border-2 border-neutral-800 rounded-xl focus:outline-none focus:ring-2 focus:ring-orange-500 transition-all duration-300">
 
     <label for="">Alamat</label>
     <input type="text" name="alamat" value="<?= htmlspecialchars($profile['alamat'])?>" placeholder="Tuliskan alamat lengkap" class="p-2 border-2 border-neutral-800 rounded-xl focus:outline-none focus:ring-2 focus:ring-orange-500 transition-all duration-300">
@@ -43,7 +43,7 @@
     <label for="">Kecamatan</label>
     <input type="text" name="kecamatan" value="<?= htmlspecialchars($profile['kecamatan'])?>" placeholder="Masukkan kecamatan" class="p-2 border-2 border-neutral-800 rounded-xl focus:outline-none focus:ring-2 focus:ring-orange-500 transition-all duration-300">
 
-    <label for="">Kabupaten Kota</label>
+    <label for="">Kota</label>
     <input type="text" name="kota" value="<?= htmlspecialchars($profile['kota'])?>" placeholder="Masukkan kota" class="p-2 border-2 border-neutral-800 rounded-xl focus:outline-none focus:ring-2 focus:ring-orange-500 transition-all duration-300">
 
     <label for="">Kode Pos</label>
