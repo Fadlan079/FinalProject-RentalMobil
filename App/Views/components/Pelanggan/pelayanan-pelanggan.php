@@ -10,7 +10,7 @@
                 Sampaikan pesan atau kendala yang kamu alami, kami siap membantu.
             </p>
         </div>
-        <form action="" method="post" class="m-5  space-y-4 bg-neutral-900 border-2 border-neutral-700 text-neutral-50 p-6 rounded-xl shadow-lg w-full max-w-md mx-auto">
+        <form action="send-mail.php" method="post" class="m-5  space-y-4 bg-neutral-900 border-2 border-neutral-700 text-neutral-50 p-6 rounded-xl shadow-lg w-full max-w-md mx-auto">
             <div>
                 <label for="nama" class="block mb-1">Nama</label>
                 <input type="text" id="nama" name="nama" placeholder="Masukkan nama Anda"

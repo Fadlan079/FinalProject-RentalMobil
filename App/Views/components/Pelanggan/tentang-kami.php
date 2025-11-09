@@ -17,6 +17,6 @@
             </a>
         </div>
 
-        <img src="uploads/jesko.svg" alt="Tentang Cylc" class="rounded-2xl shadow-xl object-cover w-full h-auto">
+        <img src="assets/4.svg" alt="Tentang Cylc" class="rounded-2xl shadow-xl object-cover w-full h-auto">
     </div>
 </div>
