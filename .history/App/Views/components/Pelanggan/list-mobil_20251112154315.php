@@ -71,6 +71,7 @@
       <label><input type="radio" name="harga" value="lt5jt" <?= $harga == 'lt5jt' ? 'checked' : '' ?>> Kurang dari 5000000</label>
     </div>
 
+    <!-- TRANSMISI -->
     <div class="flex flex-col gap-3">
       <label class="text-amber-500 font-semibold"><i class="fa-solid fa-tachometer-alt"></i> Transmisi</label>
       <hr class="border-2 border-amber-500 rounded-full w-full">
@@ -79,6 +80,7 @@
       <label><input type="radio" name="transmisi" value="manual" <?= $transmisi == 'manual' ? 'checked' : '' ?>> Manual</label>
     </div>
 
+    <!-- BAHAN BAKAR -->
     <div class="flex flex-col gap-3">
       <label class="text-sky-500 font-semibold"><i class="fas fa-gas-pump"></i> Bahan Bakar</label>
       <hr class="border-2 border-sky-500 rounded-full w-full">
@@ -87,6 +89,7 @@
       <label><input type="radio" name="bhn_bkr" value="bensin" <?= $bhn_bkr == 'bensin' ? 'checked' : '' ?>> Bensin</label>
     </div>
 
+    <!-- KAPASITAS -->
     <div class="flex flex-col gap-3">
       <label class="text-rose-500 font-semibold"><i class="fa-solid fa-user-group"></i> Kapasitas</label>
       <hr class="border-2 border-rose-500 rounded-full w-full">

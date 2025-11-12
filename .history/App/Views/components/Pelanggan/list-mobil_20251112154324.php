@@ -87,6 +87,7 @@
       <label><input type="radio" name="bhn_bkr" value="bensin" <?= $bhn_bkr == 'bensin' ? 'checked' : '' ?>> Bensin</label>
     </div>
 
+    <!-- KAPASITAS -->
     <div class="flex flex-col gap-3">
       <label class="text-rose-500 font-semibold"><i class="fa-solid fa-user-group"></i> Kapasitas</label>
       <hr class="border-2 border-rose-500 rounded-full w-full">

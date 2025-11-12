@@ -41,6 +41,7 @@
         </button>
     </div>
     
+    <!-- Search input dengan styling aktif -->
     <div class=" flex w-full lg:max-w-xl lg:m-auto m-2">
         <input type="text" name="q" placeholder="Cari Mobil" value="<?= htmlspecialchars($query) ?>"
         class="bg-neutral-800 px-4 py-2 rounded-l-xl text-orange-50 focus:outline-none focus:ring-2 focus:ring-orange-500 w-full <?= !empty($query) ? 'border-2 border-orange-500 bg-neutral-700' : '' ?>">
@@ -52,7 +53,7 @@
 
 
 
-<div id="typebar" class="fixed z-200 left-0 top-0 w-full sm:w-[400px] p-8 space-y-6 bg-neutral-900 h-full overflow-y-auto scrollbar-hide transform -translate-x-full transition-transform duration-300 ease-in-out">
+<div id="typebar" class="fixed z-[200] left-0 top-0 w-full sm:w-[400px] p-8 space-y-6 bg-neutral-900 h-full overflow-y-auto scrollbar-hide transform -translate-x-full transition-transform duration-300 ease-in-out">
   <div class="flex justify-between items-center">
     <div class="text-neutral-100">
       <h2 class="font-semibold tracking-wide"><i class="fa-solid fa-filter text-orange-500"></i> Filter Mobil Sesuai kebutuhanmu</h2>
@@ -63,6 +64,7 @@
   </div>
 
   <div class="text-orange-50 flex flex-col gap-5 mt-5 mb-10">
+    <!-- HARGA -->
     <div class="flex flex-col gap-3">
       <label class="text-emerald-500 font-semibold"><i class="fa-solid fa-wallet"></i> Harga/Hari</label>
       <hr class="border-2 border-emerald-500 rounded-full w-full">
@@ -71,6 +73,7 @@
       <label><input type="radio" name="harga" value="lt5jt" <?= $harga == 'lt5jt' ? 'checked' : '' ?>> Kurang dari 5000000</label>
     </div>
 
+    <!-- TRANSMISI -->
     <div class="flex flex-col gap-3">
       <label class="text-amber-500 font-semibold"><i class="fa-solid fa-tachometer-alt"></i> Transmisi</label>
       <hr class="border-2 border-amber-500 rounded-full w-full">
@@ -79,6 +82,7 @@
       <label><input type="radio" name="transmisi" value="manual" <?= $transmisi == 'manual' ? 'checked' : '' ?>> Manual</label>
     </div>
 
+    <!-- BAHAN BAKAR -->
     <div class="flex flex-col gap-3">
       <label class="text-sky-500 font-semibold"><i class="fas fa-gas-pump"></i> Bahan Bakar</label>
       <hr class="border-2 border-sky-500 rounded-full w-full">
@@ -87,6 +91,7 @@
       <label><input type="radio" name="bhn_bkr" value="bensin" <?= $bhn_bkr == 'bensin' ? 'checked' : '' ?>> Bensin</label>
     </div>
 
+    <!-- KAPASITAS -->
     <div class="flex flex-col gap-3">
       <label class="text-rose-500 font-semibold"><i class="fa-solid fa-user-group"></i> Kapasitas</label>
       <hr class="border-2 border-rose-500 rounded-full w-full">
