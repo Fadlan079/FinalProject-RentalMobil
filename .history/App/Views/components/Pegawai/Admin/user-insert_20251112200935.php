@@ -24,7 +24,7 @@
         Simpan Pegawai
     </button>
 
-    <a href="index.php?action=list-pegawai" 
+    <a href="index.php?action=l" 
        style="display:inline-block; margin-left:10px; padding:10px 20px; background-color:#ccc; color:black; border-radius:5px; text-decoration:none;">
        Batal
     </a>
