@@ -158,8 +158,8 @@
     $q = isset($_GET['q']) ? trim($_GET['q']) : '';
     $harga = isset($_GET['harga']) ? trim($_GET['harga']) : '';
     $transmisi = isset($_GET['transmisi']) ? trim($_GET['transmisi']) : '';
-    $bhn_bkr = isset($_GET['bhn_bkr']) ? trim($_GET['bhn_bkr']) : '';
-    $kursi = isset($_GET['kursi']) ? trim($_GET['kursi']) : '';
+    $bahan_bkr = isset($_GET['bahan_bkr']) ? trim($_GET['bahan_bkr']) : '';
+    $kapasitas = isset($_GET['kapasitas']) ? trim($_GET['kapasitas']) : '';
     ?>
 
     <div class="flex justify-center mt-5 gap-2">
@@ -170,7 +170,7 @@
                 'q' => $q,
                 'harga' => $harga,
                 'transmisi' => $transmisi,
-                'bhn_bkr' => $bhn_bkr,
+                'bhn_bkr' => $bahan_bkr,
                 'kursi' => $kursi
             ]);
         ?>

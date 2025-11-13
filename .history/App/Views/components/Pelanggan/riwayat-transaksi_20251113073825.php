@@ -32,24 +32,23 @@ $status_count = [
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Riwayat Transaksi - Cylc Rent Car</title>
 <link rel="stylesheet" href="output.css">
-<link rel="shortcut icon" href="assets/favicon.ico" type="image/x-icon">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.0/css/all.min.css"/>
 </head>
 <body class="bg-neutral-100 text-neutral-900">
 
 <div class="relative min-h-screen">
     <div class="relative z-10 max-w-6xl mx-auto mt-6 px-4">
-        <h1 class="text-3xl font-bold text-center text-orange-500">Transaksi Kamu</h1>
+        <h1 class="text-3xl font-bold mb-6 text-center text-gray-800">Transaksi Kamu</h1>
         <div class="mb-4">
-            <a href="index.php?action=index" class="px-4 py-2 bg-orange-500 hover:bg-orange-600 text-neutral-50 rounded-xl inline-flex items-center gap-2">
+            <a href="index.php?action=index" class="px-4 py-2 bg-gray-300 hover:bg-gray-400 rounded-md inline-flex items-center gap-2">
                 <i class="fa-solid fa-arrow-left"></i> Kembali ke Dashboard
             </a>
         </div>
 
         <!-- Tabs -->
         <div class="flex justify-center mb-6 space-x-4">
-            <button id="tab-pesanan" class="px-6 py-2 bg-orange-500 text-orange-50 rounded-lg font-medium">Pesanan Berjalan</button>
-            <button id="tab-riwayat" class="px-6 py-2 bg-neutral-500 text-neutral-50 rounded-lg font-medium">Riwayat Transaksi</button>
+            <button id="tab-pesanan" class="px-6 py-2 bg-orange-500 text-white rounded-lg font-medium">Pesanan Berjalan</button>
+            <button id="tab-riwayat" class="px-6 py-2 bg-gray-200 text-gray-800 rounded-lg font-medium">Riwayat Transaksi</button>
         </div>
 
         <!-- Statistik Ringkas -->
@@ -84,14 +83,14 @@ $status_count = [
                              class="w-24 h-24 object-cover rounded-lg" alt="Mobil">
                         <div>
                             <h2 class="text-lg font-semibold"><?= htmlspecialchars($tr['merk'] ?? '-') ?> (<?= $tr['tahun'] ?>)</h2>
-                            <p class="text-sm text-neutral-400"><span  class="text-orange-400">Model / Tipe :</span> <?= htmlspecialchars($tr['model'] ?? '-') ?> / <?= htmlspecialchars($tr['tipe'] ?? '-') ?></p>
-                            <p class="text-sm text-neutral-400"><span  class="text-orange-400">No Plat :</span> <?= htmlspecialchars($tr['noplat'] ?? '-') ?></p>
-                            <p class="text-sm text-neutral-400"><span  class="text-orange-400">Durasi :</span> <?= $tr['durasi_sewa'] ?> hari</p>
-                            <p class="text-sm text-neutral-400"><span  class="text-orange-400">Harga / Hari :</span>Rp <?= number_format($harga_per_hari,2) ?></p>
-                            <p class="text-sm text-neutral-400"><span  class="text-orange-400">Tanggal Sewa :</span> <?= date('d M Y', strtotime($tr['tgl_sewa'])) ?></p>
-                            <p class="text-sm text-neutral-400"><span  class="text-orange-400">Tanggal Kembali :</span> <?= date('d M Y', strtotime($tr['tgl_kembali'])) ?></p>
-                            <p class="text-sm text-neutral-400"><span  class="text-orange-400">Pegawai :</span><?= htmlspecialchars($tr['nama_pegawai'] ?? 'Belum ditugaskan') ?></p>
-                            <p class="text-sm mt-1 text-neutral-400 font-semibold">Status: <span class="font-semibold text-yellow-600"><?= ucfirst($tr['status']) ?></span></p>
+                            <p class="text-sm text-neutral-400">Model / Tipe: <?= htmlspecialchars($tr['model'] ?? '-') ?> / <?= htmlspecialchars($tr['tipe'] ?? '-') ?></p>
+                            <p class="text-sm text-neutral-400">No Plat: <?= htmlspecialchars($tr['noplat'] ?? '-') ?></p>
+                            <p class="text-sm text-neutral-400">Durasi: <?= $tr['durasi_sewa'] ?> hari</p>
+                            <p class="text-sm text-neutral-400">Harga / Hari: Rp <?= number_format($harga_per_hari,2) ?></p>
+                            <p class="text-sm text-neutral-400">Tanggal Sewa: <?= date('d M Y', strtotime($tr['tgl_sewa'])) ?></p>
+                            <p class="text-sm text-neutral-400">Tanggal Kembali: <?= date('d M Y', strtotime($tr['tgl_kembali'])) ?></p>
+                            <p class="text-sm text-neutral-400">Pegawai: <?= htmlspecialchars($tr['nama_pegawai'] ?? 'Belum ditugaskan') ?></p>
+                            <p class="text-sm mt-1 text-gray-600">Status: <span class="font-semibold text-yellow-600"><?= ucfirst($tr['status']) ?></span></p>
                             <?php if ($sisa_hari >= 0): ?>
                                 <p class="text-sm <?= $sisa_hari < 3 ? 'text-red-600 font-semibold' : 'text-green-600' ?>">
                                     Sisa waktu: <?= $sisa_hari ?> hari
@@ -105,15 +104,15 @@ $status_count = [
                     </div>
                     <div class="mt-4 md:mt-0 flex flex-col space-y-2">
                         <button onclick="updateStatus(<?= $tr['id_transaksi'] ?>, 'selesai')" 
-                                class="bg-green-500 text-green-50 px-4 py-1 rounded-md hover:bg-green-600 font-semibold transition-colors">
+                                class="bg-green-600 text-white px-4 py-1 rounded-md hover:bg-green-500 transition-colors">
                             Selesai
                         </button>
                         <button onclick="batalkanPesanan(<?= $tr['id_transaksi'] ?>)" 
-                                class="bg-red-500 text-red-50 px-4 py-1 rounded-md hover:bg-red-600 font-semibold transition-colors">
+                                class="bg-red-600 text-white px-4 py-1 rounded-md hover:bg-red-500 transition-colors">
                             Batalkan
                         </button>
                         <button onclick="editPesanan(<?= $tr['id_transaksi'] ?>)" 
-                                class="bg-orange-500 text-orange-50 px-4 py-1 rounded-md hover:bg-orange-600 font-semibold transition-colors">
+                                class="bg-orange-500 text-white px-4 py-1 rounded-md hover:bg-orange-600 transition-colors">
                             Edit
                         </button>
                     </div>
@@ -219,7 +218,7 @@ document.getElementById('tab-riwayat').addEventListener('click', () => {
     document.getElementById('tab-riwayat').classList.add('bg-orange-500', 'text-white');
     document.getElementById('tab-riwayat').classList.remove('bg-gray-200', 'text-gray-800');
     document.getElementById('tab-pesanan').classList.remove('bg-orange-500', 'text-white');
-    document.getElementById('tab-pesanan').classList.add('bg-neutral-500', 'text-neutral-50');
+    document.getElementById('tab-pesanan').classList.add('bg-gray-200', 'text-gray-800');
 });
 
 // AJAX Update Status

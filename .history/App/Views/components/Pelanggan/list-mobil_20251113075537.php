@@ -159,7 +159,7 @@
     $harga = isset($_GET['harga']) ? trim($_GET['harga']) : '';
     $transmisi = isset($_GET['transmisi']) ? trim($_GET['transmisi']) : '';
     $bhn_bkr = isset($_GET['bhn_bkr']) ? trim($_GET['bhn_bkr']) : '';
-    $kursi = isset($_GET['kursi']) ? trim($_GET['kursi']) : '';
+    $kapasitas = isset($_GET['kursi']) ? trim($_GET['kursi']) : '';
     ?>
 
     <div class="flex justify-center mt-5 gap-2">

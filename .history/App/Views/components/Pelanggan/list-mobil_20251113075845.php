@@ -181,3 +181,23 @@
     <?php endfor; ?>
 </div>
 <?php include __DIR__ . "/modal-detail-mobil.php" ?>
+
+<script>
+// Filter Mobile Toggle
+document.getElementById('typebtn').addEventListener('click', function() {
+    document.getElementById('typebar').classList.remove('-translate-x-full');
+});
+
+document.getElementById('closetypebar').addEventListener('click', function() {
+    document.getElementById('typebar').classList.add('-translate-x-full');
+});
+
+// Modal Detail Mobil
+document.querySelectorAll('.btn-detail').forEach(button => {
+    button.addEventListener('click', function() {
+        const carId = this.getAttribute('data-id');
+        // Tambahkan logika untuk menampilkan modal detail mobil
+        console.log('Show details for car ID:', carId);
+    });
+});
+</script>

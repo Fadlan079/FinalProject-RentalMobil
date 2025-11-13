@@ -32,7 +32,6 @@ $status_count = [
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Riwayat Transaksi - Cylc Rent Car</title>
 <link rel="stylesheet" href="output.css">
-<link rel="shortcut icon" href="assets/favicon.ico" type="image/x-icon">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.0/css/all.min.css"/>
 </head>
 <body class="bg-neutral-100 text-neutral-900">
@@ -219,7 +218,7 @@ document.getElementById('tab-riwayat').addEventListener('click', () => {
     document.getElementById('tab-riwayat').classList.add('bg-orange-500', 'text-white');
     document.getElementById('tab-riwayat').classList.remove('bg-gray-200', 'text-gray-800');
     document.getElementById('tab-pesanan').classList.remove('bg-orange-500', 'text-white');
-    document.getElementById('tab-pesanan').classList.add('bg-neutral-500', 'text-neutral-50');
+    document.getElementById('tab-pesanan').classList.add('bg-neutral-00', 'text-gray-800');
 });
 
 // AJAX Update Status

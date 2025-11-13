@@ -126,33 +126,33 @@
                 <?php if(!empty($data_mobil)):?>
                     <?php foreach ($data_mobil as $row): ?>
                         <tr class="border-b hover:bg-orange-400/20 text-neutral-400 transition-all duration-300 text-sm text-left">
-                            <td class="px-3 py-3"><?= $row['id_mobil'] ?></td>
-                            <td class="px-3 py-3">
-                                <img src="uploads/<?= htmlspecialchars($row['img']) ?>" alt="Foto Mobil" class="w-20 h-12 object-cover rounded">
-                            </td>
-                            <td class="px-3 py-3"><?= htmlspecialchars($row['tahun']) ?></td>
-                            <td class="px-3 py-3"><?= htmlspecialchars($row['warna']) ?></td>
-                            <td class="px-3 py-3"><?= htmlspecialchars($row['status']) ?></td>
-                            <td class="px-3 py-3"><?= htmlspecialchars($row['noplat']) ?></td>
-                            <td class="px-3 py-3"><?= htmlspecialchars($row['nomesin']) ?></td>
-                            <td class="px-3 py-3"><?= htmlspecialchars($row['norangka']) ?></td>
+<td class="px-3 py-3"><?= $row['id_mobil'] ?></td>
+<td class="px-3 py-3">
+    <img src="uploads/<?= htmlspecialchars($row['img']) ?>" alt="Foto Mobil" class="w-20 h-12 object-cover rounded">
+</td>
+<td class="px-3 py-3"><?= htmlspecialchars($row['tahun']) ?></td>
+<td class="px-3 py-3"><?= htmlspecialchars($row['warna']) ?></td>
+<td class="px-3 py-3"><?= htmlspecialchars($row['status']) ?></td>
+<td class="px-3 py-3"><?= htmlspecialchars($row['noplat']) ?></td>
+<td class="px-3 py-3"><?= htmlspecialchars($row['nomesin']) ?></td>
+<td class="px-3 py-3"><?= htmlspecialchars($row['norangka']) ?></td>
 
-                            <td class="px-3 py-3"><?= $row['id_tipe'] ?></td>
-                            <td class="px-3 py-3"><?= htmlspecialchars($row['merk']) ?></td>
-                            <td class="px-3 py-3"><?= htmlspecialchars($row['tipe']) ?></td>
-                            <td class="px-3 py-3"><?= htmlspecialchars($row['model']) ?></td>
-                            <td class="px-3 py-3"><?= htmlspecialchars($row['jenis']) ?></td>
-                            <td class="px-3 py-3"><?= htmlspecialchars($row['silinder']) ?></td>
-                            <td class="px-3 py-3"><?= htmlspecialchars($row['bhn_bkr']) ?></td>
-                            <td class="px-3 py-3"><?= htmlspecialchars($row['transmisi']) ?></td>
-                            <td class="px-3 py-3"><?= htmlspecialchars($row['pintu']) ?></td>
-                            <td class="px-3 py-3"><?= htmlspecialchars($row['kursi']) ?></td>
-                            <td class="px-3 py-3 text-emerald-500"><?= number_format($row['harga'], 0, ',', '.') ?></td>
+<td class="px-3 py-3"><?= $row['id_tipe'] ?></td>
+<td class="px-3 py-3"><?= htmlspecialchars($row['merk']) ?></td>
+<td class="px-3 py-3"><?= htmlspecialchars($row['tipe']) ?></td>
+<td class="px-3 py-3"><?= htmlspecialchars($row['model']) ?></td>
+<td class="px-3 py-3"><?= htmlspecialchars($row['jenis']) ?></td>
+<td class="px-3 py-3"><?= htmlspecialchars($row['silinder']) ?></td>
+<td class="px-3 py-3"><?= htmlspecialchars($row['bhn_bkr']) ?></td>
+<td class="px-3 py-3"><?= htmlspecialchars($row['transmisi']) ?></td>
+<td class="px-3 py-3"><?= htmlspecialchars($row['pintu']) ?></td>
+<td class="px-3 py-3"><?= htmlspecialchars($row['kursi']) ?></td>
+<td class="px-3 py-3 text-emerald-500"><?= number_format($row['harga'], 0, ',', '.') ?></td>
 
-                            <td class="px-3 py-3">
-                                <a href="edit.php?id=<?= $row['id_mobil'] ?>" class="text-blue-500 hover:underline">Edit</a> |
-                                <a href="delete.php?id=<?= $row['id_mobil'] ?>" class="text-red-500 hover:underline" onclick="return confirm('Hapus mobil ini?')">Hapus</a>
-                            </td>
+<td class="px-3 py-3">
+    <a href="edit.php?id=<?= $row['id_mobil'] ?>" class="text-blue-500 hover:underline">Edit</a> |
+    <a href="delete.php?id=<?= $row['id_mobil'] ?>" class="text-red-500 hover:underline" onclick="return confirm('Hapus mobil ini?')">Hapus</a>
+</td>
 
                             <th class="px-3 py-3 flex gap-5 text-center">
                                 <details class="relative  px-3 py-1 text-orange-600 font-medium rounded-lg  flex items-center justify-center gap-2 marker:content-none">

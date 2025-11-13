@@ -101,59 +101,37 @@
             <table class="w-full text-left border-collapse">
                 <thead class="text-sm text-neutral-500 border-b">
                     <tr>
-                        <th class="px-3 py-3">ID Mobil</th>
-                        <th class="px-3 py-3">Gambar</th>
-                        <th class="px-3 py-3">No. Plat</th>
-                        <th class="px-3 py-3">No. Mesin</th>
-                        <th class="px-3 py-3">No. Rangka</th>
-                        <th class="px-3 py-3">Merek</th>
-                        <th class="px-3 py-3">Tipe</th>
-                        <th class="px-3 py-3">Model</th>
-                        <th class="px-3 py-3">Jenis</th>
-                        <th class="px-3 py-3">Silinder</th>
-                        <th class="px-3 py-3">Bahan Bakar</th>
-                        <th class="px-3 py-3">Transmisi</th>
-                        <th class="px-3 py-3">Pintu</th>
-                        <th class="px-3 py-3">Kursi</th>
-                        <th class="px-3 py-3">Tahun</th>
-                        <th class="px-3 py-3">Warna</th>
-                        <th class="px-3 py-3">Harga Sewa / Hari</th>
-                        <th class="px-3 py-3">Status</th>
-                        <th class="px-3 py-3">Aksi</th>
+<th class="px-3 py-3">ID Mobil</th>
+<th class="px-3 py-3">Gambar</th>
+<th class="px-3 py-3">No. Plat</th>
+<th class="px-3 py-3">No. Mesin</th>
+<th class="px-3 py-3">No. Rangka</th>
+<th class="px-3 py-3">Merek</th>
+<th class="px-3 py-3">Tipe</th>
+<th class="px-3 py-3">Model</th>
+<th class="px-3 py-3">Jenis</th>
+<th class="px-3 py-3">Silinder</th>
+<th class="px-3 py-3">Bahan Bakar</th>
+<th class="px-3 py-3">Transmisi</th>
+<th class="px-3 py-3">Pintu</th>
+<th class="px-3 py-3">Kursi</th>
+<th class="px-3 py-3">Tahun</th>
+<th class="px-3 py-3">Warna</th>
+<th class="px-3 py-3">Harga Sewa / Hari</th>
+<th class="px-3 py-3">Status</th>
+<th class="px-3 py-3">Aksi</th>
+
                     </tr>
                 </thead>
                 <tbody class="text-sm">
                 <?php if(!empty($data_mobil)):?>
                     <?php foreach ($data_mobil as $row): ?>
                         <tr class="border-b hover:bg-orange-400/20 text-neutral-400 transition-all duration-300 text-sm text-left">
-                            <td class="px-3 py-3"><?= $row['id_mobil'] ?></td>
-                            <td class="px-3 py-3">
-                                <img src="uploads/<?= htmlspecialchars($row['img']) ?>" alt="Foto Mobil" class="w-20 h-12 object-cover rounded">
-                            </td>
-                            <td class="px-3 py-3"><?= htmlspecialchars($row['tahun']) ?></td>
-                            <td class="px-3 py-3"><?= htmlspecialchars($row['warna']) ?></td>
-                            <td class="px-3 py-3"><?= htmlspecialchars($row['status']) ?></td>
-                            <td class="px-3 py-3"><?= htmlspecialchars($row['noplat']) ?></td>
-                            <td class="px-3 py-3"><?= htmlspecialchars($row['nomesin']) ?></td>
-                            <td class="px-3 py-3"><?= htmlspecialchars($row['norangka']) ?></td>
-
-                            <td class="px-3 py-3"><?= $row['id_tipe'] ?></td>
-                            <td class="px-3 py-3"><?= htmlspecialchars($row['merk']) ?></td>
-                            <td class="px-3 py-3"><?= htmlspecialchars($row['tipe']) ?></td>
-                            <td class="px-3 py-3"><?= htmlspecialchars($row['model']) ?></td>
-                            <td class="px-3 py-3"><?= htmlspecialchars($row['jenis']) ?></td>
-                            <td class="px-3 py-3"><?= htmlspecialchars($row['silinder']) ?></td>
-                            <td class="px-3 py-3"><?= htmlspecialchars($row['bhn_bkr']) ?></td>
-                            <td class="px-3 py-3"><?= htmlspecialchars($row['transmisi']) ?></td>
-                            <td class="px-3 py-3"><?= htmlspecialchars($row['pintu']) ?></td>
-                            <td class="px-3 py-3"><?= htmlspecialchars($row['kursi']) ?></td>
-                            <td class="px-3 py-3 text-emerald-500"><?= number_format($row['harga'], 0, ',', '.') ?></td>
-
-                            <td class="px-3 py-3">
-                                <a href="edit.php?id=<?= $row['id_mobil'] ?>" class="text-blue-500 hover:underline">Edit</a> |
-                                <a href="delete.php?id=<?= $row['id_mobil'] ?>" class="text-red-500 hover:underline" onclick="return confirm('Hapus mobil ini?')">Hapus</a>
-                            </td>
-
+                            <th class="px-3 py-3"><?= $row['id_mobil']?></th>
+                            <th class="px-3 py-3"><?= htmlspecialchars($row['merek'])?></th>
+                            <th class="px-3 py-3"><?= htmlspecialchars($row['model'])?></th>
+                            <th class="px-3 py-3"><?= htmlspecialchars($row['tahun'])?></th>
+                            <th class="px-3 py-3 text-emerald-500"><?= $row['harga_hari']?></th>
                             <th class="px-3 py-3 flex gap-5 text-center">
                                 <details class="relative  px-3 py-1 text-orange-600 font-medium rounded-lg  flex items-center justify-center gap-2 marker:content-none">
                                     <summary class="cursor-pointer">
