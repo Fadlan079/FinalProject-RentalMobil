@@ -197,7 +197,7 @@ class Mobil{
     }
 
     public function updateStatus($id_mobil, $status) {
-    $stmt = $this->pdo->prepare("UPDATE mobil SET status = ? WHERE id_mobil = ?");
+    $stmt = $this->db->prepare("UPDATE mobil SET status = ? WHERE id_mobil = ?");
     return $stmt->execute([$status, $id_mobil]);
 }
 

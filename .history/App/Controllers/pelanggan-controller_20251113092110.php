@@ -343,25 +343,14 @@ class PELANGGANController {
             $this->transaksimodel->updateStatusMobil($transaksi['id_mobil'], 'tersedia');
         }
     
-$resultTransaksi = $this->transaksimodel->updateStatusTransaksi($id_transaksi, 'batal');
-
-if ($transaksi) {
-    // ubah status mobil jadi ready/tersedia
-    $updateMobil = $this->transaksimodel->updateStatusMobil($transaksi['id_mobil'], 'tersedia');
-}
-
-if ($resultTransaksi) {
-    echo json_encode([
-        'success' => true,
-        'message' => 'Pesanan dibatalkan dan mobil tersedia kembali'
-    ]);
-} else {
-    echo json_encode([
-        'success' => false,
-        'message' => 'Gagal membatalkan pesanan'
-    ]);
-}
-
+        $result = $this->transaksimodel->updateStatusTransaksi($id_transaksi, 'batal');
+        $result = $this->transaksimodel->updateStatusModel($id_transaksi, 'rent');
+    
+    
+        echo json_encode([
+            'success' => $result,
+            'message' => $result ? 'Pesanan dibatalkan' : 'Gagal membatalkan pesanan'
+        ]);
     }
 }
 ?>

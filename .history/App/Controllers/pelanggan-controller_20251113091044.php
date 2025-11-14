@@ -325,43 +325,32 @@ class PELANGGANController {
     }
 
     // Method untuk handle pembatalan pesanan (soft delete)
-    public function batalkanPesananAjax() {
-        Middleware::requirerole('pelanggan');
-        header('Content-Type: application/json');
-    
-        $id_transaksi = $_POST['id_transaksi'] ?? null;
-    
-        if (!$id_transaksi) {
-            echo json_encode(['success' => false, 'message' => 'ID tidak ditemukan']);
+   public function batalkanPesanan() {
+    if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+        $id_transaksi = $_POST['id_transaksi'] ?? 0;
+
+        $transaksi = $this->transaksiModel->getById($id_transaksi);
+
+        if (!$transaksi) {
+            echo json_encode(['success' => false, 'message' => 'Transaksi tidak ditemukan']);
             return;
         }
 
-        // Dapatkan data transaksi untuk mendapatkan id_mobil
-        $transaksi = $this->transaksimodel->getTransaksiById($id_transaksi);
-        if ($transaksi) {
-            // Update status mobil kembali ke 'tersedia'
-            $this->transaksimodel->updateStatusMobil($transaksi['id_mobil'], 'tersedia');
+        // Update status transaksi menjadi batal
+        $update = $this->transaksiModel->updateStatus($id_transaksi, 'batal');
+
+        // Jika berhasil update transaksi, ubah status mobil menjadi ready
+        if ($update) {
+            require_once __DIR__ . '/../Models/mobil.php';
+            $mobilModel = new Mobil();
+            $mobilModel->updateStatus($transaksi['id_mobil'], 'ready');
+
+            echo json_encode(['success' => true, 'message' => 'Pesanan berhasil dibatalkan']);
+        } else {
+            echo json_encode(['success' => false, 'message' => 'Gagal membatalkan pesanan']);
         }
-    
-$resultTransaksi = $this->transaksimodel->updateStatusTransaksi($id_transaksi, 'batal');
-
-if ($transaksi) {
-    // ubah status mobil jadi ready/tersedia
-    $updateMobil = $this->transaksimodel->updateStatusMobil($transaksi['id_mobil'], 'tersedia');
-}
-
-if ($resultTransaksi) {
-    echo json_encode([
-        'success' => true,
-        'message' => 'Pesanan dibatalkan dan mobil tersedia kembali'
-    ]);
-} else {
-    echo json_encode([
-        'success' => false,
-        'message' => 'Gagal membatalkan pesanan'
-    ]);
-}
-
     }
+}
+
 }
 ?>
