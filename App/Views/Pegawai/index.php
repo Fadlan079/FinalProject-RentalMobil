@@ -35,175 +35,63 @@
         </div>
     </aside>
     <main class="ml-64 p-8">
-        <header class="flex justify-between items-center px-4 pb-6">
-            <div>
-                <h2 class="text-xl font-semibold">Data Mobil</h2>
-                <p class="text-sm text-neutral-500">Lihat dan kelola seluruh data mobil.</p>
-            </div>
+        <h2>Data Mobil</h2>
+        <p>Menampilkan informasi lengkap setiap unit mobil yang tersedia dalam sistem.</p>
+        <a href="index.php?action=insert-mobil" class="p-2 my-5 inline-block rounded-xl shadow-lg bg-orange-500 hover:bg-orange-600 text-orange-50 font-semibold transition-all duration-300">Tambah Mobil</a>
+        <table class="min-w-full border border-neutral-800 rounded-xl overflow-hidden shadow-lg">
+            <thead class="bg-neutral-900 text-neutral-300">
+                <tr>
+                    <th class="px-4 py-3 border border-neutral-800 font-semibold">#</th>
+                    <th class="px-4 py-3 border border-neutral-800 font-semibold">ID</th>
+                    <th class="px-4 py-3 border border-neutral-800 font-semibold">Image</th>
+                    <th class="px-4 py-3 border border-neutral-800 font-semibold">Tahun</th>
+                    <th class="px-4 py-3 border border-neutral-800 font-semibold">Warna</th>
+                    <th class="px-4 py-3 border border-neutral-800 font-semibold">Status</th>
+                    <th class="px-4 py-3 border border-neutral-800 font-semibold">No Plat</th>
+                    <th class="px-4 py-3 border border-neutral-800 font-semibold">No Mesin</th>
+                    <th class="px-4 py-3 border border-neutral-800 font-semibold">No Rangka</th>
+                </tr>
+            </thead>
 
-            <div class="flex items-center gap-3">
-                <form method="GET" action="data-mobil.php" class="relative">
-                    <button type="submit"><i class="fa-solid fa-magnifying-glass absolute left-3 top-2.5 text-neutral-400"></i></button>
-                    <input 
-                        type="text" 
-                        name="keyword"
-                        placeholder="Cari mobil..." 
-                        class="pl-9 pr-3 py-2 rounded-xl border border-neutral-300 text-sm focus:outline-none focus:ring-2 focus:ring-orange-400 focus:border-orange-400 transition-all duration-300"
-                        value = "<?= isset($_GET['keyword']) ? htmlspecialchars($_GET['keyword']) : '' ?>"
-                    >
-                </form>
-                <a href="index.php?action=insert" class="bg-orange-500 text-orange-100 p-2 rounded-xl font-semi-bold hover:bg-orange-600 transition-all duration-300">Tambah Mobil</a>
-                <select class="py-2 px-3 border border-neutral-300 rounded-xl text-sm text-neutral-600 focus:ring-2 focus:outline-none focus:ring-orange-400 focus:border-orange-400 transition-all duration-300">
-                    <option value="">Semua Status</option>
-                    <option value="ready">Ready</option>
-                    <option value="disewa">Disewa</option>
-                    <option value="maintenance">Maintenance</option>
-                </select>
-            </div>
-        </header>
-        <!-- <section class="p-6 grid grid-cols-3 gap-6">
-            <div class="relative overflow-hidden bg-gradient-to-br from-emerald-500 to-emerald-600 rounded-2xl shadow-lg hover:scale-105 hover:shadow-xl transition-all duration-300 text-white">
-                <div class="absolute opacity-20 -right-6 -bottom-6 text-8xl">
-                    <i class="fa-solid fa-check-to-slot"></i>
-                </div>
-                <div class="p-6 relative z-10">
-                    <p class="text-sm uppercase tracking-wide text-emerald-100">Ready</p>
-                    <h3 class="text-4xl font-extrabold mt-2"><?= htmlspecialchars($status['ready'] ?? 0) ?> Unit</h3>
-                    <p class="text-emerald-100 text-sm mt-1">Mobil yang tersedia di garasi</p>  
-                </div>
-            </div>
-            <div class="relative overflow-hidden bg-gradient-to-br from-red-500 to-red-600 rounded-2xl shadow-lg hover:scale-105 hover:shadow-xl transition-all duration-300 text-white">
-                <div class="absolute opacity-30 -right-6 -bottom-6 text-8xl">
-                    <i class="fa-solid fa-xmark"></i>
-                </div>
-                <div class="p-6 relative z-10">
-                    <p class="text-sm uppercase tracking-wide text-red-100">Rent</p>
-                    <h3 class="text-4xl font-extrabold mt-2"><?= htmlspecialchars($status['rent'] ?? 0) ?> Unit</h3>
-                    <p class="text-red-100 text-sm mt-1">Mobil yang sedang dalam proses penyewaan</p>  
-                </div>
-            </div>
-                <div class="relative overflow-hidden bg-gradient-to-br from-yellow-500 to-yellow-600 rounded-2xl shadow-lg hover:scale-105 hover:shadow-xl transition-all duration-300 text-white">
-                    <div class="absolute opacity-20 -right-6 -bottom-6 text-8xl">
-                        <i class="fa-solid fa-screwdriver-wrench"></i>
-                    </div>
-                <div class="p-6 relative z-10">
-                    <p class="text-sm uppercase tracking-wide text-yellow-100">Maintenance</p>
-                    <h3 class="text-4xl font-extrabold mt-2"><?= htmlspecialchars($status['maintenance'] ?? 0) ?> Unit</h3>
-                    <p class="text-yellow-100 text-sm mt-1">Mobil yang sedang dalam proses pemeliharaan</p>  
-                </div>
-            </div>
-        </section> -->
-        <section class="bg-white p-6 shadow-xl rounded-2xl">
-            <div class="flex justify-between text-xl font-semibold px-4 pb-4">
-                <h2>Daftar Mobil</h2>
-                <a href="" class="text-orange-500 hover:text-orange-400 hover:underline transition-all duration-300">Lihat Semua</a>
-            </div>
-            <table class="w-full text-left border-collapse">
-                <thead class="text-sm text-neutral-500 border-b">
-                    <tr>
-                        <th class="px-3 py-3">ID Mobil</th>
-                        <th class="px-3 py-3">Gambar</th>
-                        <th class="px-3 py-3">No. Plat</th>
-                        <th class="px-3 py-3">No. Mesin</th>
-                        <th class="px-3 py-3">No. Rangka</th>
-                        <th class="px-3 py-3">Merek</th>
-                        <th class="px-3 py-3">Tipe</th>
-                        <th class="px-3 py-3">Model</th>
-                        <th class="px-3 py-3">Jenis</th>
-                        <th class="px-3 py-3">Silinder</th>
-                        <th class="px-3 py-3">Bahan Bakar</th>
-                        <th class="px-3 py-3">Transmisi</th>
-                        <th class="px-3 py-3">Pintu</th>
-                        <th class="px-3 py-3">Kursi</th>
-                        <th class="px-3 py-3">Tahun</th>
-                        <th class="px-3 py-3">Warna</th>
-                        <th class="px-3 py-3">Harga Sewa / Hari</th>
-                        <th class="px-3 py-3">Status</th>
-                        <th class="px-3 py-3">Aksi</th>
-                    </tr>
-                </thead>
-                <tbody class="text-sm">
-                <?php if(!empty($data_mobil)):?>
-                    <?php foreach ($data_mobil as $row): ?>
-                        <tr class="border-b hover:bg-orange-400/20 text-neutral-400 transition-all duration-300 text-sm text-left">
-                            <td class="px-3 py-3"><?= $row['id_mobil'] ?></td>
-                            <td class="px-3 py-3">
-                                <img src="uploads/<?= htmlspecialchars($row['img']) ?>" alt="Foto Mobil" class="w-20 h-12 object-cover rounded">
-                            </td>
-                            <td class="px-3 py-3"><?= htmlspecialchars($row['tahun']) ?></td>
-                            <td class="px-3 py-3"><?= htmlspecialchars($row['warna']) ?></td>
-                            <td class="px-3 py-3"><?= htmlspecialchars($row['status']) ?></td>
-                            <td class="px-3 py-3"><?= htmlspecialchars($row['noplat']) ?></td>
-                            <td class="px-3 py-3"><?= htmlspecialchars($row['nomesin']) ?></td>
-                            <td class="px-3 py-3"><?= htmlspecialchars($row['norangka']) ?></td>
+            <tbody class="bg-neutral-950 text-neutral-200">
+                <?php $no = 1?>
+                <?php foreach($dataMobil as $dm): ?>
+                <tr class="hover:bg-orange-500/20 transition duration-200">
+                    <td class="px-4 py-3 border border-neutral-800 text-center"><?=  $no++ ?></td>
+                    <td class="px-4 py-3 border border-neutral-800 text-center"><?= htmlspecialchars($dm['id_mobil']) ?></td>
 
-                            <td class="px-3 py-3"><?= $row['id_tipe'] ?></td>
-                            <td class="px-3 py-3"><?= htmlspecialchars($row['merk']) ?></td>
-                            <td class="px-3 py-3"><?= htmlspecialchars($row['tipe']) ?></td>
-                            <td class="px-3 py-3"><?= htmlspecialchars($row['model']) ?></td>
-                            <td class="px-3 py-3"><?= htmlspecialchars($row['jenis']) ?></td>
-                            <td class="px-3 py-3"><?= htmlspecialchars($row['silinder']) ?></td>
-                            <td class="px-3 py-3"><?= htmlspecialchars($row['bhn_bkr']) ?></td>
-                            <td class="px-3 py-3"><?= htmlspecialchars($row['transmisi']) ?></td>
-                            <td class="px-3 py-3"><?= htmlspecialchars($row['pintu']) ?></td>
-                            <td class="px-3 py-3"><?= htmlspecialchars($row['kursi']) ?></td>
-                            <td class="px-3 py-3 text-emerald-500"><?= number_format($row['harga'], 0, ',', '.') ?></td>
+                    <td class="px-4 py-3 border border-neutral-800 text-center">
+                        <img src="uploads/<?= htmlspecialchars($dm['img']) ?>" 
+                            alt="gambar mobil"
+                            class="w-20 h-14 object-cover rounded-lg shadow-md">
+                    </td>
 
-                            <td class="px-3 py-3">
-                                <a href="edit.php?id=<?= $row['id_mobil'] ?>" class="text-blue-500 hover:underline">Edit</a> |
-                                <a href="delete.php?id=<?= $row['id_mobil'] ?>" class="text-red-500 hover:underline" onclick="return confirm('Hapus mobil ini?')">Hapus</a>
-                            </td>
+                    <td class="px-4 py-3 border border-neutral-800 text-center"><?= htmlspecialchars($dm['tahun']) ?></td>
+                    <td class="px-4 py-3 border border-neutral-800 text-center"><?= htmlspecialchars($dm['warna']) ?></td>
 
-                            <th class="px-3 py-3 flex gap-5 text-center">
-                                <details class="relative  px-3 py-1 text-orange-600 font-medium rounded-lg  flex items-center justify-center gap-2 marker:content-none">
-                                    <summary class="cursor-pointer">
-                                        <i class="fa-solid fa-ellipsis-vertical"></i>
-                                    </summary>
-                                    <ul class="absolute left-10 w-30 bg-white shadow-lg border border-gray-100 rounded-xl overflow-hidden z-50">
-                                        <li>
-                                            <a href="index.php?action=update&id=<?= $row['id_mobil']?>" class="flex items-center gap-2 px-4 py-2 text-sm text-emerald-600 hover:bg-emerald-50 transition-all duration-300">
-                                                <i class="fa-solid fa-pen"></i> Edit
-                                            </a>
-                                        </li>
-                                         <li>
-                                            <a href="index.php?action=delete&id=<?= $row['id_mobil']?>" class="flex items-center gap-2 px-4 py-2 text-sm text-red-600 hover:bg-red-50 transition-all duration-300" onclick="return confirm('Yakin Ingin Menghapus Data dengan ID <?= $row['id_mobil']?> ?')">
-                                                <i class="fa-solid fa-trash"></i> Delete
-                                            </a>
-                                         </li>
-                                    </ul>
-                                </details>
-                            </th>
-                        </tr>
-                    <?php endforeach?>   
-                    <?php else:?>
-                        <tr>
-                            <td colspan="12" class="py-6">
-                                <div class="flex flex-col items-center justify-center text-center gap-5 italic text-neutral-300 text-xl">
-                                    <i class="fa-solid fa-database text-4xl"></i>
-                                    <h2 class="text-4xl">Belum ada data yang dapat ditampilkan</h2>
-                                    <p>Silahkan tambah data mobil dengan menekan tombol "Tambah Mobil"</p>
-                                </div>
-                            </td>
-                        </tr>
-                    <?php endif?> 
-                </tbody>
-            </table>
-        </section>
+                    <td class="px-4 py-3 border border-neutral-800 text-center">
+                        <span class="
+                            px-3 py-1 rounded-full text-white text-xs font-semibold tracking-wide shadow
+                            <?= 
+                                $dm['status'] === 'ready'
+                                    ? 'bg-green-600'
+                                    : ($dm['status'] === 'maintenance'
+                                        ? 'bg-yellow-500 text-neutral-900'
+                                        : 'bg-red-600')
+                            ?>
+                        ">
+                            <?= htmlspecialchars(ucfirst($dm['status'])) ?>
+                        </span>
+                    </td>
+
+                    <td class="px-4 py-3 border border-neutral-800 text-center"><?= htmlspecialchars($dm['noplat']) ?></td>
+                    <td class="px-4 py-3 border border-neutral-800 text-center"><?= htmlspecialchars($dm['nomesin']) ?></td>
+                    <td class="px-4 py-3 border border-neutral-800 text-center"><?= htmlspecialchars($dm['norangka']) ?></td>
+                </tr>
+                <?php endforeach; ?>
+            </tbody>
+        </table>
+
     </main>
-    <script>
-    document.addEventListener("DOMContentLoaded", () => {
-    const allDetails = document.querySelectorAll("details");
-
-    allDetails.forEach((targetDetail) => {
-        targetDetail.addEventListener("toggle", () => {
-        if (targetDetail.open) {
-            allDetails.forEach((detail) => {
-            if (detail !== targetDetail) detail.removeAttribute("open");
-            });
-        }
-        });
-    });
-    });
-    </script>
 </body>
 </html>

@@ -25,7 +25,7 @@ class Tipemobil{
         }
     }
 
-    public function Selecttipemobil() {
+    public function GetAllTipeMobil() {
         try{
             $sql = "SELECT * FROM tipemobil";
             $stmt = $this->pdo->query($sql);

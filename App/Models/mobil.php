@@ -9,10 +9,11 @@ class Mobil{
         $this->pdo = $db->getConnection();
     }
 
-    public function InsertMobil($tahun, $warna, $noplat, $nomesin,$norangka,$status, $id_tipe) {
+    public function InsertMobil($img ,$tahun, $warna,$status,$noplat, $nomesin,$norangka, $id_tipe) {
         try{
-            $sql = "INSERT INTO mobil(tahun, warna, noplat, nomesin,norangka,status,id_tipe) VALUES (:tahun, :warna, :noplat, :nomesin,:norangka,:status,:id_tipe)";
+            $sql = "INSERT INTO mobil(img,tahun, warna, noplat, nomesin,norangka,status,id_tipe) VALUES (:img,:tahun, :warna, :noplat, :nomesin,:norangka,:status,:id_tipe)";
             $stmt = $this->pdo->prepare($sql);
+            $stmt->bindParam(":img", $img);
             $stmt->bindParam(":tahun", $tahun);
             $stmt->bindParam(":warna", $warna);
             $stmt->bindParam(":noplat", $noplat);
@@ -26,6 +27,16 @@ class Mobil{
         }
     }
 
+    public function GetAllMobil(){
+        try{
+            $sql = "SELECT * FROM mobil";
+            $stmt = $this->pdo->query($sql);
+            return $stmt->fetchAll(PDO::FETCH_ASSOC);
+        }catch(PDOException $e){
+            echo "Data Gagal Di Tampilkan :" .$e->getMessage();
+        }
+    }
+
     public function detailmobil($id_mobil){
         try{
             $sql = "SELECT * FROM mobil 
@@ -33,18 +44,6 @@ class Mobil{
             WHERE id_mobil = :id_mobil";
             $stmt = $this->pdo->prepare($sql);
             $stmt->execute(['id_mobil' => $id_mobil]);
-            return $stmt->fetch(PDO::FETCH_ASSOC);
-        }catch(PDOException $e){
-            echo "Data Detail Mobil gagal di tampilkan :" .$e->getMessage();
-        }
-    }
-
-    public function getallmobil(){
-        try{
-            $sql = "SELECT * FROM mobil 
-            JOIN tipemobil ON mobil.id_tipe = tipemobil.id_tipe";
-            $stmt = $this->pdo->prepare($sql);
-            $stmt->execute();
             return $stmt->fetch(PDO::FETCH_ASSOC);
         }catch(PDOException $e){
             echo "Data Detail Mobil gagal di tampilkan :" .$e->getMessage();

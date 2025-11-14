@@ -1,21 +1,33 @@
 <?php
+require_once __DIR__ . '/../Middleware/middleware.php';
 require_once __DIR__ . '/../Models/pegawai.php';
 require_once __DIR__ . '/../Models/mobil.php';
-require_once __DIR__ . '/../Middleware/middleware.php';
+require_once __DIR__ . '/../Models/tipemobil.php';
 
 class PEGAWAIController {
     private $model;
     private $mobilmodel;
+    private $tipemodel;
 
     public function __construct() {
         $this->model = new Pegawai();
         $this->mobilmodel = new Mobil();
+        $this->tipemodel = new Tipemobil();
     }
 
     public function index() {
         Middleware::requirerole('pegawai'); 
-        $data_mobil = $this->mobilmodel->getallmobil();
+        $dataMobil = $this->mobilmodel->GetAllMobil();
+        $dataTipe = $this->tipemodel->GetAllTipeMobil();
         include __DIR__ . '/../Views/Pegawai/index.php';
+    }
+
+    public function Create(){
+        include __DIR__ . '/../Views/components/Pegawai/tambah-mobil.php';
+    }
+
+    public function Store(){
+
     }
 
     public function storeProfile() {

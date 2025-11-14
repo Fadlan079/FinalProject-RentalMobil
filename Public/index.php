@@ -71,15 +71,12 @@ switch ($action) {
     case 'index-pegawai':
         $Pegawaicontroller->index();
         break;
-    case 'listPegawai':
-        $Pegawaicontroller->listPegawai();
-        break;
-    case 'createPegawai':
-        $Pegawaicontroller->createPegawai();    
-        break;
-    case 'storePegawai':
-        $Pegawaicontroller->storePegawai();
-        break;
+    case 'insert-tipemobil':
+        $Pegawaicontroller->Create();
+        break;    
+    case 'insert-mobil':
+        $Pegawaicontroller->Store();
+        break;          
         
     // 404 Not Found    
     default:
