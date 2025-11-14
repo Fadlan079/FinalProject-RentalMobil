@@ -25,7 +25,7 @@ public function login() {
 
         if (empty($email) || empty($password)) {
             $_SESSION['error'] = 'Email dan password tidak boleh kosong!';
-            header("Location: ../Public/?action=login");
+            header("Location: ?action=login");
             exit;
         }
 
@@ -33,13 +33,13 @@ public function login() {
 
         if (!$foundUser) {
             $_SESSION['error'] = 'Email tidak ditemukan!';
-            header("Location: ../Public/?action=login");
+            header("Location: ?action=login");
             exit;
         }
 
         if (!password_verify($password, $foundUser['password'])) {
             $_SESSION['error'] = 'Password salah!';
-            header("Location: ../Public/?action=login");
+            header("Location: ?action=login");
             exit;
         }
 
@@ -67,7 +67,7 @@ public function login() {
                 'email'   => $foundUser['email'],
                 'role'    => $foundUser['role'] ?? 'pelanggan',
             ];
-            header("Location: ../Public/?action=index");
+            header("Location: ?action=index");
             exit;
 
         } elseif ($foundUser['role'] === 'pegawai') {
@@ -97,7 +97,7 @@ public function login() {
             'role'    => $foundUser['role'] ?? 'pelanggan',
         ];
 
-        header("Location: ../Public/?action=index-pegawai");
+        header("Location: ?action=index-pegawai");
         exit;
         }
     }
@@ -157,7 +157,7 @@ public function login() {
             );
 
             $_SESSION['success'] = 'Registrasi berhasil, silakan login.';
-            header("Location: ../Public/?action=login");
+            header("Location: ?action=login");
             exit;
         } else {
             $_SESSION['error'] = 'Gagal mendaftar.';
@@ -172,7 +172,7 @@ public function login() {
     public function logout() {
         session_unset();
         session_destroy();
-        header("Location: ../Public/?action=index");
+        header("Location: ?action=index");
         exit;
     }
 }
