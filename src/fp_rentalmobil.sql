@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost:3306
--- Generation Time: Nov 14, 2025 at 01:15 AM
+-- Generation Time: Nov 14, 2025 at 01:43 AM
 -- Server version: 8.4.3
 -- PHP Version: 8.3.16
 
@@ -29,15 +29,15 @@ SET time_zone = "+00:00";
 
 CREATE TABLE `mobil` (
   `id_mobil` int NOT NULL,
-  `img` varchar(255) NOT NULL,
+  `img` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
   `tahun` year NOT NULL,
-  `warna` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci DEFAULT NULL,
-  `status` enum('ready','rent','maintenance','nonactive') CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL,
-  `noplat` varchar(255) NOT NULL,
-  `nomesin` varchar(255) NOT NULL,
-  `norangka` varchar(255) NOT NULL,
+  `warna` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `status` enum('ready','rent','maintenance','nonactive') CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
+  `noplat` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `nomesin` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `norangka` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
   `id_tipe` int NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
 -- Dumping data for table `mobil`
@@ -74,19 +74,19 @@ INSERT INTO `mobil` (`id_mobil`, `img`, `tahun`, `warna`, `status`, `noplat`, `n
 CREATE TABLE `pegawai` (
   `id_pegawai` int NOT NULL,
   `id_user` int DEFAULT NULL,
-  `nama` varchar(255) DEFAULT NULL,
-  `tmpt_lhr` varchar(255) DEFAULT NULL,
+  `nama` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `tmpt_lhr` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `tgl_lhr` date DEFAULT NULL,
-  `alamat` varchar(255) DEFAULT NULL,
-  `kel` varchar(255) DEFAULT NULL,
-  `kec` varchar(255) DEFAULT NULL,
-  `kota` varchar(255) DEFAULT NULL,
-  `KP` char(5) DEFAULT NULL,
-  `telp` varchar(13) DEFAULT NULL,
-  `bio` text,
-  `pp` varchar(255) DEFAULT NULL,
-  `jabatan` enum('admin','customer service') DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+  `alamat` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `kel` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `kec` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `kota` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `KP` char(5) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `telp` varchar(13) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `bio` text COLLATE utf8mb4_unicode_ci,
+  `pp` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `jabatan` enum('admin','customer service') COLLATE utf8mb4_unicode_ci DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
 -- Dumping data for table `pegawai`
@@ -106,17 +106,17 @@ INSERT INTO `pegawai` (`id_pegawai`, `id_user`, `nama`, `tmpt_lhr`, `tgl_lhr`, `
 CREATE TABLE `pelanggan` (
   `id_pelanggan` int NOT NULL,
   `id_user` int DEFAULT NULL,
-  `nama` varchar(255) DEFAULT NULL,
-  `nik` char(16) DEFAULT NULL,
-  `alamat` text,
-  `kelurahan` varchar(100) DEFAULT NULL,
-  `kecamatan` varchar(100) DEFAULT NULL,
-  `kota` varchar(255) DEFAULT NULL,
-  `kp` char(5) DEFAULT NULL,
-  `telp` varchar(13) DEFAULT NULL,
-  `bio` text,
-  `pp` varchar(255) DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+  `nama` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `nik` char(16) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `alamat` text COLLATE utf8mb4_unicode_ci,
+  `kelurahan` varchar(100) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `kecamatan` varchar(100) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `kota` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `kp` char(5) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `telp` varchar(13) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `bio` text COLLATE utf8mb4_unicode_ci,
+  `pp` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
 -- Dumping data for table `pelanggan`
@@ -145,17 +145,17 @@ INSERT INTO `pelanggan` (`id_pelanggan`, `id_user`, `nama`, `nik`, `alamat`, `ke
 
 CREATE TABLE `tipemobil` (
   `id_tipe` int NOT NULL,
-  `merk` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci DEFAULT NULL,
-  `tipe` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci DEFAULT NULL,
-  `model` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci DEFAULT NULL,
-  `jenis` varchar(255) NOT NULL,
+  `merk` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `tipe` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `model` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `jenis` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
   `silinder` int NOT NULL,
-  `bhn_bkr` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci DEFAULT NULL,
-  `transmisi` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci DEFAULT NULL,
+  `bhn_bkr` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `transmisi` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `pintu` tinyint NOT NULL,
   `kursi` tinyint NOT NULL,
   `harga` decimal(12,2) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
 -- Dumping data for table `tipemobil`
@@ -193,9 +193,9 @@ CREATE TABLE `transaksi` (
   `tgl_kembali` datetime NOT NULL,
   `total_bayar` decimal(12,2) NOT NULL,
   `durasi_sewa` int NOT NULL,
-  `status` enum('berjalan','selesai','batal') NOT NULL,
+  `status` enum('berjalan','selesai','batal') COLLATE utf8mb4_unicode_ci NOT NULL,
   `tgl_dibuat` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
 -- Dumping data for table `transaksi`
@@ -239,12 +239,12 @@ INSERT INTO `transaksi` (`id_transaksi`, `id_mobil`, `id_pelanggan`, `id_pegawai
 
 CREATE TABLE `user` (
   `id_user` int NOT NULL,
-  `email` varchar(255) NOT NULL,
-  `password` varchar(255) NOT NULL,
-  `jk` enum('L','P') NOT NULL,
-  `role` enum('pelanggan','pegawai') CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL DEFAULT 'pelanggan',
+  `email` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `password` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `jk` enum('L','P') COLLATE utf8mb4_unicode_ci NOT NULL,
+  `role` enum('pelanggan','pegawai') CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT 'pelanggan',
   `tgl_dibuat` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
 -- Dumping data for table `user`
