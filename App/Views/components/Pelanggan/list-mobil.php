@@ -1,3 +1,14 @@
+<?php
+// Default values untuk mencegah undefined variable error
+$harga     = $harga     ?? $_GET['harga']     ?? 'semua';
+$transmisi = $transmisi ?? $_GET['transmisi'] ?? 'semua';
+$bhn_bkr   = $bhn_bkr   ?? $_GET['bhn_bkr']   ?? 'semua';
+$kursi     = $kursi     ?? $_GET['kursi']     ?? 'semua';
+$query     = $query     ?? $_GET['q']         ?? '';
+$page      = $page      ?? (int)($_GET['page'] ?? 1);
+$totalPages = $totalPages ?? 1;
+$data      = $data      ?? [];
+?>
 <div class="p-5 m-5 text-center">
     <h1 class="text-2xl font-semibold text-orange-500">Koleksi Mobil Kami</h1> 
     <p class="text-sm text-neutral-400">
@@ -5,7 +16,7 @@
     </p>
 </div>
 
-<form action="index.php" method="GET" class="max-w-6xl mx-auto flex flex-col lg:flex-row justify-between items-stretch lg:gap-3">
+<form id="filterForm" action="index.php" method="GET" class="max-w-6xl mx-auto flex flex-col lg:flex-row justify-between items-stretch lg:gap-3">
     <input type="hidden" name="page" value="1">
     <div class="hidden lg:flex justify-between items-center bg-neutral-800 text-orange-50 p-2 rounded-xl shadow-md m-auto text-sm">
         <div class="flex gap-4 items-center">
@@ -49,8 +60,7 @@
     <button id="typebtn" type="button" class="lg:hidden bg-orange-500 text-orange-50 font-semibold text-center rounded-xl shadow-lg p-2 m-2 w-full">
         <i class="fa-solid fa-sliders"></i> Types
     </button>
-
-
+</form>
 
 <div id="typebar" class="fixed z-200 left-0 top-0 w-full sm:w-[400px] p-8 space-y-6 bg-neutral-900 h-full overflow-y-auto scrollbar-hide transform -translate-x-full transition-transform duration-300 ease-in-out">
   <div class="flex justify-between items-center">
@@ -66,118 +76,118 @@
     <div class="flex flex-col gap-3">
       <label class="text-emerald-500 font-semibold"><i class="fa-solid fa-wallet"></i> Harga/Hari</label>
       <hr class="border-2 border-emerald-500 rounded-full w-full">
-      <label><input type="radio" name="harga" value="semua" <?= $harga == 'semua' ? 'checked' : '' ?>> Semua</label>
-      <label><input type="radio" name="harga" value="lt1jt" <?= $harga == 'lt1jt' ? 'checked' : '' ?>> Kurang dari 1000000</label>
-      <label><input type="radio" name="harga" value="lt5jt" <?= $harga == 'lt5jt' ? 'checked' : '' ?>> Kurang dari 5000000</label>
+      <label><input type="radio" name="harga_mobile" value="semua" <?= $harga == 'semua' ? 'checked' : '' ?>> Semua</label>
+      <label><input type="radio" name="harga_mobile" value="lt1jt" <?= $harga == 'lt1jt' ? 'checked' : '' ?>> Kurang dari 1000000</label>
+      <label><input type="radio" name="harga_mobile" value="lt5jt" <?= $harga == 'lt5jt' ? 'checked' : '' ?>> Kurang dari 5000000</label>
     </div>
 
     <div class="flex flex-col gap-3">
       <label class="text-amber-500 font-semibold"><i class="fa-solid fa-tachometer-alt"></i> Transmisi</label>
       <hr class="border-2 border-amber-500 rounded-full w-full">
-      <label><input type="radio" name="transmisi" value="semua" <?= $transmisi == 'semua' ? 'checked' : '' ?>> Semua</label>
-      <label><input type="radio" name="transmisi" value="automatic" <?= $transmisi == 'automatic' ? 'checked' : '' ?>> Automatic</label>
-      <label><input type="radio" name="transmisi" value="manual" <?= $transmisi == 'manual' ? 'checked' : '' ?>> Manual</label>
+      <label><input type="radio" name="transmisi_mobile" value="semua" <?= $transmisi == 'semua' ? 'checked' : '' ?>> Semua</label>
+      <label><input type="radio" name="transmisi_mobile" value="automatic" <?= $transmisi == 'automatic' ? 'checked' : '' ?>> Automatic</label>
+      <label><input type="radio" name="transmisi_mobile" value="manual" <?= $transmisi == 'manual' ? 'checked' : '' ?>> Manual</label>
     </div>
 
     <div class="flex flex-col gap-3">
       <label class="text-sky-500 font-semibold"><i class="fas fa-gas-pump"></i> Bahan Bakar</label>
       <hr class="border-2 border-sky-500 rounded-full w-full">
-      <label><input type="radio" name="bhn_bkr" value="semua" <?= $bhn_bkr == 'semua' ? 'checked' : '' ?>> Semua</label>
-      <label><input type="radio" name="bhn_bkr" value="listrik" <?= $bhn_bkr == 'listrik' ? 'checked' : '' ?>> Listrik</label>
-      <label><input type="radio" name="bhn_bkr" value="bensin" <?= $bhn_bkr == 'bensin' ? 'checked' : '' ?>> Bensin</label>
+      <label><input type="radio" name="bhn_bkr_mobile" value="semua" <?= $bhn_bkr == 'semua' ? 'checked' : '' ?>> Semua</label>
+      <label><input type="radio" name="bhn_bkr_mobile" value="listrik" <?= $bhn_bkr == 'listrik' ? 'checked' : '' ?>> Listrik</label>
+      <label><input type="radio" name="bhn_bkr_mobile" value="bensin" <?= $bhn_bkr == 'bensin' ? 'checked' : '' ?>> Bensin</label>
     </div>
 
     <div class="flex flex-col gap-3">
       <label class="text-rose-500 font-semibold"><i class="fa-solid fa-user-group"></i> Kapasitas</label>
       <hr class="border-2 border-rose-500 rounded-full w-full">
-      <label><input type="radio" name="kursi" value="semua" <?= $kursi == 'semua' ? 'checked' : '' ?>> Semua</label>
-      <label><input type="radio" name="kursi" value="2" <?= $kursi == '2' ? 'checked' : '' ?>> 2 Orang</label>
-      <label><input type="radio" name="kursi" value="4-5" <?= $kursi == '4-5' ? 'checked' : '' ?>> 4-5 Orang</label>
-      <label><input type="radio" name="kursi" value="6-8" <?= $kursi == '6-8' ? 'checked' : '' ?>> 6-8 Orang</label>
+      <label><input type="radio" name="kursi_mobile" value="semua" <?= $kursi == 'semua' ? 'checked' : '' ?>> Semua</label>
+      <label><input type="radio" name="kursi_mobile" value="2" <?= $kursi == '2' ? 'checked' : '' ?>> 2 Orang</label>
+      <label><input type="radio" name="kursi_mobile" value="4-5" <?= $kursi == '4-5' ? 'checked' : '' ?>> 4-5 Orang</label>
+      <label><input type="radio" name="kursi_mobile" value="6-8" <?= $kursi == '6-8' ? 'checked' : '' ?>> 6-8 Orang</label>
     </div>
 
     <button type="submit" class="p-2 bg-orange-500 rounded-xl font-semibold tracking-wide hover:bg-orange-600">Terapkan</button>
   </div>
 </div>
+
+<div id="grid-mobil-container">
+    <?php include __DIR__ . "/grid-mobil.php"; ?>
 </div>
-</form>
 
-<div class="grid grid-cols-1 lg:grid-cols-3 lg:grid-rows-3 gap-6 lg:p-5 m-4 p-3 lg:max-w-6xl lg:m-auto">
-    <?php if(!empty($data)):?>
-        <?php foreach($data as $row):?>
-        <?php
-            $imgPath = 'uploads/' . (!empty($row['img']) && file_exists(__DIR__ . '/../../../../Public/uploads/' . $row['img'])? $row['img'] : 'default.svg');
-            ?>
-        <div class="bg-neutral-800 border-t-4 border-orange-500 text-neutral-300 shadow-xl group relative tracking-wide">
-            <div class="absolute -inset-4 opacity-0 group-hover:opacity-50 border-17 rounded-xl scale-95 group-hover:scale-100 border-orange-500 pointer-events-none transition-all duration-500 z-0"></div>
-            <div class="z-10 relative">
-            <img src="<?= $imgPath?>" alt="foto mobil"
-            class="h-40 w-full object-cover">
-            <div class="p-2 m-2 grid grid-cols-3 gap-2 text-xs">
-                <div class="flex col-span-3 gap-3 font-semibold">
-                <h2><?= htmlspecialchars(ucfirst($row['merk']))?></h2>
-                <h2><?= htmlspecialchars(ucfirst($row['tipe']))?></h2>
-                <h2><?= htmlspecialchars(ucfirst($row['model']))?></h2>
-                </div>
-                <h2><i class="fa-solid fa-droplet"></i> <?= htmlspecialchars(ucfirst($row['warna']))?></h2>
-                <h2><i class="fa-solid fa-id-card"></i> <?= htmlspecialchars(strtoupper($row['noplat']))?></h2>
-                <?php
-                $icon = $row['transmisi'] == 'automatic' ? '<i class="fa-solid fa-tachometer-alt"></i>' : '<i class="fa-solid fa-gear"></i>';
-                ?>
-                <h2><?= $icon ?> <?= htmlspecialchars(ucfirst($row['transmisi']))?></h2>
-                <span><i class="fa-solid fa-user-group"></i> <?= htmlspecialchars($row['kursi'])?> Seats</span>
-                <span><i class="fa-solid fa-door-open"></i> <?= htmlspecialchars($row['pintu'])?> Doors</span>
-                <span><i class="fa-solid fa-gas-pump"></i> <?= htmlspecialchars(ucfirst($row['bhn_bkr']))?></span>
+<script>
+document.addEventListener("DOMContentLoaded", function () {
+    const filterForm = document.getElementById("filterForm");
+    const container = document.getElementById("grid-mobil-container");
 
-                <div class="absolute top-2 right-2 px-2 py-1 text-xs rounded-full 
-                <?= $row['status'] == 'ready' ? 'bg-emerald-500 text-emerald-50' : ($row['status']=='rent' ? 'bg-red-500 text-red-50' : 'bg-yellow-500 text-yellow-50') ?>">
-                <?= htmlspecialchars(ucfirst($row['status'])) ?>
-                </div>
-                <h2 class="col-span-3 bg-orange-500/20 text-orange-500 p-2 rounded-xl shadow-lg font-semibold text-center">
-                Rp <?= number_format($row['harga'], 0, ',', '.') ?>/hari
-                </h2> 
-                <button 
-                        data-id="<?= $row['id_mobil'] ?>"
-                        class="btn-detail col-span-3 p-2 bg-orange-500 rounded-xl shadow-lg font-semibold text-orange-50 text-center hover:bg-orange-600 transition-all duration-300">
-                        Sewa Sekarang
-                </button>
-            </div>
-            </div>
-        </div>
-        <?php endforeach?>
-    <?php else:?>
-        <div class="col-span-3 text-center py-10 flex flex-col items-center justify-center gap-4">
-            <i class="fa-solid fa-car text-7xl opacity-50 text-neutral--500"></i>
-            <h2 class="text-2xl font-semibold text-neutral-700">Oops! Daftar mobil kosong</h2>
-            <p class="text-neutral-500">Belum ada mobil yang tersedia saat ini. Silahkan cek lagi nanti.</p>
-            <a href="index.php" class="mt-2 px-4 py-2 bg-orange-500 text-white rounded-xl hover:bg-orange-600 shadow-lg">Refresh</a>
-        </div>
-    <?php endif?> 
-    </div>     
-    <?php
-    $q = isset($_GET['q']) ? trim($_GET['q']) : '';
-    $harga = isset($_GET['harga']) ? trim($_GET['harga']) : '';
-    $transmisi = isset($_GET['transmisi']) ? trim($_GET['transmisi']) : '';
-    $bhn_bkr = isset($_GET['bhn_bkr']) ? trim($_GET['bhn_bkr']) : '';
-    $kursi = isset($_GET['kursi']) ? trim($_GET['kursi']) : '';
-    ?>
+    // Tangani submit form filter & pencarian
+    if (filterForm) {
+        filterForm.addEventListener("submit", function (e) {
+            e.preventDefault();
+            filterForm.querySelector('input[name="page"]').value = 1;
+            fetchCars();
+        });
 
-    <div class="flex justify-center mt-5 gap-2">
-    <?php for ($i = 1; $i <= $totalPages; $i++): ?>
-        <?php
-            $query = http_build_query([
-                'page' => $i,
-                'q' => $q,
-                'harga' => $harga,
-                'transmisi' => $transmisi,
-                'bhn_bkr' => $bhn_bkr,
-                'kursi' => $kursi
-            ]);
-        ?>
-        <a href="?<?= $query ?>#daftar-mobil"
-            class="px-3 py-1 rounded-lg <?= $i == $page ? 'bg-orange-500 text-white' : 'bg-neutral-800 text-neutral-300' ?>">
-            <?= $i ?>
-        </a>
-    <?php endfor; ?>
-</div>
+        // Tangani perubahan dropdown filter supaya langsung update
+        const selects = filterForm.querySelectorAll('select');
+        selects.forEach(select => {
+            select.addEventListener('change', () => {
+                filterForm.querySelector('input[name="page"]').value = 1;
+                fetchCars();
+            });
+        });
+
+        // Tangani filter dari sidebar (mobile)
+        const sidebarSubmitBtn = document.querySelector('#typebar button[type="submit"]');
+        if (sidebarSubmitBtn) {
+            sidebarSubmitBtn.addEventListener('click', function(e) {
+                // Di handle oleh index.php, tapi kita cegah form biasa dan trigger fetchCars
+                // Catatan: logika ini menimpa event listener di index.php jika perlu
+                setTimeout(() => {
+                    filterForm.querySelector('input[name="page"]').value = 1;
+                    fetchCars();
+                }, 50);
+            });
+        }
+    }
+
+    // Tangani klik pagination (event delegation)
+    document.body.addEventListener("click", function (e) {
+        const pageLink = e.target.closest(".page-link");
+        if (pageLink) {
+            e.preventDefault();
+            const page = pageLink.getAttribute("data-page");
+            if (filterForm) {
+                filterForm.querySelector('input[name="page"]').value = page;
+                fetchCars();
+            }
+        }
+    });
+
+    function fetchCars() {
+        if (!filterForm || !container) return;
+
+        const formData = new FormData(filterForm);
+        const params = new URLSearchParams(formData);
+
+        // Update URL di address bar tanpa reload
+        const newUrl = window.location.pathname + '?' + params.toString() + '#daftar-mobil';
+        window.history.pushState({path: newUrl}, '', newUrl);
+
+        // Ubah action menjadi ajax endpoint
+        params.append("action", "filter-mobil-ajax");
+
+        container.innerHTML = '<div class="text-center py-20 text-orange-500"><i class="fa-solid fa-spinner fa-spin text-4xl"></i><p class="mt-3 text-neutral-400">Memuat data mobil...</p></div>';
+
+        fetch("index.php?" + params.toString())
+            .then(response => response.text())
+            .then(html => {
+                container.innerHTML = html;
+            })
+            .catch(error => {
+                console.error('Error fetching data:', error);
+                container.innerHTML = '<div class="text-center py-10 text-red-500"><p>Terjadi kesalahan koneksi. Silahkan coba lagi.</p></div>';
+            });
+    }
+});
+</script>
 <?php include __DIR__ . "/modal-detail-mobil.php" ?>

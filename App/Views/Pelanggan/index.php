@@ -71,13 +71,13 @@
     const profileMenu = document.getElementById('profileMenu');
 
     document.addEventListener('click', (e) => {
-      if (profileMenu.hasAttribute('open') && !profileMenu.contains(e.target)) {
+      if (profileMenu && profileMenu.hasAttribute('open') && !profileMenu.contains(e.target)) {
         profileMenu.removeAttribute('open');
       }
     });
 
     window.addEventListener('scroll', () => {
-      if (profileMenu.hasAttribute('open')) {
+      if (profileMenu && profileMenu.hasAttribute('open')) {
         profileMenu.removeAttribute('open');
       }
     });
@@ -213,7 +213,8 @@
       if (mainInput) mainInput.value = radio.value;
     });
     typebarCtrl.closePanel();
-    mainForm.submit();
+    // Dispatch event agar tertangkap oleh event listener AJAX di list-mobil.php
+    mainForm.dispatchEvent(new Event('submit', { cancelable: true, bubbles: true }));
   });
 </script>
 </body>

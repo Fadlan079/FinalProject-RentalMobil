@@ -19,38 +19,38 @@ $role = $_SESSION['user']['role'] ?? 'guest';
     </a>
 
     <?php if ($role === 'admin'): ?>
-      <a href="mobil-list.php" class="flex items-center gap-3 px-4 py-2 rounded-lg hover:bg-neutral-800 transition">
+      <a href="index.php?action=data-mobil" class="flex items-center gap-3 px-4 py-2 rounded-lg hover:bg-neutral-800 transition">
         <i class="fa-solid fa-car text-orange-400"></i>
         <span>Data Mobil</span>
       </a>
 
-      <a href="pegawai-list.php" class="flex items-center gap-3 px-4 py-2 rounded-lg hover:bg-neutral-800 transition">
+      <a href="index.php?action=data-pegawai" class="flex items-center gap-3 px-4 py-2 rounded-lg hover:bg-neutral-800 transition">
         <i class="fa-solid fa-users-gear text-orange-400"></i>
         <span>Data Pegawai</span>
       </a>
 
-      <a href="pelanggan-list.php" class="flex items-center gap-3 px-4 py-2 rounded-lg hover:bg-neutral-800 transition">
+      <a href="index.php?action=data-pelanggan" class="flex items-center gap-3 px-4 py-2 rounded-lg hover:bg-neutral-800 transition">
         <i class="fa-solid fa-user text-orange-400"></i>
         <span>Data Pelanggan</span>
       </a>
 
-      <a href="laporan.php" class="flex items-center gap-3 px-4 py-2 rounded-lg hover:bg-neutral-800 transition">
+      <a href="index.php?action=laporan" class="flex items-center gap-3 px-4 py-2 rounded-lg hover:bg-neutral-800 transition">
         <i class="fa-solid fa-chart-line text-orange-400"></i>
         <span>Laporan</span>
       </a>
 
     <?php elseif ($role === 'cs'): ?>
-      <a href="transaksi-list.php" class="flex items-center gap-3 px-4 py-2 rounded-lg hover:bg-neutral-800 transition">
+      <a href="index.php?action=data-transaksi" class="flex items-center gap-3 px-4 py-2 rounded-lg hover:bg-neutral-800 transition">
         <i class="fa-solid fa-file-invoice text-orange-400"></i>
         <span>Transaksi</span>
       </a>
 
-      <a href="pelayanan.php" class="flex items-center gap-3 px-4 py-2 rounded-lg hover:bg-neutral-800 transition">
+      <a href="index.php?action=data-pelayanan" class="flex items-center gap-3 px-4 py-2 rounded-lg hover:bg-neutral-800 transition">
         <i class="fa-solid fa-headset text-orange-400"></i>
         <span>Pelayanan</span>
       </a>
 
-      <a href="konfirmasi-pembayaran.php" class="flex items-center gap-3 px-4 py-2 rounded-lg hover:bg-neutral-800 transition">
+      <a href="index.php?action=konfirmasi-pembayaran" class="flex items-center gap-3 px-4 py-2 rounded-lg hover:bg-neutral-800 transition">
         <i class="fa-solid fa-money-bill text-orange-400"></i>
         <span>Konfirmasi Pembayaran</span>
       </a>

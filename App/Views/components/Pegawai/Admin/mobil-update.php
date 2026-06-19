@@ -1,3 +1,4 @@
+<?php $detail = $detail ?? ['merek'=>'', 'model'=>'', 'tahun'=>'', 'harga_sewa'=>'', 'status'=>'ready']; ?>
 <!DOCTYPE html>
 <html lang="en">
 <head>

@@ -2,6 +2,7 @@
 require_once __DIR__ . '/../../Config/Database.php';
 
 class Mobil{
+    /** @var \PDO */
     private $pdo;
 
     public function __construct() {
@@ -9,6 +10,17 @@ class Mobil{
         $this->pdo = $db->getConnection();
     }
 
+    /**
+     * @param string $img
+     * @param int $tahun
+     * @param string $warna
+     * @param string $status
+     * @param string $noplat
+     * @param string $nomesin
+     * @param string $norangka
+     * @param int $id_tipe
+     * @return bool
+     */
     public function InsertMobil($img ,$tahun, $warna,$status,$noplat, $nomesin,$norangka, $id_tipe) {
         try{
             $sql = "INSERT INTO mobil(img,tahun, warna, noplat, nomesin,norangka,status,id_tipe) VALUES (:img,:tahun, :warna, :noplat, :nomesin,:norangka,:status,:id_tipe)";
@@ -24,6 +36,7 @@ class Mobil{
             return $stmt->execute();
         }catch(PDOException $e){
             echo "Data Gagal Di Tambahkan :" .$e->getMessage();
+            return false;
         }
     }
 
@@ -37,6 +50,26 @@ class Mobil{
         }
     }
 
+    public function GetAllMobilWithTipe(){
+        try{
+            $sql = "SELECT mobil.*, tipemobil.merk, tipemobil.model, tipemobil.tipe,
+                    tipemobil.transmisi, tipemobil.harga, tipemobil.kursi,
+                    tipemobil.bhn_bkr, tipemobil.pintu
+                    FROM mobil
+                    JOIN tipemobil ON mobil.id_tipe = tipemobil.id_tipe
+                    ORDER BY mobil.id_mobil DESC";
+            $stmt = $this->pdo->query($sql);
+            return $stmt->fetchAll(PDO::FETCH_ASSOC);
+        }catch(PDOException $e){
+            echo "Data Gagal Di Tampilkan :" .$e->getMessage();
+            return [];
+        }
+    }
+
+    /**
+     * @param int|string $id_mobil
+     * @return mixed
+     */
     public function detailmobil($id_mobil){
         try{
             $sql = "SELECT * FROM mobil 
@@ -50,10 +83,10 @@ class Mobil{
         }
     }
 
-    public function filterMobil($harga = null, $transmisi = null, $bhn_bkr = null, $kursi = null, $limit = null, $offset = null)
+    public function filterMobil($keyword = '', $harga = null, $transmisi = null, $bhn_bkr = null, $kursi = null, $limit = null, $offset = null)
     {
         try{
-            $sql = 'SELECT
+            $sql = 'SELECT DISTINCT
             mobil.id_mobil,
             mobil.img,
             mobil.noplat,
@@ -70,6 +103,12 @@ class Mobil{
             FROM mobil JOIN tipemobil ON mobil.id_tipe = tipemobil.id_tipe 
             WHERE 1=1';
             $params = [];
+
+            // Filter Keyword
+            if (!empty($keyword)) {
+                $sql .= " AND CONCAT_WS(' ', tipemobil.merk, tipemobil.model, tipemobil.tipe, tipemobil.transmisi, mobil.warna, tipemobil.bhn_bkr, mobil.status) LIKE :keyword";
+                $params[':keyword'] = "%$keyword%";
+            }
     
             // 🔧 PERBAIKAN: Filter harga dengan kondisi yang benar
             if (!empty($harga) && $harga != 'semua') {
@@ -139,7 +178,7 @@ class Mobil{
         }
     }
 
-    public function countFilterMobil($harga = null, $transmisi = null, $bhn_bkr = null, $kursi = null) {
+    public function countFilterMobil($keyword = '', $harga = null, $transmisi = null, $bhn_bkr = null, $kursi = null) {
         try {
             $sql = "SELECT COUNT(DISTINCT mobil.id_mobil) AS total
                     FROM mobil
@@ -147,6 +186,11 @@ class Mobil{
                     WHERE 1=1";
             $params = [];
     
+            if (!empty($keyword)) {
+                $sql .= " AND CONCAT_WS(' ', tipemobil.merk, tipemobil.model, tipemobil.tipe, tipemobil.transmisi, mobil.warna, tipemobil.bhn_bkr, mobil.status) LIKE :keyword";
+                $params[':keyword'] = "%$keyword%";
+            }
+
             // 🔧 SAMA SEPERTI DI filterMobil()
             if (!empty($harga) && $harga != 'semua') {
                 if ($harga === 'lt1jt') {
@@ -195,12 +239,22 @@ class Mobil{
         }
     }
 
+    /**
+     * @param int|string $id_mobil
+     * @param string $status
+     * @return bool
+     */
     public function updateStatus($id_mobil, $status) {
     $stmt = $this->pdo->prepare("UPDATE mobil SET status = ? WHERE id_mobil = ?");
     return $stmt->execute([$status, $id_mobil]);
 }
 
 
+    /**
+     * @param int $offset
+     * @param int $limit
+     * @return array
+     */
     public function getMobilWithLimit($offset,$limit) {
         try{
             $sql ="SELECT
@@ -231,6 +285,7 @@ class Mobil{
             return $stmt->fetchAll(PDO::FETCH_ASSOC);
         }catch(PDOException $e){
             echo "Data Gagal Di Temukan :" .$e->getMessage();
+            return [];
         }
     }
 
@@ -242,6 +297,12 @@ class Mobil{
         }   
     }
 
+    /**
+     * @param string $keyword
+     * @param int|null $limit
+     * @param int|null $offset
+     * @return array
+     */
     public function searchmobil($keyword, $limit = null, $offset = null) {
         try {
             $sql = "SELECT DISTINCT mobil.id_mobil,
@@ -283,9 +344,14 @@ class Mobil{
 
         } catch(PDOException $e){
             echo "Data Gagal Di Temukan: " . $e->getMessage();
+            return [];
         }
     }
 
+    /**
+     * @param string $keyword
+     * @return int
+     */
     public function countSearchMobil($keyword) {
         try {
             $sql = "SELECT COUNT(DISTINCT mobil.id_mobil) AS total
@@ -299,9 +365,21 @@ class Mobil{
             return (int)$stmt->fetchColumn();
         } catch(PDOException $e){
             echo "Gagal Menghitung Data: " . $e->getMessage();
+            return 0;
         }
     }
 
+    /**
+     * @param int|string $id_mobil
+     * @param int $tahun
+     * @param string $warna
+     * @param string $noplat
+     * @param string $nomesin
+     * @param string $norangka
+     * @param string $status
+     * @param int $id_tipe
+     * @return bool
+     */
     public function UpdateMobil($id_mobil,$tahun, $warna, $noplat, $nomesin, $norangka, $status, $id_tipe ){
         try{
             $sql = "UPDATE mobil SET tahun=:tahun,warna=:warna,noplat=:noplat,nomesin=:nomesin,norangka=:norangka,status=:status,id_tipe=:id_tipe WHERE id_mobil = :id_mobil";
@@ -317,9 +395,14 @@ class Mobil{
             return $stmt->execute();
         }catch(PDOException $e){
             echo "Data Gagal diPerbarui :" .$e->getMessage();
+            return false;
         }
     }
 
+    /**
+     * @param int|string $id_mobil
+     * @return bool
+     */
     public function DeleteMobil($id_mobil) {
         try{
             $sql = "DELETE FROM mobil WHERE id_mobil = :id_mobil";
@@ -327,6 +410,7 @@ class Mobil{
             return $stmt->execute(['id_mobil' =>$id_mobil]);
         }catch(PDOException $e){
             echo "Data Gagal di Hapus :" .$e->getMessage();
+            return false;
         }
     }
 }

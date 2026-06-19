@@ -5,8 +5,11 @@ require_once __DIR__ . '/../Models/pelanggan.php';
 require_once __DIR__ . '/../Models/pegawai.php';
 
 class AUTHController {
+    /** @var User */
     private $model;
+    /** @var Pelanggan */
     private $pelangganmodel;
+    /** @var Pegawai */
     private $pegawaimodel;
 
     public function __construct() {
@@ -86,19 +89,20 @@ public function login() {
                     NULL,
                     NULL,
                     NULL,
-                    NULL,
-                    NULL
+                    'admin' // Default jabatan
                 );
+                $existingPegawai = $this->pegawaimodel->getPegawaiByUserId($foundUser['id_user']);
             }
 
             $_SESSION['user'] = [
-            'id_user' => $foundUser['id_user'],
-            'email'   => $foundUser['email'],
-            'role'    => $foundUser['role'] ?? 'pelanggan',
-        ];
+                'id_user' => $foundUser['id_user'],
+                'email'   => $foundUser['email'],
+                'role'    => strtolower($existingPegawai['jabatan'] ?? 'pegawai'), // Use jabatan for role ('admin' or 'customer service')
+                'nama'    => $existingPegawai['nama'] ?? 'Pegawai'
+            ];
 
-        header("Location: ?action=index-pegawai");
-        exit;
+            header("Location: ?action=index-pegawai");
+            exit;
         }
     }
 }

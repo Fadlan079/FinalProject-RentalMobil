@@ -5,8 +5,11 @@ require_once __DIR__ . '/../Models/mobil.php';
 require_once __DIR__ . '/../Models/transaksi.php';
 
 class PELANGGANController {
+    /** @var Pelanggan */
     private $model;
+    /** @var Mobil */
     private $mobilmodel;
+    /** @var Transaksi */
     private $transaksimodel;
 
     public function __construct() {
@@ -42,12 +45,9 @@ class PELANGGANController {
         if (!empty($bhn_bkr) && $bhn_bkr !== 'semua') $hasFilter = true;
         if (!empty($kursi) && $kursi !== 'semua') $hasFilter = true;
 
-        if (!empty($query)) {
-            $data = $this->mobilmodel->searchMobil($query, $limit, $offset);
-            $totalData = $this->mobilmodel->countSearchMobil($query);
-        } elseif ($hasFilter) {
-            $data = $this->mobilmodel->filterMobil($harga, $transmisi, $bhn_bkr, $kursi, $limit, $offset);
-            $totalData = $this->mobilmodel->countFilterMobil($harga, $transmisi, $bhn_bkr, $kursi);
+        if (!empty($query) || $hasFilter) {
+            $data = $this->mobilmodel->filterMobil($query, $harga, $transmisi, $bhn_bkr, $kursi, $limit, $offset);
+            $totalData = $this->mobilmodel->countFilterMobil($query, $harga, $transmisi, $bhn_bkr, $kursi);
         } else {
             $data = $this->mobilmodel->getMobilWithLimit($offset, $limit);
             $totalData = $this->mobilmodel->countAllMobil();
@@ -55,6 +55,38 @@ class PELANGGANController {
 
         $totalPages = ceil($totalData / $limit);
         include __DIR__ . '/../Views/Pelanggan/index.php';
+    }
+
+    public function filterMobilAjax() {
+        $query = $_GET['q'] ?? '';
+        $limit = 9;
+        $page = isset($_GET['page']) ? (int)$_GET['page'] : 1;
+        $offset = ($page - 1) * $limit;
+
+        // Filter parameters
+        $harga = $_GET['harga'] ?? '';
+        $transmisi = $_GET['transmisi'] ?? '';
+        $bhn_bkr = $_GET['bhn_bkr'] ?? '';
+        $kursi = $_GET['kursi'] ?? '';
+
+        $hasFilter = false;
+        if (!empty($harga) && $harga !== 'semua') $hasFilter = true;
+        if (!empty($transmisi) && $transmisi !== 'semua') $hasFilter = true;
+        if (!empty($bhn_bkr) && $bhn_bkr !== 'semua') $hasFilter = true;
+        if (!empty($kursi) && $kursi !== 'semua') $hasFilter = true;
+
+        if (!empty($query) || $hasFilter) {
+            $data = $this->mobilmodel->filterMobil($query, $harga, $transmisi, $bhn_bkr, $kursi, $limit, $offset);
+            $totalData = $this->mobilmodel->countFilterMobil($query, $harga, $transmisi, $bhn_bkr, $kursi);
+        } else {
+            $data = $this->mobilmodel->getMobilWithLimit($offset, $limit);
+            $totalData = $this->mobilmodel->countAllMobil();
+        }
+
+        $totalPages = ceil($totalData / $limit);
+        
+        // Return view HTML
+        include __DIR__ . '/../Views/components/Pelanggan/grid-mobil.php';
     }
 
     public function Storeprofile() {
@@ -103,6 +135,9 @@ class PELANGGANController {
         exit;
     }
 
+    /**
+     * @param int|string $id
+     */
     public function detailmobil($id) {
         header('Content-Type: application/json'); 
         if (!isset($id)) {
@@ -312,8 +347,8 @@ class PELANGGANController {
         // Dapatkan data transaksi untuk mendapatkan id_mobil
         $transaksi = $this->transaksimodel->getTransaksiById($id_transaksi);
         if ($transaksi) {
-            // Update status mobil kembali ke 'tersedia'
-            $this->transaksimodel->updateStatusMobil($transaksi['id_mobil'], 'tersedia');
+            // Update status mobil kembali ke 'ready'
+            $this->transaksimodel->updateStatusMobil($transaksi['id_mobil'], 'ready');
         }
     
         $result = $this->transaksimodel->deleteTransaksi($id_transaksi);
@@ -339,29 +374,23 @@ class PELANGGANController {
         // Dapatkan data transaksi untuk mendapatkan id_mobil
         $transaksi = $this->transaksimodel->getTransaksiById($id_transaksi);
         if ($transaksi) {
-            // Update status mobil kembali ke 'tersedia'
-            $this->transaksimodel->updateStatusMobil($transaksi['id_mobil'], 'tersedia');
+            // Update status mobil kembali ke 'ready'
+            $this->transaksimodel->updateStatusMobil($transaksi['id_mobil'], 'ready');
         }
     
-$resultTransaksi = $this->transaksimodel->updateStatusTransaksi($id_transaksi, 'batal');
+        $resultTransaksi = $this->transaksimodel->updateStatusTransaksi($id_transaksi, 'batal');
 
-if ($transaksi) {
-    // ubah status mobil jadi ready/tersedia
-    $updateMobil = $this->transaksimodel->updateStatusMobil($transaksi['id_mobil'], 'tersedia');
-}
-
-if ($resultTransaksi) {
-    echo json_encode([
-        'success' => true,
-        'message' => 'Pesanan dibatalkan dan mobil tersedia kembali'
-    ]);
-} else {
-    echo json_encode([
-        'success' => false,
-        'message' => 'Gagal membatalkan pesanan'
-    ]);
-}
-
+        if ($resultTransaksi) {
+            echo json_encode([
+                'success' => true,
+                'message' => 'Pesanan dibatalkan dan mobil tersedia kembali'
+            ]);
+        } else {
+            echo json_encode([
+                'success' => false,
+                'message' => 'Gagal membatalkan pesanan'
+            ]);
+        }
     }
 }
 ?>

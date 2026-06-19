@@ -19,11 +19,21 @@ class Middleware{
         return isset($_SESSION['user']);
     }
 
+    /**
+     * @param string|array $role
+     */
     public static function requirerole($role){
         self::requirelogin();
-        if ($_SESSION['user']['role'] !== $role) {
-            header("Location: index.php?action=index");
-            exit;
+        if (is_array($role)) {
+            if (!in_array($_SESSION['user']['role'], $role)) {
+                header("Location: index.php?action=index");
+                exit;
+            }
+        } else {
+            if ($_SESSION['user']['role'] !== $role) {
+                header("Location: index.php?action=index");
+                exit;
+            }
         }
     }
 }

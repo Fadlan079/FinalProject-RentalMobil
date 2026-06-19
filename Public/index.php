@@ -33,6 +33,9 @@ switch ($action) {
     case 'index':
         $Pelanggancontroller->index();
         break;
+    case 'filter-mobil-ajax':
+        $Pelanggancontroller->filterMobilAjax();
+        break;
     case 'store-profile-pelanggan':
         $Pelanggancontroller->Storeprofile();
         break;
@@ -71,12 +74,47 @@ switch ($action) {
     case 'index-pegawai':
         $Pegawaicontroller->index();
         break;
+    case 'data-mobil':
+        $Pegawaicontroller->dataMobil();
+        break;
+    case 'data-pegawai':
+        $Pegawaicontroller->dataPegawai();
+        break;
+    case 'store-pegawai':
+        $Pegawaicontroller->storePegawaiNew();
+        break;
+    case 'data-pelanggan':
+        $Pegawaicontroller->dataPelanggan();
+        break;
+    case 'data-transaksi':
+        $Pegawaicontroller->dataTransaksi();
+        break;
+    case 'laporan':
+        $Pegawaicontroller->laporan();
+        break;
     case 'insert-tipemobil':
         $Pegawaicontroller->Create();
         break;    
     case 'insert-mobil':
         $Pegawaicontroller->Store();
         break;          
+    case 'update': // fallback for older files
+    case 'edit-mobil':
+        $Pegawaicontroller->editMobil();
+        break;
+    case 'update-mobil':
+        $Pegawaicontroller->updateMobil();
+        break;
+    case 'delete': // fallback for older files
+    case 'delete-mobil':
+        $Pegawaicontroller->deleteMobil();
+        break;
+    case 'edit-pegawai':
+        $Pegawaicontroller->editPegawai();
+        break;
+    case 'update-pegawai':
+        $Pegawaicontroller->updatePegawai();
+        break;
         
     // 404 Not Found    
     default:

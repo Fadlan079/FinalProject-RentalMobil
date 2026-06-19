@@ -31,12 +31,13 @@ function closeModal() {
 }
 closeModalBtn.addEventListener('click', closeModal);
 
-// --- OPEN MODAL DETAIL ---
-document.querySelectorAll('.btn-detail').forEach(btn => {
-  btn.addEventListener('click', () => {
+// --- OPEN MODAL DETAIL (Delegation) ---
+document.addEventListener('click', e => {
+  const btn = e.target.closest('.btn-detail');
+  if (btn && !btn.disabled) {
     const id = btn.dataset.id;
     openModal(id);
-  });
+  }
 });
 
 function openModal(id) {

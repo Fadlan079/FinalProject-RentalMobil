@@ -27,6 +27,14 @@
                             <span>Profil Saya</span>
                             </button>  
                         </li>
+                        <?php if (in_array($_SESSION['user']['role'] ?? '', ['admin', 'customer service'])): ?>
+                        <li>
+                            <a href="index.php?action=index-pegawai" class="flex items-center gap-2 px-4 py-2 hover:bg-neutral-700 transition-all text-orange-400 font-semibold">
+                                <i class="fa-solid fa-gauge"></i>
+                                <span>Ke Dashboard</span>
+                            </a>
+                        </li>
+                        <?php endif; ?>
                         <li>
                             <a href="index.php?action=riwayat-transaksi" class="flex items-center gap-2 px-4 py-2  hover:bg-neutral-700 transition-all">
                                 <i class="fa-solid fa-clipboard-list text-orange-400"></i>
@@ -67,6 +75,9 @@
         <a href="#pelayanan" class="p-4"><i class="fa-solid fa-headset text-orange-500"></i> <span>Pelayanan Pelanggan</span></a>
         
         <?php if(isset($_SESSION['user'])):?>
+            <?php if (in_array($_SESSION['user']['role'] ?? '', ['admin', 'customer service'])): ?>
+                <a href="index.php?action=index-pegawai" class="p-4 text-orange-500 font-bold"><i class="fa-solid fa-gauge"></i> <span>Ke Dashboard</span></a>
+            <?php endif; ?>
             <a href="index.php?action=riwayat-transaksi" class="p-4"><i class="fa-solid fa-clock-rotate-left text-orange-500"></i> <span>Riwayat Transaksi</span></a>
             <button type="button" id="ProfileBtn" 
                 class="p-4 flex items-center gap-2  rounded-xl font-semibold hover:bg-orange-500 hover:text-white transition-colors duration-200">
